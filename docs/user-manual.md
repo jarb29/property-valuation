@@ -396,6 +396,65 @@ python -m pytest tests/test_integration.py
 
 ---
 
+## 🗄️ Data Source Abstraction
+
+The system includes a flexible data source abstraction layer designed for future database integration while maintaining compatibility with the current file-based implementation.
+
+### Architecture
+
+The data source abstraction provides a clean interface that can be easily switched between file-based and database-based implementations:
+
+```python
+# Current (file-based)
+file_source = FileDataSource("/path/to/data")
+repo = DataRepository(file_source)
+
+# Future (database)
+db_source = DatabaseDataSource("postgresql://user:pass@host/db")
+repo = DataRepository(db_source)
+
+# Same interface for both
+train_data = repo.get_train_data()
+```
+
+### Components
+
+#### DataSource (Abstract Base Class)
+Defines the interface for all data sources:
+- `load_data()` - Load data by type and version
+- `save_data()` - Save processed data
+- `list_versions()` - List available data versions
+- `get_latest_version()` - Get the most recent version
+
+#### FileDataSource
+Current implementation for file-based data storage:
+- Handles CSV file operations
+- Manages version-based file naming
+- Compatible with existing pipeline logic
+
+#### DatabaseDataSource
+Future implementation for database integration:
+- Supports SQL/NoSQL databases
+- Handles connection management
+- Provides version-based table queries
+
+#### DataRepository
+Repository pattern for clean data access:
+- `get_train_data()` - Retrieve training data
+- `get_test_data()` - Retrieve test data
+- `save_processed_data()` - Store processed results
+- `get_latest_data()` - Get most recent data version
+
+### Migration Path
+
+The abstraction allows seamless migration from files to database:
+
+1. **Current State**: File-based operations
+2. **Future State**: Database operations with same interface
+3. **Zero Pipeline Changes**: Same method calls work for both
+
+---
+
 ## 🔗 Integration Examples
 
 ### Batch Processing
