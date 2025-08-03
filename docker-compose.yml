@@ -1,0 +1,63 @@
+version: '3.8'
+
+services:
+  # API service
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./:/app
+      - ./data:/app/data
+      - ./outputs:/app/outputs
+    env_file:
+      - .env
+    environment:
+      - ENVIRONMENT=production
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Development service with hot reload
+  api-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8001:8000"
+    volumes:
+      - ./:/app
+      - ./data:/app/data
+      - ./outputs:/app/outputs
+    env_file:
+      - .env
+    environment:
+      - ENVIRONMENT=development
+    command: ["python", "scripts/run_api.py", "--reload"]
+    profiles:
+      - dev
+
+  # Pipeline service
+  pipeline:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: bain-pipeline:${TAG:-latest}
+    volumes:
+      - ./:/app
+      - ./data:/app/data
+      - ./outputs:/app/outputs
+    env_file:
+      - .env
+    environment:
+      - ENVIRONMENT=development
+    command: ["python", "scripts/pipeline.py"]
+    profiles:
+      - pipeline
+

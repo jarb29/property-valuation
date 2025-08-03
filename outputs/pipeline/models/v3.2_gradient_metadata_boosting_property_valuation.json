@@ -1,0 +1,44 @@
+{
+    "model_type": "gradient_boosting",
+    "features": [
+        "type",
+        "sector",
+        "net_usable_area",
+        "net_area",
+        "n_rooms",
+        "n_bathroom",
+        "latitude",
+        "longitude"
+    ],
+    "target": "price",
+    "hyperparameters": {
+        "learning_rate": 0.01,
+        "n_estimators": 300,
+        "max_depth": 5,
+        "loss": "absolute_error"
+    },
+    "categorical_features": [
+        "type",
+        "sector"
+    ],
+    "numerical_features": [
+        "net_usable_area",
+        "net_area",
+        "n_rooms",
+        "n_bathroom",
+        "latitude",
+        "longitude"
+    ],
+    "training_data_shape": [
+        15352,
+        9
+    ],
+    "description": "Property valuation model trained on real estate data",
+    "evaluation_metrics": {
+        "rmse": 5718.240494660454,
+        "mape": 0.46635006175979005,
+        "mae": 2622.6703417036465
+    },
+    "timestamp": "2025-08-02T22:02:42.479694",
+    "model_path": "/Users/joserubio/Desktop/proyectos/bain/outputs/pipeline/models/v3.2_gradient_boosting_property_valuation.pkl"
+}

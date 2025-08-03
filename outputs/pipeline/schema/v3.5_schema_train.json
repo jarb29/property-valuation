@@ -1,0 +1,159 @@
+{
+  "dataset_name": "train_data",
+  "generated_at": "2025-08-02T22:05:06.006471",
+  "shape": {
+    "rows": 15352,
+    "columns": 9
+  },
+  "columns": {
+    "type": {
+      "data_type": "object",
+      "non_null_count": 15352,
+      "null_count": 0,
+      "unique_values": 2,
+      "memory_usage_bytes": 1131424,
+      "categorical": {
+        "unique_values_list": [
+          "departamento",
+          "casa"
+        ],
+        "value_counts": {
+          "departamento": 9017,
+          "casa": 6335
+        },
+        "most_frequent": "departamento"
+      }
+    },
+    "sector": {
+      "data_type": "object",
+      "non_null_count": 15352,
+      "null_count": 0,
+      "unique_values": 6,
+      "memory_usage_bytes": 1142092,
+      "categorical": {
+        "unique_values_list": [
+          "vitacura",
+          "la reina",
+          "las condes",
+          "lo barnechea",
+          "providencia",
+          "nunoa"
+        ],
+        "value_counts": {
+          "las condes": 5293,
+          "lo barnechea": 2749,
+          "vitacura": 2720,
+          "nunoa": 1841,
+          "providencia": 1779,
+          "la reina": 970
+        },
+        "most_frequent": "las condes"
+      }
+    },
+    "net_usable_area": {
+      "data_type": "float64",
+      "non_null_count": 15352,
+      "null_count": 0,
+      "unique_values": 950,
+      "memory_usage_bytes": 245632,
+      "numerical": {
+        "min": 10.0,
+        "max": 180116.0,
+        "mean": 250.33925677436164,
+        "std": 2851.1067625924015,
+        "zero_count": 0,
+        "negative_count": 0
+      }
+    },
+    "net_area": {
+      "data_type": "float64",
+      "non_null_count": 15352,
+      "null_count": 0,
+      "unique_values": 1726,
+      "memory_usage_bytes": 245632,
+      "numerical": {
+        "min": 1.0,
+        "max": 1430000.0,
+        "mean": 613.5181709223555,
+        "std": 12012.015786033406,
+        "zero_count": 0,
+        "negative_count": 0
+      }
+    },
+    "n_rooms": {
+      "data_type": "float64",
+      "non_null_count": 15352,
+      "null_count": 0,
+      "unique_values": 20,
+      "memory_usage_bytes": 245632,
+      "numerical": {
+        "min": 1.0,
+        "max": 55.0,
+        "mean": 3.597381448671183,
+        "std": 1.437919396336706,
+        "zero_count": 0,
+        "negative_count": 0
+      }
+    },
+    "n_bathroom": {
+      "data_type": "float64",
+      "non_null_count": 15352,
+      "null_count": 0,
+      "unique_values": 18,
+      "memory_usage_bytes": 245632,
+      "numerical": {
+        "min": 1.0,
+        "max": 55.0,
+        "mean": 3.051263678999479,
+        "std": 1.3187551224299168,
+        "zero_count": 0,
+        "negative_count": 0
+      }
+    },
+    "latitude": {
+      "data_type": "float64",
+      "non_null_count": 15352,
+      "null_count": 0,
+      "unique_values": 6315,
+      "memory_usage_bytes": 245632,
+      "numerical": {
+        "min": -33.52441,
+        "max": -33.30525,
+        "mean": -33.403701538561755,
+        "std": 0.036180059399624064,
+        "zero_count": 0,
+        "negative_count": 15352
+      }
+    },
+    "longitude": {
+      "data_type": "float64",
+      "non_null_count": 15352,
+      "null_count": 0,
+      "unique_values": 6328,
+      "memory_usage_bytes": 245632,
+      "numerical": {
+        "min": -70.64366,
+        "max": -70.43189,
+        "mean": -70.56108621873372,
+        "std": 0.035971925302290875,
+        "zero_count": 0,
+        "negative_count": 15352
+      }
+    },
+    "price": {
+      "data_type": "int64",
+      "non_null_count": 15352,
+      "null_count": 0,
+      "unique_values": 3233,
+      "memory_usage_bytes": 245632,
+      "numerical": {
+        "min": 45.0,
+        "max": 215000.0,
+        "mean": 15655.882621156852,
+        "std": 12121.588639106796,
+        "zero_count": 0,
+        "negative_count": 0
+      }
+    }
+  }
+}

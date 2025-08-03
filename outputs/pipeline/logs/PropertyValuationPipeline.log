@@ -1,0 +1,885 @@
+2025-08-02 21:59:42 - src.utils.logging - INFO - Logging initialized for PropertyValuationPipeline
+2025-08-02 21:59:42 - src.utils.logging - INFO - Log file: /Users/joserubio/Desktop/proyectos/bain/outputs/pipeline/logs/PropertyValuationPipeline.log
+2025-08-02 21:59:42 - __main__ - INFO - Initial memory usage: RSS=171.95MB, VMS=400682.22MB, System=47.4%
+2025-08-02 21:59:42 - pipeline - INFO - Arguments: data_type=train, use_latest_data=False, validate_data=False, model_type=gradient_boosting, slice_features=['type', 'sector'], save_model=True, model_base_name=property_valuation
+2025-08-02 21:59:42 - __main__ - INFO - [execution_mode=command_line data_type=train model_type=gradient_boosting] Starting pipeline execution with command line arguments
+2025-08-02 21:59:42 - __main__ - INFO - Starting Complete Pipeline Execution
+2025-08-02 21:59:42 - __main__ - INFO - Memory before Complete Pipeline Execution: RSS=171.95MB, VMS=400682.22MB, System=47.4%
+2025-08-02 21:59:42 - __main__ - INFO - Current memory usage: RSS=171.95MB, VMS=400682.22MB, System=47.4%
+2025-08-02 21:59:42 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False] Starting the property valuation pipeline
+2025-08-02 21:59:42 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False] ================================================================================
+2025-08-02 21:59:42 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False] STEP 1: RUNNING THE DATA PIPELINE
+2025-08-02 21:59:42 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False] ================================================================================
+2025-08-02 21:59:42 - __main__ - INFO - Starting Data Pipeline
+2025-08-02 21:59:42 - __main__ - INFO - Memory before Data Pipeline: RSS=171.95MB, VMS=400682.22MB, System=47.4%
+2025-08-02 21:59:42 - src.pipeline.data_pipeline - INFO - Initialized DataPipeline with output_dir=/Users/joserubio/Desktop/proyectos/bain/outputs, schema_dir=/Users/joserubio/Desktop/proyectos/bain/outputs/pipeline/schema
+2025-08-02 21:59:42 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False step=data_pipeline] Processing training data...
+2025-08-02 21:59:42 - src.pipeline.data_pipeline - INFO - Running data pipeline for train data
+2025-08-02 21:59:42 - src.pipeline.data_pipeline - INFO - Loading original train data
+2025-08-02 21:59:42 - src.utils.helpers - INFO - Loading original train data from: /Users/joserubio/Desktop/proyectos/bain/data/v3/train.csv
+2025-08-02 21:59:42 - src.pipeline.data_pipeline - INFO - Loaded data with shape (16212, 9)
+2025-08-02 21:59:42 - src.pipeline.data_pipeline - INFO - Cleaning data (removing zero values)
+2025-08-02 21:59:42 - src.pipeline.data_pipeline - INFO - Cleaned data with shape (16051, 9)
+2025-08-02 21:59:42 - src.pipeline.data_pipeline - INFO - Detecting and handling outliers
+2025-08-02 21:59:43 - src.utils.helpers - INFO - Generated versioned filename: v3.1_data_clean.csv
+2025-08-02 21:59:43 - src.utils.helpers - INFO - Generated versioned filename: v3.1_data_outliers.csv
+2025-08-02 21:59:43 - src.pipeline.data_pipeline - INFO - Separated data into 15352 clean samples and 699 outliers
+2025-08-02 21:59:43 - src.pipeline.data_pipeline - INFO - Generating schema for train_data
+2025-08-02 21:59:43 - src.utils.helpers - INFO - Generated versioned filename: v3.1_schema_train.json
+2025-08-02 21:59:43 - src.pipeline.data_pipeline - INFO - Schema saved to /Users/joserubio/Desktop/proyectos/bain/outputs/pipeline/schema/v3.1_schema_train.json
+2025-08-02 21:59:43 - src.pipeline.data_pipeline - INFO - Data pipeline completed successfully for train data
+2025-08-02 21:59:43 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False step=data_pipeline] Training data processed in 0.48s - Shape: (15352, 9)
+2025-08-02 21:59:43 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False step=data_pipeline] Processing test data...
+2025-08-02 21:59:43 - src.pipeline.data_pipeline - INFO - Running data pipeline for test data
+2025-08-02 21:59:43 - src.pipeline.data_pipeline - INFO - Loading original test data
+2025-08-02 21:59:43 - src.utils.helpers - INFO - Loading original test data from: /Users/joserubio/Desktop/proyectos/bain/data/v3/test.csv
+2025-08-02 21:59:43 - src.pipeline.data_pipeline - INFO - Loaded data with shape (6949, 9)
+2025-08-02 21:59:43 - src.pipeline.data_pipeline - INFO - Cleaning data (removing zero values)
+2025-08-02 21:59:43 - src.pipeline.data_pipeline - INFO - Cleaned data with shape (6897, 9)
+2025-08-02 21:59:43 - src.pipeline.data_pipeline - INFO - Data pipeline completed successfully for test data
+2025-08-02 21:59:43 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False step=data_pipeline] Test data processed in 0.00s - Shape: (6897, 9)
+2025-08-02 21:59:43 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False step=data_pipeline] Data pipeline completed in 0.48s
+2025-08-02 21:59:43 - __main__ - INFO - Memory after Data Pipeline: RSS=204.59MB, VMS=400692.12MB, System=47.4%
+2025-08-02 21:59:43 - __main__ - INFO - Completed Data Pipeline in 0.4844s
+2025-08-02 21:59:43 - __main__ - INFO - Memory change during Data Pipeline: RSS=32.64MB
+2025-08-02 21:59:43 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False] 
+================================================================================
+2025-08-02 21:59:43 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False] STEP 2: PREPARING FEATURES AND TARGET
+2025-08-02 21:59:43 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False] ================================================================================
+2025-08-02 21:59:43 - __main__ - INFO - Starting Feature Preparation
+2025-08-02 21:59:43 - __main__ - INFO - Memory before Feature Preparation: RSS=204.59MB, VMS=400692.12MB, System=47.4%
+2025-08-02 21:59:43 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False step=feature_preparation] Number of features: 8
+2025-08-02 21:59:43 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False step=feature_preparation] Target variable: price
+2025-08-02 21:59:43 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False step=feature_preparation] Training set: 15352 samples, 8 features
+2025-08-02 21:59:43 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False step=feature_preparation] Test set: 6897 samples, 8 features
+2025-08-02 21:59:43 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False step=feature_preparation] Feature preparation completed in 0.00s
+2025-08-02 21:59:43 - __main__ - INFO - Memory after Feature Preparation: RSS=204.69MB, VMS=400692.12MB, System=47.4%
+2025-08-02 21:59:43 - __main__ - INFO - Completed Feature Preparation in 0.0009s
+2025-08-02 21:59:43 - __main__ - INFO - Memory change during Feature Preparation: RSS=0.09MB
+2025-08-02 21:59:43 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False] 
+================================================================================
+2025-08-02 21:59:43 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False] STEP 3: RUNNING THE MODEL TRAINING PIPELINE
+2025-08-02 21:59:43 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False] ================================================================================
+2025-08-02 21:59:43 - __main__ - INFO - Starting Model Training Pipeline
+2025-08-02 21:59:43 - __main__ - INFO - Memory before Model Training Pipeline: RSS=204.69MB, VMS=400692.12MB, System=47.4%
+2025-08-02 21:59:43 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False step=model_training] Model type: gradient_boosting
+2025-08-02 21:59:43 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False step=model_training] Slice features for evaluation: ['type', 'sector']
+2025-08-02 21:59:43 - src.pipeline.model_pipeline - INFO - Initialized ModelTrainingPipeline with model_dir=/Users/joserubio/Desktop/proyectos/bain/outputs/pipeline/models, output_dir=/Users/joserubio/Desktop/proyectos/bain/outputs
+2025-08-02 21:59:43 - __main__ - INFO - Memory usage before model training: RSS=204.69MB, VMS=400692.12MB, System=47.4%
+2025-08-02 21:59:43 - src.pipeline.model_pipeline - INFO - Running model training pipeline
+2025-08-02 21:59:43 - src.pipeline.model_pipeline - INFO - Training gradient_boosting model
+2025-08-02 21:59:43 - src.pipeline.model_pipeline - INFO - Categorical features: ['type', 'sector']
+2025-08-02 21:59:43 - src.pipeline.model_pipeline - INFO - Numerical features: ['net_usable_area', 'net_area', 'n_rooms', 'n_bathroom', 'latitude', 'longitude']
+2025-08-02 21:59:43 - src.models.model - INFO - Built pipeline with model type: gradient_boosting
+2025-08-02 21:59:50 - src.models.model - INFO - Model pipeline fitted successfully
+2025-08-02 21:59:50 - src.pipeline.model_pipeline - INFO - Model training completed
+2025-08-02 21:59:50 - src.pipeline.model_pipeline - INFO - Evaluating model
+2025-08-02 21:59:50 - src.utils.helpers - INFO - Generated versioned filename: v3.1_evaluation_gradient_boosting.json
+2025-08-02 21:59:50 - src.models.evaluate - INFO - Regression evaluation results: MSE=33049096.3750, RMSE=5748.8343, MAE=2622.3191, R²=0.7751
+2025-08-02 21:59:50 - src.models.evaluate - INFO - Evaluation results saved to /Users/joserubio/Desktop/proyectos/bain/outputs/pipeline/data/v3.1_evaluation_gradient_boosting.json
+2025-08-02 21:59:50 - src.pipeline.model_pipeline - INFO - Model evaluation completed
+2025-08-02 21:59:50 - src.pipeline.model_pipeline - INFO - Evaluating model with slicing on features: ['type', 'sector']
+2025-08-02 21:59:50 - src.utils.helpers - INFO - Generated versioned filename: v3.1_slice_evaluation_gradient_boosting.json
+2025-08-02 21:59:50 - src.models.evaluate - INFO - Regression evaluation results: MSE=33049096.3750, RMSE=5748.8343, MAE=2622.3191, R²=0.7751
+2025-08-02 21:59:50 - src.models.evaluate - INFO - Regression evaluation results: MSE=65647424.1065, RMSE=8102.3098, MAE=3943.2081, R²=0.6730
+2025-08-02 21:59:50 - src.models.evaluate - INFO - Regression evaluation results: MSE=10757124.7012, RMSE=3279.8056, MAE=1719.0451, R²=0.8150
+2025-08-02 21:59:50 - src.models.evaluate - INFO - Regression evaluation results: MSE=39927808.8186, RMSE=6318.8455, MAE=3577.4501, R²=0.7795
+2025-08-02 21:59:50 - src.models.evaluate - INFO - Regression evaluation results: MSE=25753302.5719, RMSE=5074.7712, MAE=2462.6730, R²=0.7624
+2025-08-02 21:59:50 - src.models.evaluate - INFO - Regression evaluation results: MSE=10563630.3601, RMSE=3250.1739, MAE=1973.9148, R²=0.7801
+2025-08-02 21:59:50 - src.models.evaluate - INFO - Regression evaluation results: MSE=5701994.2411, RMSE=2387.8849, MAE=1402.7605, R²=0.7919
+2025-08-02 21:59:50 - src.models.evaluate - INFO - Regression evaluation results: MSE=2423104.7059, RMSE=1556.6325, MAE=1027.2012, R²=0.8478
+2025-08-02 21:59:50 - src.models.evaluate - INFO - Regression evaluation results: MSE=84531682.0151, RMSE=9194.1113, MAE=3958.8366, R²=0.5970
+2025-08-02 21:59:50 - src.models.tfma_like_evaluator - INFO - Evaluation results saved to /Users/joserubio/Desktop/proyectos/bain/outputs/pipeline/data/v3.1_slice_evaluation_gradient_boosting.json
+2025-08-02 21:59:50 - src.pipeline.model_pipeline - INFO - Model evaluation with slicing completed
+2025-08-02 21:59:50 - src.pipeline.model_pipeline - INFO - Saving model with base_name=property_valuation
+2025-08-02 21:59:50 - src.utils.helpers - INFO - Generated versioned filename: v3.1_gradient_boosting_property_valuation.pkl
+2025-08-02 21:59:50 - src.models.serialization - INFO - Model saved to /Users/joserubio/Desktop/proyectos/bain/outputs/pipeline/models/v3.1_gradient_boosting_property_valuation.pkl using pickle
+2025-08-02 21:59:50 - src.utils.helpers - INFO - Generated versioned filename: v3.1_gradient_metadata_boosting_property_valuation.json
+2025-08-02 21:59:50 - src.models.serialization - INFO - Model metadata saved to /Users/joserubio/Desktop/proyectos/bain/outputs/pipeline/models/v3.1_gradient_metadata_boosting_property_valuation.json
+2025-08-02 21:59:50 - src.pipeline.model_pipeline - INFO - Model saved to /Users/joserubio/Desktop/proyectos/bain/outputs/pipeline/models/v3.1_gradient_boosting_property_valuation.pkl
+2025-08-02 21:59:50 - src.pipeline.model_pipeline - INFO - Model metadata saved to /Users/joserubio/Desktop/proyectos/bain/outputs/pipeline/models/v3.1_gradient_metadata_boosting_property_valuation.json
+2025-08-02 21:59:50 - src.pipeline.model_pipeline - INFO - Model training pipeline completed successfully
+2025-08-02 21:59:50 - __main__ - INFO - Memory usage after model training: RSS=214.08MB, VMS=400693.12MB, System=47.8%
+2025-08-02 21:59:50 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False step=model_training] Model training pipeline completed in 7.14s
+2025-08-02 21:59:50 - __main__ - INFO - Memory after Model Training Pipeline: RSS=214.08MB, VMS=400693.12MB, System=47.8%
+2025-08-02 21:59:50 - __main__ - INFO - Completed Model Training Pipeline in 7.1373s
+2025-08-02 21:59:50 - __main__ - INFO - Memory change during Model Training Pipeline: RSS=9.39MB
+2025-08-02 21:59:50 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False] 
+================================================================================
+2025-08-02 21:59:50 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False] STEP 4: LOGGING THE RESULTS
+2025-08-02 21:59:50 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False] ================================================================================
+2025-08-02 21:59:50 - __main__ - INFO - Starting Results Logging
+2025-08-02 21:59:50 - __main__ - INFO - Memory before Results Logging: RSS=214.08MB, VMS=400693.12MB, System=47.8%
+2025-08-02 21:59:50 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False step=results_logging] Model evaluation results:
+2025-08-02 21:59:50 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False step=results_logging]   mse: 33049096.3750
+2025-08-02 21:59:50 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False step=results_logging]   rmse: 5748.8343
+2025-08-02 21:59:50 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False step=results_logging]   mae: 2622.3191
+2025-08-02 21:59:50 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False step=results_logging]   r2: 0.7751
+2025-08-02 21:59:50 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False step=results_logging]   mape: 0.4653
+2025-08-02 21:59:50 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False step=results_logging] Model saved to: /Users/joserubio/Desktop/proyectos/bain/outputs/pipeline/models/v3.1_gradient_boosting_property_valuation.pkl
+2025-08-02 21:59:50 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False step=results_logging] Model metadata saved to: /Users/joserubio/Desktop/proyectos/bain/outputs/pipeline/models/v3.1_gradient_metadata_boosting_property_valuation.json
+2025-08-02 21:59:50 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False step=results_logging] 
+Performance summary:
+2025-08-02 21:59:50 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False step=results_logging]   data_pipeline: 0.48s
+2025-08-02 21:59:50 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False step=results_logging]   feature_preparation: 0.00s
+2025-08-02 21:59:50 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False step=results_logging]   model_pipeline: 7.14s
+2025-08-02 21:59:50 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False step=results_logging] Total pipeline execution time: 7.62s
+2025-08-02 21:59:50 - __main__ - INFO - Memory after Results Logging: RSS=214.08MB, VMS=400693.12MB, System=47.8%
+2025-08-02 21:59:50 - __main__ - INFO - Completed Results Logging in 0.0004s
+2025-08-02 21:59:50 - __main__ - INFO - Memory change during Results Logging: RSS=0.00MB
+2025-08-02 21:59:50 - __main__ - INFO - Final memory usage: RSS=214.08MB, VMS=400693.12MB, System=47.8%
+2025-08-02 21:59:50 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False] 
+================================================================================
+2025-08-02 21:59:50 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False] PIPELINE EXECUTION SUMMARY
+2025-08-02 21:59:50 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False] ================================================================================
+2025-08-02 21:59:50 - __main__ - INFO - === Pipeline Execution Summary ===
+2025-08-02 21:59:50 - __main__ - INFO - Duration: 7.62s
+2025-08-02 21:59:50 - __main__ - INFO - Message counts: 19 info, 0 warnings, 0 errors, 0 critical
+2025-08-02 21:59:50 - __main__ - INFO - 
+2025-08-02 21:59:50 - __main__ - INFO - INFO MESSAGES (showing 10 of 19):
+2025-08-02 21:59:50 - __main__ - INFO -   [2025-08-02 21:59:42] Pipeline started
+2025-08-02 21:59:50 - __main__ - INFO -   [2025-08-02 21:59:42] Data pipeline started
+2025-08-02 21:59:50 - __main__ - INFO -   [2025-08-02 21:59:43] Training data processed: 15352 samples, 9 features
+2025-08-02 21:59:50 - __main__ - INFO -   [2025-08-02 21:59:43] Test data processed: 6897 samples, 9 features
+2025-08-02 21:59:50 - __main__ - INFO -   [2025-08-02 21:59:43] Data pipeline completed in 0.48s
+2025-08-02 21:59:50 - __main__ - INFO -   [2025-08-02 21:59:43] Feature preparation started
+2025-08-02 21:59:50 - __main__ - INFO -   [2025-08-02 21:59:43] Selected 8 features for modeling
+2025-08-02 21:59:50 - __main__ - INFO -   [2025-08-02 21:59:43] Training set: 15352 samples, Test set: 6897 samples
+2025-08-02 21:59:50 - __main__ - INFO -   [2025-08-02 21:59:43] Feature preparation completed in 0.00s
+2025-08-02 21:59:50 - __main__ - INFO -   [2025-08-02 21:59:43] Model training started with model type: gradient_boosting
+2025-08-02 21:59:50 - __main__ - INFO -   ... and 9 more info messages
+2025-08-02 21:59:50 - __main__ - INFO - 
+2025-08-02 21:59:50 - __main__ - INFO - === End of Pipeline Execution Summary ===
+2025-08-02 21:59:50 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False] 
+================================================================================
+2025-08-02 21:59:50 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False] PIPELINE COMPLETED SUCCESSFULLY
+2025-08-02 21:59:50 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False] ================================================================================
+2025-08-02 21:59:50 - __main__ - INFO - Memory after Complete Pipeline Execution: RSS=214.08MB, VMS=400693.12MB, System=47.8%
+2025-08-02 21:59:50 - __main__ - INFO - Completed Complete Pipeline Execution in 7.6252s
+2025-08-02 21:59:50 - __main__ - INFO - Memory change during Complete Pipeline Execution: RSS=42.12MB
+2025-08-02 21:59:50 - __main__ - INFO - Final memory usage after pipeline execution: RSS=214.08MB, VMS=400693.12MB, System=47.8%
+2025-08-02 21:59:50 - __main__ - INFO - [execution_mode=command_line data_type=train model_type=gradient_boosting] 
+Pipeline completed successfully!
+2025-08-02 21:59:50 - __main__ - INFO - [execution_mode=command_line data_type=train model_type=gradient_boosting] Processed 15352 training samples and 6897 test samples
+2025-08-02 21:59:50 - __main__ - INFO - [execution_mode=command_line data_type=train model_type=gradient_boosting] Total execution time: 7.63 seconds
+2025-08-02 21:59:50 - __main__ - INFO - [execution_mode=command_line data_type=train model_type=gradient_boosting] Log file: /Users/joserubio/Desktop/proyectos/bain/outputs/pipeline/logs/PropertyValuationPipeline.log
+2025-08-02 21:59:50 - __main__ - INFO - === Main Execution Summary ===
+2025-08-02 21:59:50 - __main__ - INFO - Duration: 7.63s
+2025-08-02 21:59:50 - __main__ - INFO - Message counts: 3 info, 0 warnings, 0 errors, 0 critical
+2025-08-02 21:59:50 - __main__ - INFO - 
+2025-08-02 21:59:50 - __main__ - INFO - INFO MESSAGES (showing 3 of 3):
+2025-08-02 21:59:50 - __main__ - INFO -   [2025-08-02 21:59:42] Pipeline started with model type: gradient_boosting
+2025-08-02 21:59:50 - __main__ - INFO -   [2025-08-02 21:59:50] Pipeline completed successfully in 7.63s
+2025-08-02 21:59:50 - __main__ - INFO -   [2025-08-02 21:59:50] Processed 15352 training samples and 6897 test samples
+2025-08-02 21:59:50 - __main__ - INFO - 
+2025-08-02 21:59:50 - __main__ - INFO - === End of Main Execution Summary ===
+2025-08-02 22:02:34 - src.utils.logging - INFO - Logging initialized for PropertyValuationPipeline
+2025-08-02 22:02:34 - src.utils.logging - INFO - Log file: /Users/joserubio/Desktop/proyectos/bain/outputs/pipeline/logs/PropertyValuationPipeline.log
+2025-08-02 22:02:34 - __main__ - INFO - Initial memory usage: RSS=172.31MB, VMS=400681.22MB, System=47.7%
+2025-08-02 22:02:34 - pipeline - INFO - Arguments: data_type=train, use_latest_data=False, validate_data=False, model_type=gradient_boosting, slice_features=['type', 'sector'], save_model=True, model_base_name=property_valuation
+2025-08-02 22:02:34 - __main__ - INFO - [execution_mode=command_line data_type=train model_type=gradient_boosting] Starting pipeline execution with command line arguments
+2025-08-02 22:02:34 - __main__ - INFO - Starting Complete Pipeline Execution
+2025-08-02 22:02:34 - __main__ - INFO - Memory before Complete Pipeline Execution: RSS=172.31MB, VMS=400681.22MB, System=47.7%
+2025-08-02 22:02:34 - __main__ - INFO - Current memory usage: RSS=172.31MB, VMS=400681.22MB, System=47.7%
+2025-08-02 22:02:34 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False] Starting the property valuation pipeline
+2025-08-02 22:02:34 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False] ================================================================================
+2025-08-02 22:02:34 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False] STEP 1: RUNNING THE DATA PIPELINE
+2025-08-02 22:02:34 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False] ================================================================================
+2025-08-02 22:02:34 - __main__ - INFO - Starting Data Pipeline
+2025-08-02 22:02:34 - __main__ - INFO - Memory before Data Pipeline: RSS=172.31MB, VMS=400681.22MB, System=47.7%
+2025-08-02 22:02:34 - src.pipeline.data_pipeline - INFO - Initialized DataPipeline with output_dir=/Users/joserubio/Desktop/proyectos/bain/outputs, schema_dir=/Users/joserubio/Desktop/proyectos/bain/outputs/pipeline/schema
+2025-08-02 22:02:34 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False step=data_pipeline] Processing training data...
+2025-08-02 22:02:34 - src.pipeline.data_pipeline - INFO - Running data pipeline for train data
+2025-08-02 22:02:34 - src.pipeline.data_pipeline - INFO - Loading original train data
+2025-08-02 22:02:34 - src.utils.helpers - INFO - Loading original train data from: /Users/joserubio/Desktop/proyectos/bain/data/v3/train.csv
+2025-08-02 22:02:34 - src.pipeline.data_pipeline - INFO - Loaded data with shape (16212, 9)
+2025-08-02 22:02:34 - src.pipeline.data_pipeline - INFO - Cleaning data (removing zero values)
+2025-08-02 22:02:34 - src.pipeline.data_pipeline - INFO - Cleaned data with shape (16051, 9)
+2025-08-02 22:02:34 - src.pipeline.data_pipeline - INFO - Detecting and handling outliers
+2025-08-02 22:02:35 - src.utils.helpers - INFO - Generated versioned filename: v3.3_data_clean.csv
+2025-08-02 22:02:35 - src.utils.helpers - INFO - Generated versioned filename: v3.3_data_outliers.csv
+2025-08-02 22:02:35 - src.pipeline.data_pipeline - INFO - Separated data into 15352 clean samples and 699 outliers
+2025-08-02 22:02:35 - src.pipeline.data_pipeline - INFO - Generating schema for train_data
+2025-08-02 22:02:35 - src.utils.helpers - INFO - Generated versioned filename: v3.3_schema_train.json
+2025-08-02 22:02:35 - src.pipeline.data_pipeline - INFO - Schema saved to /Users/joserubio/Desktop/proyectos/bain/outputs/pipeline/schema/v3.3_schema_train.json
+2025-08-02 22:02:35 - src.pipeline.data_pipeline - INFO - Data pipeline completed successfully for train data
+2025-08-02 22:02:35 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False step=data_pipeline] Training data processed in 0.44s - Shape: (15352, 9)
+2025-08-02 22:02:35 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False step=data_pipeline] Processing test data...
+2025-08-02 22:02:35 - src.pipeline.data_pipeline - INFO - Running data pipeline for test data
+2025-08-02 22:02:35 - src.pipeline.data_pipeline - INFO - Loading original test data
+2025-08-02 22:02:35 - src.utils.helpers - INFO - Loading original test data from: /Users/joserubio/Desktop/proyectos/bain/data/v3/test.csv
+2025-08-02 22:02:35 - src.pipeline.data_pipeline - INFO - Loaded data with shape (6949, 9)
+2025-08-02 22:02:35 - src.pipeline.data_pipeline - INFO - Cleaning data (removing zero values)
+2025-08-02 22:02:35 - src.pipeline.data_pipeline - INFO - Cleaned data with shape (6897, 9)
+2025-08-02 22:02:35 - src.pipeline.data_pipeline - INFO - Data pipeline completed successfully for test data
+2025-08-02 22:02:35 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False step=data_pipeline] Test data processed in 0.00s - Shape: (6897, 9)
+2025-08-02 22:02:35 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False step=data_pipeline] Data pipeline completed in 0.44s
+2025-08-02 22:02:35 - __main__ - INFO - Memory after Data Pipeline: RSS=203.11MB, VMS=400691.12MB, System=47.7%
+2025-08-02 22:02:35 - __main__ - INFO - Completed Data Pipeline in 0.4395s
+2025-08-02 22:02:35 - __main__ - INFO - Memory change during Data Pipeline: RSS=30.80MB
+2025-08-02 22:02:35 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False] 
+================================================================================
+2025-08-02 22:02:35 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False] STEP 2: PREPARING FEATURES AND TARGET
+2025-08-02 22:02:35 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False] ================================================================================
+2025-08-02 22:02:35 - __main__ - INFO - Starting Feature Preparation
+2025-08-02 22:02:35 - __main__ - INFO - Memory before Feature Preparation: RSS=203.11MB, VMS=400691.12MB, System=47.7%
+2025-08-02 22:02:35 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False step=feature_preparation] Number of features: 8
+2025-08-02 22:02:35 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False step=feature_preparation] Target variable: price
+2025-08-02 22:02:35 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False step=feature_preparation] Training set: 15352 samples, 8 features
+2025-08-02 22:02:35 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False step=feature_preparation] Test set: 6897 samples, 8 features
+2025-08-02 22:02:35 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False step=feature_preparation] Feature preparation completed in 0.00s
+2025-08-02 22:02:35 - __main__ - INFO - Memory after Feature Preparation: RSS=203.12MB, VMS=400691.12MB, System=47.7%
+2025-08-02 22:02:35 - __main__ - INFO - Completed Feature Preparation in 0.0008s
+2025-08-02 22:02:35 - __main__ - INFO - Memory change during Feature Preparation: RSS=0.02MB
+2025-08-02 22:02:35 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False] 
+================================================================================
+2025-08-02 22:02:35 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False] STEP 3: RUNNING THE MODEL TRAINING PIPELINE
+2025-08-02 22:02:35 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False] ================================================================================
+2025-08-02 22:02:35 - __main__ - INFO - Starting Model Training Pipeline
+2025-08-02 22:02:35 - __main__ - INFO - Memory before Model Training Pipeline: RSS=203.12MB, VMS=400691.12MB, System=47.7%
+2025-08-02 22:02:35 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False step=model_training] Model type: gradient_boosting
+2025-08-02 22:02:35 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False step=model_training] Slice features for evaluation: ['type', 'sector']
+2025-08-02 22:02:35 - src.pipeline.model_pipeline - INFO - Initialized ModelTrainingPipeline with model_dir=/Users/joserubio/Desktop/proyectos/bain/outputs/pipeline/models, output_dir=/Users/joserubio/Desktop/proyectos/bain/outputs
+2025-08-02 22:02:35 - __main__ - INFO - Memory usage before model training: RSS=203.12MB, VMS=400691.12MB, System=47.7%
+2025-08-02 22:02:35 - src.pipeline.model_pipeline - INFO - Running model training pipeline
+2025-08-02 22:02:35 - src.pipeline.model_pipeline - INFO - Training gradient_boosting model
+2025-08-02 22:02:35 - src.pipeline.model_pipeline - INFO - Categorical features: ['type', 'sector']
+2025-08-02 22:02:35 - src.pipeline.model_pipeline - INFO - Numerical features: ['net_usable_area', 'net_area', 'n_rooms', 'n_bathroom', 'latitude', 'longitude']
+2025-08-02 22:02:35 - src.models.model - INFO - Built pipeline with model type: gradient_boosting
+2025-08-02 22:02:42 - src.models.model - INFO - Model pipeline fitted successfully
+2025-08-02 22:02:42 - src.pipeline.model_pipeline - INFO - Model training completed
+2025-08-02 22:02:42 - src.pipeline.model_pipeline - INFO - Evaluating model
+2025-08-02 22:02:42 - src.utils.helpers - INFO - Generated versioned filename: v3.2_evaluation_gradient_boosting.json
+2025-08-02 22:02:42 - src.models.evaluate - INFO - Regression evaluation results: MSE=32698274.3548, RMSE=5718.2405, MAE=2622.6703, R²=0.7775
+2025-08-02 22:02:42 - src.models.evaluate - INFO - Evaluation results saved to /Users/joserubio/Desktop/proyectos/bain/outputs/pipeline/data/v3.2_evaluation_gradient_boosting.json
+2025-08-02 22:02:42 - src.pipeline.model_pipeline - INFO - Model evaluation completed
+2025-08-02 22:02:42 - src.pipeline.model_pipeline - INFO - Evaluating model with slicing on features: ['type', 'sector']
+2025-08-02 22:02:42 - src.utils.helpers - INFO - Generated versioned filename: v3.2_slice_evaluation_gradient_boosting.json
+2025-08-02 22:02:42 - src.models.evaluate - INFO - Regression evaluation results: MSE=32698274.3548, RMSE=5718.2405, MAE=2622.6703, R²=0.7775
+2025-08-02 22:02:42 - src.models.evaluate - INFO - Regression evaluation results: MSE=64657157.0577, RMSE=8040.9674, MAE=3932.5875, R²=0.6779
+2025-08-02 22:02:42 - src.models.evaluate - INFO - Regression evaluation results: MSE=10843579.4205, RMSE=3292.9591, MAE=1726.8994, R²=0.8135
+2025-08-02 22:02:42 - src.models.evaluate - INFO - Regression evaluation results: MSE=39472447.1831, RMSE=6282.7102, MAE=3582.1716, R²=0.7820
+2025-08-02 22:02:42 - src.models.evaluate - INFO - Regression evaluation results: MSE=25572463.3029, RMSE=5056.9223, MAE=2465.0458, R²=0.7641
+2025-08-02 22:02:42 - src.models.evaluate - INFO - Regression evaluation results: MSE=10665310.9690, RMSE=3265.7788, MAE=1984.7463, R²=0.7780
+2025-08-02 22:02:42 - src.models.evaluate - INFO - Regression evaluation results: MSE=5679390.2225, RMSE=2383.1471, MAE=1399.7192, R²=0.7927
+2025-08-02 22:02:42 - src.models.evaluate - INFO - Regression evaluation results: MSE=2391569.9045, RMSE=1546.4701, MAE=1021.9320, R²=0.8498
+2025-08-02 22:02:42 - src.models.evaluate - INFO - Regression evaluation results: MSE=83387066.8338, RMSE=9131.6519, MAE=3952.6015, R²=0.6025
+2025-08-02 22:02:42 - src.models.tfma_like_evaluator - INFO - Evaluation results saved to /Users/joserubio/Desktop/proyectos/bain/outputs/pipeline/data/v3.2_slice_evaluation_gradient_boosting.json
+2025-08-02 22:02:42 - src.pipeline.model_pipeline - INFO - Model evaluation with slicing completed
+2025-08-02 22:02:42 - src.pipeline.model_pipeline - INFO - Saving model with base_name=property_valuation
+2025-08-02 22:02:42 - src.utils.helpers - INFO - Generated versioned filename: v3.2_gradient_boosting_property_valuation.pkl
+2025-08-02 22:02:42 - src.models.serialization - INFO - Model saved to /Users/joserubio/Desktop/proyectos/bain/outputs/pipeline/models/v3.2_gradient_boosting_property_valuation.pkl using pickle
+2025-08-02 22:02:42 - src.utils.helpers - INFO - Generated versioned filename: v3.2_gradient_metadata_boosting_property_valuation.json
+2025-08-02 22:02:42 - src.models.serialization - INFO - Model metadata saved to /Users/joserubio/Desktop/proyectos/bain/outputs/pipeline/models/v3.2_gradient_metadata_boosting_property_valuation.json
+2025-08-02 22:02:42 - src.pipeline.model_pipeline - INFO - Model saved to /Users/joserubio/Desktop/proyectos/bain/outputs/pipeline/models/v3.2_gradient_boosting_property_valuation.pkl
+2025-08-02 22:02:42 - src.pipeline.model_pipeline - INFO - Model metadata saved to /Users/joserubio/Desktop/proyectos/bain/outputs/pipeline/models/v3.2_gradient_metadata_boosting_property_valuation.json
+2025-08-02 22:02:42 - src.pipeline.model_pipeline - INFO - Model training pipeline completed successfully
+2025-08-02 22:02:42 - __main__ - INFO - Memory usage after model training: RSS=208.58MB, VMS=400692.12MB, System=48.0%
+2025-08-02 22:02:42 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False step=model_training] Model training pipeline completed in 7.10s
+2025-08-02 22:02:42 - __main__ - INFO - Memory after Model Training Pipeline: RSS=208.58MB, VMS=400692.12MB, System=48.0%
+2025-08-02 22:02:42 - __main__ - INFO - Completed Model Training Pipeline in 7.1015s
+2025-08-02 22:02:42 - __main__ - INFO - Memory change during Model Training Pipeline: RSS=5.45MB
+2025-08-02 22:02:42 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False] 
+================================================================================
+2025-08-02 22:02:42 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False] STEP 4: LOGGING THE RESULTS
+2025-08-02 22:02:42 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False] ================================================================================
+2025-08-02 22:02:42 - __main__ - INFO - Starting Results Logging
+2025-08-02 22:02:42 - __main__ - INFO - Memory before Results Logging: RSS=208.58MB, VMS=400692.12MB, System=48.0%
+2025-08-02 22:02:42 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False step=results_logging] Model evaluation results:
+2025-08-02 22:02:42 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False step=results_logging]   mse: 32698274.3548
+2025-08-02 22:02:42 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False step=results_logging]   rmse: 5718.2405
+2025-08-02 22:02:42 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False step=results_logging]   mae: 2622.6703
+2025-08-02 22:02:42 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False step=results_logging]   r2: 0.7775
+2025-08-02 22:02:42 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False step=results_logging]   mape: 0.4664
+2025-08-02 22:02:42 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False step=results_logging] Model saved to: /Users/joserubio/Desktop/proyectos/bain/outputs/pipeline/models/v3.2_gradient_boosting_property_valuation.pkl
+2025-08-02 22:02:42 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False step=results_logging] Model metadata saved to: /Users/joserubio/Desktop/proyectos/bain/outputs/pipeline/models/v3.2_gradient_metadata_boosting_property_valuation.json
+2025-08-02 22:02:42 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False step=results_logging] 
+Performance summary:
+2025-08-02 22:02:42 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False step=results_logging]   data_pipeline: 0.44s
+2025-08-02 22:02:42 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False step=results_logging]   feature_preparation: 0.00s
+2025-08-02 22:02:42 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False step=results_logging]   model_pipeline: 7.10s
+2025-08-02 22:02:42 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False step=results_logging] Total pipeline execution time: 7.54s
+2025-08-02 22:02:42 - __main__ - INFO - Memory after Results Logging: RSS=208.58MB, VMS=400692.12MB, System=48.0%
+2025-08-02 22:02:42 - __main__ - INFO - Completed Results Logging in 0.0004s
+2025-08-02 22:02:42 - __main__ - INFO - Memory change during Results Logging: RSS=0.00MB
+2025-08-02 22:02:42 - __main__ - INFO - Final memory usage: RSS=208.58MB, VMS=400692.12MB, System=48.0%
+2025-08-02 22:02:42 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False] 
+================================================================================
+2025-08-02 22:02:42 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False] PIPELINE EXECUTION SUMMARY
+2025-08-02 22:02:42 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False] ================================================================================
+2025-08-02 22:02:42 - __main__ - INFO - === Pipeline Execution Summary ===
+2025-08-02 22:02:42 - __main__ - INFO - Duration: 7.54s
+2025-08-02 22:02:42 - __main__ - INFO - Message counts: 19 info, 0 warnings, 0 errors, 0 critical
+2025-08-02 22:02:42 - __main__ - INFO - 
+2025-08-02 22:02:42 - __main__ - INFO - INFO MESSAGES (showing 10 of 19):
+2025-08-02 22:02:42 - __main__ - INFO -   [2025-08-02 22:02:34] Pipeline started
+2025-08-02 22:02:42 - __main__ - INFO -   [2025-08-02 22:02:34] Data pipeline started
+2025-08-02 22:02:42 - __main__ - INFO -   [2025-08-02 22:02:35] Training data processed: 15352 samples, 9 features
+2025-08-02 22:02:42 - __main__ - INFO -   [2025-08-02 22:02:35] Test data processed: 6897 samples, 9 features
+2025-08-02 22:02:42 - __main__ - INFO -   [2025-08-02 22:02:35] Data pipeline completed in 0.44s
+2025-08-02 22:02:42 - __main__ - INFO -   [2025-08-02 22:02:35] Feature preparation started
+2025-08-02 22:02:42 - __main__ - INFO -   [2025-08-02 22:02:35] Selected 8 features for modeling
+2025-08-02 22:02:42 - __main__ - INFO -   [2025-08-02 22:02:35] Training set: 15352 samples, Test set: 6897 samples
+2025-08-02 22:02:42 - __main__ - INFO -   [2025-08-02 22:02:35] Feature preparation completed in 0.00s
+2025-08-02 22:02:42 - __main__ - INFO -   [2025-08-02 22:02:35] Model training started with model type: gradient_boosting
+2025-08-02 22:02:42 - __main__ - INFO -   ... and 9 more info messages
+2025-08-02 22:02:42 - __main__ - INFO - 
+2025-08-02 22:02:42 - __main__ - INFO - === End of Pipeline Execution Summary ===
+2025-08-02 22:02:42 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False] 
+================================================================================
+2025-08-02 22:02:42 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False] PIPELINE COMPLETED SUCCESSFULLY
+2025-08-02 22:02:42 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False] ================================================================================
+2025-08-02 22:02:42 - __main__ - INFO - Memory after Complete Pipeline Execution: RSS=208.58MB, VMS=400692.12MB, System=48.0%
+2025-08-02 22:02:42 - __main__ - INFO - Completed Complete Pipeline Execution in 7.5445s
+2025-08-02 22:02:42 - __main__ - INFO - Memory change during Complete Pipeline Execution: RSS=36.27MB
+2025-08-02 22:02:42 - __main__ - INFO - Final memory usage after pipeline execution: RSS=208.58MB, VMS=400692.12MB, System=48.0%
+2025-08-02 22:02:42 - __main__ - INFO - [execution_mode=command_line data_type=train model_type=gradient_boosting] 
+Pipeline completed successfully!
+2025-08-02 22:02:42 - __main__ - INFO - [execution_mode=command_line data_type=train model_type=gradient_boosting] Processed 15352 training samples and 6897 test samples
+2025-08-02 22:02:42 - __main__ - INFO - [execution_mode=command_line data_type=train model_type=gradient_boosting] Total execution time: 7.54 seconds
+2025-08-02 22:02:42 - __main__ - INFO - [execution_mode=command_line data_type=train model_type=gradient_boosting] Log file: /Users/joserubio/Desktop/proyectos/bain/outputs/pipeline/logs/PropertyValuationPipeline.log
+2025-08-02 22:02:42 - __main__ - INFO - === Main Execution Summary ===
+2025-08-02 22:02:42 - __main__ - INFO - Duration: 7.55s
+2025-08-02 22:02:42 - __main__ - INFO - Message counts: 3 info, 0 warnings, 0 errors, 0 critical
+2025-08-02 22:02:42 - __main__ - INFO - 
+2025-08-02 22:02:42 - __main__ - INFO - INFO MESSAGES (showing 3 of 3):
+2025-08-02 22:02:42 - __main__ - INFO -   [2025-08-02 22:02:34] Pipeline started with model type: gradient_boosting
+2025-08-02 22:02:42 - __main__ - INFO -   [2025-08-02 22:02:42] Pipeline completed successfully in 7.54s
+2025-08-02 22:02:42 - __main__ - INFO -   [2025-08-02 22:02:42] Processed 15352 training samples and 6897 test samples
+2025-08-02 22:02:42 - __main__ - INFO - 
+2025-08-02 22:02:42 - __main__ - INFO - === End of Main Execution Summary ===
+2025-08-02 22:04:54 - src.utils.logging - INFO - Logging initialized for PropertyValuationPipeline
+2025-08-02 22:04:54 - src.utils.logging - INFO - Log file: /Users/joserubio/Desktop/proyectos/bain/outputs/pipeline/logs/PropertyValuationPipeline.log
+2025-08-02 22:04:54 - __main__ - INFO - Initial memory usage: RSS=173.48MB, VMS=400673.22MB, System=49.7%
+2025-08-02 22:04:54 - pipeline - INFO - Arguments: data_type=train, use_latest_data=False, validate_data=False, model_type=gradient_boosting, slice_features=['type', 'sector'], save_model=True, model_base_name=property_valuation
+2025-08-02 22:04:54 - __main__ - INFO - [execution_mode=command_line data_type=train model_type=gradient_boosting] Starting pipeline execution with command line arguments
+2025-08-02 22:04:54 - __main__ - INFO - Starting Complete Pipeline Execution
+2025-08-02 22:04:54 - __main__ - INFO - Memory before Complete Pipeline Execution: RSS=173.50MB, VMS=400673.22MB, System=49.7%
+2025-08-02 22:04:54 - __main__ - INFO - Current memory usage: RSS=173.52MB, VMS=400673.22MB, System=49.7%
+2025-08-02 22:04:54 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False] Starting the property valuation pipeline
+2025-08-02 22:04:54 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False] ================================================================================
+2025-08-02 22:04:54 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False] STEP 1: RUNNING THE DATA PIPELINE
+2025-08-02 22:04:54 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False] ================================================================================
+2025-08-02 22:04:54 - __main__ - INFO - Starting Data Pipeline
+2025-08-02 22:04:54 - __main__ - INFO - Memory before Data Pipeline: RSS=173.52MB, VMS=400673.22MB, System=49.7%
+2025-08-02 22:04:54 - src.pipeline.data_pipeline - INFO - Initialized DataPipeline with output_dir=/Users/joserubio/Desktop/proyectos/bain/outputs, schema_dir=/Users/joserubio/Desktop/proyectos/bain/outputs/pipeline/schema
+2025-08-02 22:04:54 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False step=data_pipeline] Processing training data...
+2025-08-02 22:04:54 - src.pipeline.data_pipeline - INFO - Running data pipeline for train data
+2025-08-02 22:04:54 - src.pipeline.data_pipeline - INFO - Loading original train data
+2025-08-02 22:04:54 - src.utils.helpers - INFO - Loading original train data from: /Users/joserubio/Desktop/proyectos/bain/data/v3/train.csv
+2025-08-02 22:04:54 - src.pipeline.data_pipeline - INFO - Loaded data with shape (16212, 9)
+2025-08-02 22:04:54 - src.pipeline.data_pipeline - INFO - Cleaning data (removing zero values)
+2025-08-02 22:04:54 - src.pipeline.data_pipeline - INFO - Cleaned data with shape (16051, 9)
+2025-08-02 22:04:54 - src.pipeline.data_pipeline - INFO - Detecting and handling outliers
+2025-08-02 22:04:54 - src.utils.helpers - INFO - Generated versioned filename: v3.4_data_clean.csv
+2025-08-02 22:04:54 - src.utils.helpers - INFO - Generated versioned filename: v3.4_data_outliers.csv
+2025-08-02 22:04:54 - src.pipeline.data_pipeline - INFO - Separated data into 15352 clean samples and 699 outliers
+2025-08-02 22:04:54 - src.pipeline.data_pipeline - INFO - Generating schema for train_data
+2025-08-02 22:04:54 - src.utils.helpers - INFO - Generated versioned filename: v3.4_schema_train.json
+2025-08-02 22:04:54 - src.pipeline.data_pipeline - INFO - Schema saved to /Users/joserubio/Desktop/proyectos/bain/outputs/pipeline/schema/v3.4_schema_train.json
+2025-08-02 22:04:54 - src.pipeline.data_pipeline - INFO - Data pipeline completed successfully for train data
+2025-08-02 22:04:54 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False step=data_pipeline] Training data processed in 0.43s - Shape: (15352, 9)
+2025-08-02 22:04:54 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False step=data_pipeline] Processing test data...
+2025-08-02 22:04:54 - src.pipeline.data_pipeline - INFO - Running data pipeline for test data
+2025-08-02 22:04:54 - src.pipeline.data_pipeline - INFO - Loading original test data
+2025-08-02 22:04:54 - src.utils.helpers - INFO - Loading original test data from: /Users/joserubio/Desktop/proyectos/bain/data/v3/test.csv
+2025-08-02 22:04:54 - src.pipeline.data_pipeline - INFO - Loaded data with shape (6949, 9)
+2025-08-02 22:04:54 - src.pipeline.data_pipeline - INFO - Cleaning data (removing zero values)
+2025-08-02 22:04:54 - src.pipeline.data_pipeline - INFO - Cleaned data with shape (6897, 9)
+2025-08-02 22:04:54 - src.pipeline.data_pipeline - INFO - Data pipeline completed successfully for test data
+2025-08-02 22:04:54 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False step=data_pipeline] Test data processed in 0.00s - Shape: (6897, 9)
+2025-08-02 22:04:54 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False step=data_pipeline] Data pipeline completed in 0.43s
+2025-08-02 22:04:54 - __main__ - INFO - Memory after Data Pipeline: RSS=207.19MB, VMS=400683.12MB, System=49.7%
+2025-08-02 22:04:54 - __main__ - INFO - Completed Data Pipeline in 0.4336s
+2025-08-02 22:04:54 - __main__ - INFO - Memory change during Data Pipeline: RSS=33.67MB
+2025-08-02 22:04:54 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False] 
+================================================================================
+2025-08-02 22:04:54 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False] STEP 2: PREPARING FEATURES AND TARGET
+2025-08-02 22:04:54 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False] ================================================================================
+2025-08-02 22:04:54 - __main__ - INFO - Starting Feature Preparation
+2025-08-02 22:04:54 - __main__ - INFO - Memory before Feature Preparation: RSS=207.19MB, VMS=400683.12MB, System=49.7%
+2025-08-02 22:04:54 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False step=feature_preparation] Number of features: 8
+2025-08-02 22:04:54 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False step=feature_preparation] Target variable: price
+2025-08-02 22:04:54 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False step=feature_preparation] Training set: 15352 samples, 8 features
+2025-08-02 22:04:54 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False step=feature_preparation] Test set: 6897 samples, 8 features
+2025-08-02 22:04:54 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False step=feature_preparation] Feature preparation completed in 0.00s
+2025-08-02 22:04:54 - __main__ - INFO - Memory after Feature Preparation: RSS=207.22MB, VMS=400683.12MB, System=49.7%
+2025-08-02 22:04:54 - __main__ - INFO - Completed Feature Preparation in 0.0010s
+2025-08-02 22:04:54 - __main__ - INFO - Memory change during Feature Preparation: RSS=0.03MB
+2025-08-02 22:04:54 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False] 
+================================================================================
+2025-08-02 22:04:54 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False] STEP 3: RUNNING THE MODEL TRAINING PIPELINE
+2025-08-02 22:04:54 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False] ================================================================================
+2025-08-02 22:04:54 - __main__ - INFO - Starting Model Training Pipeline
+2025-08-02 22:04:54 - __main__ - INFO - Memory before Model Training Pipeline: RSS=207.22MB, VMS=400683.12MB, System=49.7%
+2025-08-02 22:04:54 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False step=model_training] Model type: gradient_boosting
+2025-08-02 22:04:54 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False step=model_training] Slice features for evaluation: ['type', 'sector']
+2025-08-02 22:04:54 - src.pipeline.model_pipeline - INFO - Initialized ModelTrainingPipeline with model_dir=/Users/joserubio/Desktop/proyectos/bain/outputs/pipeline/models, output_dir=/Users/joserubio/Desktop/proyectos/bain/outputs
+2025-08-02 22:04:54 - __main__ - INFO - Memory usage before model training: RSS=207.22MB, VMS=400683.12MB, System=49.7%
+2025-08-02 22:04:54 - src.pipeline.model_pipeline - INFO - Running model training pipeline
+2025-08-02 22:04:54 - src.pipeline.model_pipeline - INFO - Training gradient_boosting model
+2025-08-02 22:04:54 - src.pipeline.model_pipeline - INFO - Categorical features: ['type', 'sector']
+2025-08-02 22:04:54 - src.pipeline.model_pipeline - INFO - Numerical features: ['net_usable_area', 'net_area', 'n_rooms', 'n_bathroom', 'latitude', 'longitude']
+2025-08-02 22:04:54 - src.models.model - INFO - Built pipeline with model type: gradient_boosting
+2025-08-02 22:05:01 - src.models.model - INFO - Model pipeline fitted successfully
+2025-08-02 22:05:01 - src.pipeline.model_pipeline - INFO - Model training completed
+2025-08-02 22:05:01 - src.pipeline.model_pipeline - INFO - Evaluating model
+2025-08-02 22:05:01 - src.utils.helpers - INFO - Generated versioned filename: v3.3_evaluation_gradient_boosting.json
+2025-08-02 22:05:02 - src.models.evaluate - INFO - Regression evaluation results: MSE=33037083.3830, RMSE=5747.7894, MAE=2626.0063, R²=0.7752
+2025-08-02 22:05:02 - src.models.evaluate - INFO - Evaluation results saved to /Users/joserubio/Desktop/proyectos/bain/outputs/pipeline/data/v3.3_evaluation_gradient_boosting.json
+2025-08-02 22:05:02 - src.pipeline.model_pipeline - INFO - Model evaluation completed
+2025-08-02 22:05:02 - src.pipeline.model_pipeline - INFO - Evaluating model with slicing on features: ['type', 'sector']
+2025-08-02 22:05:02 - src.utils.helpers - INFO - Generated versioned filename: v3.3_slice_evaluation_gradient_boosting.json
+2025-08-02 22:05:02 - src.models.evaluate - INFO - Regression evaluation results: MSE=33037083.3830, RMSE=5747.7894, MAE=2626.0063, R²=0.7752
+2025-08-02 22:05:02 - src.models.evaluate - INFO - Regression evaluation results: MSE=65704215.5683, RMSE=8105.8137, MAE=3945.6389, R²=0.6727
+2025-08-02 22:05:02 - src.models.evaluate - INFO - Regression evaluation results: MSE=10698060.6167, RMSE=3270.7890, MAE=1723.5915, R²=0.8160
+2025-08-02 22:05:02 - src.models.evaluate - INFO - Regression evaluation results: MSE=40342879.0873, RMSE=6351.6044, MAE=3604.6409, R²=0.7772
+2025-08-02 22:05:02 - src.models.evaluate - INFO - Regression evaluation results: MSE=25662419.0747, RMSE=5065.8088, MAE=2464.3378, R²=0.7633
+2025-08-02 22:05:02 - src.models.evaluate - INFO - Regression evaluation results: MSE=10612830.5810, RMSE=3257.7340, MAE=1969.8174, R²=0.7791
+2025-08-02 22:05:02 - src.models.evaluate - INFO - Regression evaluation results: MSE=5685674.3860, RMSE=2384.4652, MAE=1401.1168, R²=0.7925
+2025-08-02 22:05:02 - src.models.evaluate - INFO - Regression evaluation results: MSE=2392622.0697, RMSE=1546.8103, MAE=1019.0700, R²=0.8497
+2025-08-02 22:05:02 - src.models.evaluate - INFO - Regression evaluation results: MSE=84237983.7016, RMSE=9178.1253, MAE=3956.4583, R²=0.5984
+2025-08-02 22:05:02 - src.models.tfma_like_evaluator - INFO - Evaluation results saved to /Users/joserubio/Desktop/proyectos/bain/outputs/pipeline/data/v3.3_slice_evaluation_gradient_boosting.json
+2025-08-02 22:05:02 - src.pipeline.model_pipeline - INFO - Model evaluation with slicing completed
+2025-08-02 22:05:02 - src.pipeline.model_pipeline - INFO - Saving model with base_name=property_valuation
+2025-08-02 22:05:02 - src.utils.helpers - INFO - Generated versioned filename: v3.3_gradient_boosting_property_valuation.pkl
+2025-08-02 22:05:02 - src.models.serialization - INFO - Model saved to /Users/joserubio/Desktop/proyectos/bain/outputs/pipeline/models/v3.3_gradient_boosting_property_valuation.pkl using pickle
+2025-08-02 22:05:02 - src.utils.helpers - INFO - Generated versioned filename: v3.3_gradient_metadata_boosting_property_valuation.json
+2025-08-02 22:05:02 - src.models.serialization - INFO - Model metadata saved to /Users/joserubio/Desktop/proyectos/bain/outputs/pipeline/models/v3.3_gradient_metadata_boosting_property_valuation.json
+2025-08-02 22:05:02 - src.pipeline.model_pipeline - INFO - Model saved to /Users/joserubio/Desktop/proyectos/bain/outputs/pipeline/models/v3.3_gradient_boosting_property_valuation.pkl
+2025-08-02 22:05:02 - src.pipeline.model_pipeline - INFO - Model metadata saved to /Users/joserubio/Desktop/proyectos/bain/outputs/pipeline/models/v3.3_gradient_metadata_boosting_property_valuation.json
+2025-08-02 22:05:02 - src.pipeline.model_pipeline - INFO - Model training pipeline completed successfully
+2025-08-02 22:05:02 - __main__ - INFO - Memory usage after model training: RSS=215.80MB, VMS=400684.12MB, System=49.6%
+2025-08-02 22:05:02 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False step=model_training] Model training pipeline completed in 7.48s
+2025-08-02 22:05:02 - __main__ - INFO - Memory after Model Training Pipeline: RSS=215.80MB, VMS=400684.12MB, System=49.6%
+2025-08-02 22:05:02 - __main__ - INFO - Completed Model Training Pipeline in 7.4759s
+2025-08-02 22:05:02 - __main__ - INFO - Memory change during Model Training Pipeline: RSS=8.58MB
+2025-08-02 22:05:02 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False] 
+================================================================================
+2025-08-02 22:05:02 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False] STEP 4: LOGGING THE RESULTS
+2025-08-02 22:05:02 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False] ================================================================================
+2025-08-02 22:05:02 - __main__ - INFO - Starting Results Logging
+2025-08-02 22:05:02 - __main__ - INFO - Memory before Results Logging: RSS=215.80MB, VMS=400684.12MB, System=49.6%
+2025-08-02 22:05:02 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False step=results_logging] Model evaluation results:
+2025-08-02 22:05:02 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False step=results_logging]   mse: 33037083.3830
+2025-08-02 22:05:02 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False step=results_logging]   rmse: 5747.7894
+2025-08-02 22:05:02 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False step=results_logging]   mae: 2626.0063
+2025-08-02 22:05:02 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False step=results_logging]   r2: 0.7752
+2025-08-02 22:05:02 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False step=results_logging]   mape: 0.4655
+2025-08-02 22:05:02 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False step=results_logging] Model saved to: /Users/joserubio/Desktop/proyectos/bain/outputs/pipeline/models/v3.3_gradient_boosting_property_valuation.pkl
+2025-08-02 22:05:02 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False step=results_logging] Model metadata saved to: /Users/joserubio/Desktop/proyectos/bain/outputs/pipeline/models/v3.3_gradient_metadata_boosting_property_valuation.json
+2025-08-02 22:05:02 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False step=results_logging] 
+Performance summary:
+2025-08-02 22:05:02 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False step=results_logging]   data_pipeline: 0.43s
+2025-08-02 22:05:02 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False step=results_logging]   feature_preparation: 0.00s
+2025-08-02 22:05:02 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False step=results_logging]   model_pipeline: 7.48s
+2025-08-02 22:05:02 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False step=results_logging] Total pipeline execution time: 7.91s
+2025-08-02 22:05:02 - __main__ - INFO - Memory after Results Logging: RSS=215.80MB, VMS=400684.12MB, System=49.6%
+2025-08-02 22:05:02 - __main__ - INFO - Completed Results Logging in 0.0006s
+2025-08-02 22:05:02 - __main__ - INFO - Memory change during Results Logging: RSS=0.00MB
+2025-08-02 22:05:02 - __main__ - INFO - Final memory usage: RSS=215.80MB, VMS=400684.12MB, System=49.6%
+2025-08-02 22:05:02 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False] 
+================================================================================
+2025-08-02 22:05:02 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False] PIPELINE EXECUTION SUMMARY
+2025-08-02 22:05:02 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False] ================================================================================
+2025-08-02 22:05:02 - __main__ - INFO - === Pipeline Execution Summary ===
+2025-08-02 22:05:02 - __main__ - INFO - Duration: 7.91s
+2025-08-02 22:05:02 - __main__ - INFO - Message counts: 19 info, 0 warnings, 0 errors, 0 critical
+2025-08-02 22:05:02 - __main__ - INFO - 
+2025-08-02 22:05:02 - __main__ - INFO - INFO MESSAGES (showing 10 of 19):
+2025-08-02 22:05:02 - __main__ - INFO -   [2025-08-02 22:04:54] Pipeline started
+2025-08-02 22:05:02 - __main__ - INFO -   [2025-08-02 22:04:54] Data pipeline started
+2025-08-02 22:05:02 - __main__ - INFO -   [2025-08-02 22:04:54] Training data processed: 15352 samples, 9 features
+2025-08-02 22:05:02 - __main__ - INFO -   [2025-08-02 22:04:54] Test data processed: 6897 samples, 9 features
+2025-08-02 22:05:02 - __main__ - INFO -   [2025-08-02 22:04:54] Data pipeline completed in 0.43s
+2025-08-02 22:05:02 - __main__ - INFO -   [2025-08-02 22:04:54] Feature preparation started
+2025-08-02 22:05:02 - __main__ - INFO -   [2025-08-02 22:04:54] Selected 8 features for modeling
+2025-08-02 22:05:02 - __main__ - INFO -   [2025-08-02 22:04:54] Training set: 15352 samples, Test set: 6897 samples
+2025-08-02 22:05:02 - __main__ - INFO -   [2025-08-02 22:04:54] Feature preparation completed in 0.00s
+2025-08-02 22:05:02 - __main__ - INFO -   [2025-08-02 22:04:54] Model training started with model type: gradient_boosting
+2025-08-02 22:05:02 - __main__ - INFO -   ... and 9 more info messages
+2025-08-02 22:05:02 - __main__ - INFO - 
+2025-08-02 22:05:02 - __main__ - INFO - === End of Pipeline Execution Summary ===
+2025-08-02 22:05:02 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False] 
+================================================================================
+2025-08-02 22:05:02 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False] PIPELINE COMPLETED SUCCESSFULLY
+2025-08-02 22:05:02 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=False] ================================================================================
+2025-08-02 22:05:02 - __main__ - INFO - Memory after Complete Pipeline Execution: RSS=215.80MB, VMS=400684.12MB, System=49.6%
+2025-08-02 22:05:02 - __main__ - INFO - Completed Complete Pipeline Execution in 7.9139s
+2025-08-02 22:05:02 - __main__ - INFO - Memory change during Complete Pipeline Execution: RSS=42.30MB
+2025-08-02 22:05:02 - __main__ - INFO - Final memory usage after pipeline execution: RSS=215.80MB, VMS=400684.12MB, System=49.6%
+2025-08-02 22:05:02 - __main__ - INFO - [execution_mode=command_line data_type=train model_type=gradient_boosting] 
+Pipeline completed successfully!
+2025-08-02 22:05:02 - __main__ - INFO - [execution_mode=command_line data_type=train model_type=gradient_boosting] Processed 15352 training samples and 6897 test samples
+2025-08-02 22:05:02 - __main__ - INFO - [execution_mode=command_line data_type=train model_type=gradient_boosting] Total execution time: 7.91 seconds
+2025-08-02 22:05:02 - __main__ - INFO - [execution_mode=command_line data_type=train model_type=gradient_boosting] Log file: /Users/joserubio/Desktop/proyectos/bain/outputs/pipeline/logs/PropertyValuationPipeline.log
+2025-08-02 22:05:02 - __main__ - INFO - === Main Execution Summary ===
+2025-08-02 22:05:02 - __main__ - INFO - Duration: 7.91s
+2025-08-02 22:05:02 - __main__ - INFO - Message counts: 3 info, 0 warnings, 0 errors, 0 critical
+2025-08-02 22:05:02 - __main__ - INFO - 
+2025-08-02 22:05:02 - __main__ - INFO - INFO MESSAGES (showing 3 of 3):
+2025-08-02 22:05:02 - __main__ - INFO -   [2025-08-02 22:04:54] Pipeline started with model type: gradient_boosting
+2025-08-02 22:05:02 - __main__ - INFO -   [2025-08-02 22:05:02] Pipeline completed successfully in 7.91s
+2025-08-02 22:05:02 - __main__ - INFO -   [2025-08-02 22:05:02] Processed 15352 training samples and 6897 test samples
+2025-08-02 22:05:02 - __main__ - INFO - 
+2025-08-02 22:05:02 - __main__ - INFO - === End of Main Execution Summary ===
+2025-08-02 22:05:05 - src.utils.logging - INFO - Logging initialized for PropertyValuationPipeline
+2025-08-02 22:05:05 - src.utils.logging - INFO - Log file: /Users/joserubio/Desktop/proyectos/bain/outputs/pipeline/logs/PropertyValuationPipeline.log
+2025-08-02 22:05:05 - __main__ - INFO - Initial memory usage: RSS=172.27MB, VMS=400682.22MB, System=49.6%
+2025-08-02 22:05:05 - pipeline - INFO - Arguments: data_type=train, use_latest_data=False, validate_data=False, model_type=random_forest, slice_features=['type', 'sector'], save_model=True, model_base_name=property_valuation
+2025-08-02 22:05:05 - __main__ - INFO - [execution_mode=command_line data_type=train model_type=random_forest] Starting pipeline execution with command line arguments
+2025-08-02 22:05:05 - __main__ - INFO - Starting Complete Pipeline Execution
+2025-08-02 22:05:05 - __main__ - INFO - Memory before Complete Pipeline Execution: RSS=172.27MB, VMS=400682.22MB, System=49.6%
+2025-08-02 22:05:05 - __main__ - INFO - Current memory usage: RSS=172.27MB, VMS=400682.22MB, System=49.6%
+2025-08-02 22:05:05 - __main__ - INFO - [model_type=random_forest data_type=train use_latest_data=False validate_data=False] Starting the property valuation pipeline
+2025-08-02 22:05:05 - __main__ - INFO - [model_type=random_forest data_type=train use_latest_data=False validate_data=False] ================================================================================
+2025-08-02 22:05:05 - __main__ - INFO - [model_type=random_forest data_type=train use_latest_data=False validate_data=False] STEP 1: RUNNING THE DATA PIPELINE
+2025-08-02 22:05:05 - __main__ - INFO - [model_type=random_forest data_type=train use_latest_data=False validate_data=False] ================================================================================
+2025-08-02 22:05:05 - __main__ - INFO - Starting Data Pipeline
+2025-08-02 22:05:05 - __main__ - INFO - Memory before Data Pipeline: RSS=172.27MB, VMS=400682.22MB, System=49.6%
+2025-08-02 22:05:05 - src.pipeline.data_pipeline - INFO - Initialized DataPipeline with output_dir=/Users/joserubio/Desktop/proyectos/bain/outputs, schema_dir=/Users/joserubio/Desktop/proyectos/bain/outputs/pipeline/schema
+2025-08-02 22:05:05 - __main__ - INFO - [model_type=random_forest data_type=train use_latest_data=False validate_data=False step=data_pipeline] Processing training data...
+2025-08-02 22:05:05 - src.pipeline.data_pipeline - INFO - Running data pipeline for train data
+2025-08-02 22:05:05 - src.pipeline.data_pipeline - INFO - Loading original train data
+2025-08-02 22:05:05 - src.utils.helpers - INFO - Loading original train data from: /Users/joserubio/Desktop/proyectos/bain/data/v3/train.csv
+2025-08-02 22:05:05 - src.pipeline.data_pipeline - INFO - Loaded data with shape (16212, 9)
+2025-08-02 22:05:05 - src.pipeline.data_pipeline - INFO - Cleaning data (removing zero values)
+2025-08-02 22:05:05 - src.pipeline.data_pipeline - INFO - Cleaned data with shape (16051, 9)
+2025-08-02 22:05:05 - src.pipeline.data_pipeline - INFO - Detecting and handling outliers
+2025-08-02 22:05:05 - src.utils.helpers - INFO - Generated versioned filename: v3.5_data_clean.csv
+2025-08-02 22:05:05 - src.utils.helpers - INFO - Generated versioned filename: v3.5_data_outliers.csv
+2025-08-02 22:05:06 - src.pipeline.data_pipeline - INFO - Separated data into 15352 clean samples and 699 outliers
+2025-08-02 22:05:06 - src.pipeline.data_pipeline - INFO - Generating schema for train_data
+2025-08-02 22:05:06 - src.utils.helpers - INFO - Generated versioned filename: v3.5_schema_train.json
+2025-08-02 22:05:06 - src.pipeline.data_pipeline - INFO - Schema saved to /Users/joserubio/Desktop/proyectos/bain/outputs/pipeline/schema/v3.5_schema_train.json
+2025-08-02 22:05:06 - src.pipeline.data_pipeline - INFO - Data pipeline completed successfully for train data
+2025-08-02 22:05:06 - __main__ - INFO - [model_type=random_forest data_type=train use_latest_data=False validate_data=False step=data_pipeline] Training data processed in 0.47s - Shape: (15352, 9)
+2025-08-02 22:05:06 - __main__ - INFO - [model_type=random_forest data_type=train use_latest_data=False validate_data=False step=data_pipeline] Processing test data...
+2025-08-02 22:05:06 - src.pipeline.data_pipeline - INFO - Running data pipeline for test data
+2025-08-02 22:05:06 - src.pipeline.data_pipeline - INFO - Loading original test data
+2025-08-02 22:05:06 - src.utils.helpers - INFO - Loading original test data from: /Users/joserubio/Desktop/proyectos/bain/data/v3/test.csv
+2025-08-02 22:05:06 - src.pipeline.data_pipeline - INFO - Loaded data with shape (6949, 9)
+2025-08-02 22:05:06 - src.pipeline.data_pipeline - INFO - Cleaning data (removing zero values)
+2025-08-02 22:05:06 - src.pipeline.data_pipeline - INFO - Cleaned data with shape (6897, 9)
+2025-08-02 22:05:06 - src.pipeline.data_pipeline - INFO - Data pipeline completed successfully for test data
+2025-08-02 22:05:06 - __main__ - INFO - [model_type=random_forest data_type=train use_latest_data=False validate_data=False step=data_pipeline] Test data processed in 0.00s - Shape: (6897, 9)
+2025-08-02 22:05:06 - __main__ - INFO - [model_type=random_forest data_type=train use_latest_data=False validate_data=False step=data_pipeline] Data pipeline completed in 0.47s
+2025-08-02 22:05:06 - __main__ - INFO - Memory after Data Pipeline: RSS=204.23MB, VMS=400692.12MB, System=49.7%
+2025-08-02 22:05:06 - __main__ - INFO - Completed Data Pipeline in 0.4739s
+2025-08-02 22:05:06 - __main__ - INFO - Memory change during Data Pipeline: RSS=31.97MB
+2025-08-02 22:05:06 - __main__ - INFO - [model_type=random_forest data_type=train use_latest_data=False validate_data=False] 
+================================================================================
+2025-08-02 22:05:06 - __main__ - INFO - [model_type=random_forest data_type=train use_latest_data=False validate_data=False] STEP 2: PREPARING FEATURES AND TARGET
+2025-08-02 22:05:06 - __main__ - INFO - [model_type=random_forest data_type=train use_latest_data=False validate_data=False] ================================================================================
+2025-08-02 22:05:06 - __main__ - INFO - Starting Feature Preparation
+2025-08-02 22:05:06 - __main__ - INFO - Memory before Feature Preparation: RSS=204.23MB, VMS=400692.12MB, System=49.7%
+2025-08-02 22:05:06 - __main__ - INFO - [model_type=random_forest data_type=train use_latest_data=False validate_data=False step=feature_preparation] Number of features: 8
+2025-08-02 22:05:06 - __main__ - INFO - [model_type=random_forest data_type=train use_latest_data=False validate_data=False step=feature_preparation] Target variable: price
+2025-08-02 22:05:06 - __main__ - INFO - [model_type=random_forest data_type=train use_latest_data=False validate_data=False step=feature_preparation] Training set: 15352 samples, 8 features
+2025-08-02 22:05:06 - __main__ - INFO - [model_type=random_forest data_type=train use_latest_data=False validate_data=False step=feature_preparation] Test set: 6897 samples, 8 features
+2025-08-02 22:05:06 - __main__ - INFO - [model_type=random_forest data_type=train use_latest_data=False validate_data=False step=feature_preparation] Feature preparation completed in 0.00s
+2025-08-02 22:05:06 - __main__ - INFO - Memory after Feature Preparation: RSS=204.25MB, VMS=400692.12MB, System=49.7%
+2025-08-02 22:05:06 - __main__ - INFO - Completed Feature Preparation in 0.0009s
+2025-08-02 22:05:06 - __main__ - INFO - Memory change during Feature Preparation: RSS=0.02MB
+2025-08-02 22:05:06 - __main__ - INFO - [model_type=random_forest data_type=train use_latest_data=False validate_data=False] 
+================================================================================
+2025-08-02 22:05:06 - __main__ - INFO - [model_type=random_forest data_type=train use_latest_data=False validate_data=False] STEP 3: RUNNING THE MODEL TRAINING PIPELINE
+2025-08-02 22:05:06 - __main__ - INFO - [model_type=random_forest data_type=train use_latest_data=False validate_data=False] ================================================================================
+2025-08-02 22:05:06 - __main__ - INFO - Starting Model Training Pipeline
+2025-08-02 22:05:06 - __main__ - INFO - Memory before Model Training Pipeline: RSS=204.25MB, VMS=400692.12MB, System=49.7%
+2025-08-02 22:05:06 - __main__ - INFO - [model_type=random_forest data_type=train use_latest_data=False validate_data=False step=model_training] Model type: random_forest
+2025-08-02 22:05:06 - __main__ - INFO - [model_type=random_forest data_type=train use_latest_data=False validate_data=False step=model_training] Slice features for evaluation: ['type', 'sector']
+2025-08-02 22:05:06 - src.pipeline.model_pipeline - INFO - Initialized ModelTrainingPipeline with model_dir=/Users/joserubio/Desktop/proyectos/bain/outputs/pipeline/models, output_dir=/Users/joserubio/Desktop/proyectos/bain/outputs
+2025-08-02 22:05:06 - __main__ - INFO - Memory usage before model training: RSS=204.25MB, VMS=400692.12MB, System=49.7%
+2025-08-02 22:05:06 - src.pipeline.model_pipeline - INFO - Running model training pipeline
+2025-08-02 22:05:06 - src.pipeline.model_pipeline - INFO - Training random_forest model
+2025-08-02 22:05:06 - src.pipeline.model_pipeline - INFO - Categorical features: ['type', 'sector']
+2025-08-02 22:05:06 - src.pipeline.model_pipeline - INFO - Numerical features: ['net_usable_area', 'net_area', 'n_rooms', 'n_bathroom', 'latitude', 'longitude']
+2025-08-02 22:05:06 - src.models.model - INFO - Built pipeline with model type: random_forest
+2025-08-02 22:05:09 - src.models.model - INFO - Model pipeline fitted successfully
+2025-08-02 22:05:09 - src.pipeline.model_pipeline - INFO - Model training completed
+2025-08-02 22:05:09 - src.pipeline.model_pipeline - INFO - Evaluating model
+2025-08-02 22:05:09 - src.utils.helpers - INFO - Generated versioned filename: v3.1_evaluation_random_forest.json
+2025-08-02 22:05:10 - src.models.evaluate - INFO - Regression evaluation results: MSE=16491969.3640, RMSE=4061.0306, MAE=2014.1063, R²=0.8878
+2025-08-02 22:05:10 - src.models.evaluate - INFO - Evaluation results saved to /Users/joserubio/Desktop/proyectos/bain/outputs/pipeline/data/v3.1_evaluation_random_forest.json
+2025-08-02 22:05:10 - src.pipeline.model_pipeline - INFO - Model evaluation completed
+2025-08-02 22:05:10 - src.pipeline.model_pipeline - INFO - Evaluating model with slicing on features: ['type', 'sector']
+2025-08-02 22:05:10 - src.utils.helpers - INFO - Generated versioned filename: v3.1_slice_evaluation_random_forest.json
+2025-08-02 22:05:10 - src.models.evaluate - INFO - Regression evaluation results: MSE=16491969.3640, RMSE=4061.0306, MAE=2014.1063, R²=0.8878
+2025-08-02 22:05:10 - src.models.evaluate - INFO - Regression evaluation results: MSE=30128627.7432, RMSE=5488.9551, MAE=2944.6680, R²=0.8499
+2025-08-02 22:05:10 - src.models.evaluate - INFO - Regression evaluation results: MSE=7166705.6628, RMSE=2677.0704, MAE=1377.7530, R²=0.8767
+2025-08-02 22:05:10 - src.models.evaluate - INFO - Regression evaluation results: MSE=22379294.4069, RMSE=4730.6759, MAE=2681.0762, R²=0.8764
+2025-08-02 22:05:10 - src.models.evaluate - INFO - Regression evaluation results: MSE=14950390.4979, RMSE=3866.5735, MAE=1917.2010, R²=0.8621
+2025-08-02 22:05:10 - src.models.evaluate - INFO - Regression evaluation results: MSE=7029820.1131, RMSE=2651.3808, MAE=1623.1890, R²=0.8537
+2025-08-02 22:05:10 - src.models.evaluate - INFO - Regression evaluation results: MSE=4086887.9046, RMSE=2021.6053, MAE=1158.6396, R²=0.8508
+2025-08-02 22:05:10 - src.models.evaluate - INFO - Regression evaluation results: MSE=2088111.5107, RMSE=1445.0299, MAE=805.8790, R²=0.8689
+2025-08-02 22:05:10 - src.models.evaluate - INFO - Regression evaluation results: MSE=33671594.6398, RMSE=5802.7230, MAE=2957.5458, R²=0.8395
+2025-08-02 22:05:10 - src.models.tfma_like_evaluator - INFO - Evaluation results saved to /Users/joserubio/Desktop/proyectos/bain/outputs/pipeline/data/v3.1_slice_evaluation_random_forest.json
+2025-08-02 22:05:10 - src.pipeline.model_pipeline - INFO - Model evaluation with slicing completed
+2025-08-02 22:05:10 - src.pipeline.model_pipeline - INFO - Saving model with base_name=property_valuation
+2025-08-02 22:05:10 - src.utils.helpers - INFO - Generated versioned filename: v3.1_random_forest_property_valuation.pkl
+2025-08-02 22:05:10 - src.models.serialization - INFO - Model saved to /Users/joserubio/Desktop/proyectos/bain/outputs/pipeline/models/v3.1_random_forest_property_valuation.pkl using pickle
+2025-08-02 22:05:10 - src.utils.helpers - INFO - Generated versioned filename: v3.1_random_metadata_forest_property_valuation.json
+2025-08-02 22:05:10 - src.models.serialization - INFO - Model metadata saved to /Users/joserubio/Desktop/proyectos/bain/outputs/pipeline/models/v3.1_random_metadata_forest_property_valuation.json
+2025-08-02 22:05:10 - src.pipeline.model_pipeline - INFO - Model saved to /Users/joserubio/Desktop/proyectos/bain/outputs/pipeline/models/v3.1_random_forest_property_valuation.pkl
+2025-08-02 22:05:10 - src.pipeline.model_pipeline - INFO - Model metadata saved to /Users/joserubio/Desktop/proyectos/bain/outputs/pipeline/models/v3.1_random_metadata_forest_property_valuation.json
+2025-08-02 22:05:10 - src.pipeline.model_pipeline - INFO - Model training pipeline completed successfully
+2025-08-02 22:05:10 - __main__ - INFO - Memory usage after model training: RSS=427.55MB, VMS=400820.12MB, System=50.3%
+2025-08-02 22:05:10 - __main__ - INFO - [model_type=random_forest data_type=train use_latest_data=False validate_data=False step=model_training] Model training pipeline completed in 4.47s
+2025-08-02 22:05:10 - __main__ - INFO - Memory after Model Training Pipeline: RSS=427.55MB, VMS=400820.12MB, System=50.3%
+2025-08-02 22:05:10 - __main__ - INFO - Completed Model Training Pipeline in 4.4714s
+2025-08-02 22:05:10 - __main__ - INFO - Memory change during Model Training Pipeline: RSS=223.30MB
+2025-08-02 22:05:10 - __main__ - INFO - [model_type=random_forest data_type=train use_latest_data=False validate_data=False] 
+================================================================================
+2025-08-02 22:05:10 - __main__ - INFO - [model_type=random_forest data_type=train use_latest_data=False validate_data=False] STEP 4: LOGGING THE RESULTS
+2025-08-02 22:05:10 - __main__ - INFO - [model_type=random_forest data_type=train use_latest_data=False validate_data=False] ================================================================================
+2025-08-02 22:05:10 - __main__ - INFO - Starting Results Logging
+2025-08-02 22:05:10 - __main__ - INFO - Memory before Results Logging: RSS=427.55MB, VMS=400820.12MB, System=50.3%
+2025-08-02 22:05:10 - __main__ - INFO - [model_type=random_forest data_type=train use_latest_data=False validate_data=False step=results_logging] Model evaluation results:
+2025-08-02 22:05:10 - __main__ - INFO - [model_type=random_forest data_type=train use_latest_data=False validate_data=False step=results_logging]   mse: 16491969.3640
+2025-08-02 22:05:10 - __main__ - INFO - [model_type=random_forest data_type=train use_latest_data=False validate_data=False step=results_logging]   rmse: 4061.0306
+2025-08-02 22:05:10 - __main__ - INFO - [model_type=random_forest data_type=train use_latest_data=False validate_data=False step=results_logging]   mae: 2014.1063
+2025-08-02 22:05:10 - __main__ - INFO - [model_type=random_forest data_type=train use_latest_data=False validate_data=False step=results_logging]   r2: 0.8878
+2025-08-02 22:05:10 - __main__ - INFO - [model_type=random_forest data_type=train use_latest_data=False validate_data=False step=results_logging]   mape: 0.4553
+2025-08-02 22:05:10 - __main__ - INFO - [model_type=random_forest data_type=train use_latest_data=False validate_data=False step=results_logging] Model saved to: /Users/joserubio/Desktop/proyectos/bain/outputs/pipeline/models/v3.1_random_forest_property_valuation.pkl
+2025-08-02 22:05:10 - __main__ - INFO - [model_type=random_forest data_type=train use_latest_data=False validate_data=False step=results_logging] Model metadata saved to: /Users/joserubio/Desktop/proyectos/bain/outputs/pipeline/models/v3.1_random_metadata_forest_property_valuation.json
+2025-08-02 22:05:10 - __main__ - INFO - [model_type=random_forest data_type=train use_latest_data=False validate_data=False step=results_logging] 
+Performance summary:
+2025-08-02 22:05:10 - __main__ - INFO - [model_type=random_forest data_type=train use_latest_data=False validate_data=False step=results_logging]   data_pipeline: 0.47s
+2025-08-02 22:05:10 - __main__ - INFO - [model_type=random_forest data_type=train use_latest_data=False validate_data=False step=results_logging]   feature_preparation: 0.00s
+2025-08-02 22:05:10 - __main__ - INFO - [model_type=random_forest data_type=train use_latest_data=False validate_data=False step=results_logging]   model_pipeline: 4.47s
+2025-08-02 22:05:10 - __main__ - INFO - [model_type=random_forest data_type=train use_latest_data=False validate_data=False step=results_logging] Total pipeline execution time: 4.95s
+2025-08-02 22:05:10 - __main__ - INFO - Memory after Results Logging: RSS=427.55MB, VMS=400820.12MB, System=50.3%
+2025-08-02 22:05:10 - __main__ - INFO - Completed Results Logging in 0.0005s
+2025-08-02 22:05:10 - __main__ - INFO - Memory change during Results Logging: RSS=0.00MB
+2025-08-02 22:05:10 - __main__ - INFO - Final memory usage: RSS=427.55MB, VMS=400820.12MB, System=50.3%
+2025-08-02 22:05:10 - __main__ - INFO - [model_type=random_forest data_type=train use_latest_data=False validate_data=False] 
+================================================================================
+2025-08-02 22:05:10 - __main__ - INFO - [model_type=random_forest data_type=train use_latest_data=False validate_data=False] PIPELINE EXECUTION SUMMARY
+2025-08-02 22:05:10 - __main__ - INFO - [model_type=random_forest data_type=train use_latest_data=False validate_data=False] ================================================================================
+2025-08-02 22:05:10 - __main__ - INFO - === Pipeline Execution Summary ===
+2025-08-02 22:05:10 - __main__ - INFO - Duration: 4.95s
+2025-08-02 22:05:10 - __main__ - INFO - Message counts: 19 info, 0 warnings, 0 errors, 0 critical
+2025-08-02 22:05:10 - __main__ - INFO - 
+2025-08-02 22:05:10 - __main__ - INFO - INFO MESSAGES (showing 10 of 19):
+2025-08-02 22:05:10 - __main__ - INFO -   [2025-08-02 22:05:05] Pipeline started
+2025-08-02 22:05:10 - __main__ - INFO -   [2025-08-02 22:05:05] Data pipeline started
+2025-08-02 22:05:10 - __main__ - INFO -   [2025-08-02 22:05:06] Training data processed: 15352 samples, 9 features
+2025-08-02 22:05:10 - __main__ - INFO -   [2025-08-02 22:05:06] Test data processed: 6897 samples, 9 features
+2025-08-02 22:05:10 - __main__ - INFO -   [2025-08-02 22:05:06] Data pipeline completed in 0.47s
+2025-08-02 22:05:10 - __main__ - INFO -   [2025-08-02 22:05:06] Feature preparation started
+2025-08-02 22:05:10 - __main__ - INFO -   [2025-08-02 22:05:06] Selected 8 features for modeling
+2025-08-02 22:05:10 - __main__ - INFO -   [2025-08-02 22:05:06] Training set: 15352 samples, Test set: 6897 samples
+2025-08-02 22:05:10 - __main__ - INFO -   [2025-08-02 22:05:06] Feature preparation completed in 0.00s
+2025-08-02 22:05:10 - __main__ - INFO -   [2025-08-02 22:05:06] Model training started with model type: random_forest
+2025-08-02 22:05:10 - __main__ - INFO -   ... and 9 more info messages
+2025-08-02 22:05:10 - __main__ - INFO - 
+2025-08-02 22:05:10 - __main__ - INFO - === End of Pipeline Execution Summary ===
+2025-08-02 22:05:10 - __main__ - INFO - [model_type=random_forest data_type=train use_latest_data=False validate_data=False] 
+================================================================================
+2025-08-02 22:05:10 - __main__ - INFO - [model_type=random_forest data_type=train use_latest_data=False validate_data=False] PIPELINE COMPLETED SUCCESSFULLY
+2025-08-02 22:05:10 - __main__ - INFO - [model_type=random_forest data_type=train use_latest_data=False validate_data=False] ================================================================================
+2025-08-02 22:05:10 - __main__ - INFO - Memory after Complete Pipeline Execution: RSS=427.55MB, VMS=400820.12MB, System=50.3%
+2025-08-02 22:05:10 - __main__ - INFO - Completed Complete Pipeline Execution in 4.9497s
+2025-08-02 22:05:10 - __main__ - INFO - Memory change during Complete Pipeline Execution: RSS=255.28MB
+2025-08-02 22:05:10 - __main__ - INFO - Final memory usage after pipeline execution: RSS=427.55MB, VMS=400820.12MB, System=50.3%
+2025-08-02 22:05:10 - __main__ - INFO - [execution_mode=command_line data_type=train model_type=random_forest] 
+Pipeline completed successfully!
+2025-08-02 22:05:10 - __main__ - INFO - [execution_mode=command_line data_type=train model_type=random_forest] Processed 15352 training samples and 6897 test samples
+2025-08-02 22:05:10 - __main__ - INFO - [execution_mode=command_line data_type=train model_type=random_forest] Total execution time: 4.95 seconds
+2025-08-02 22:05:10 - __main__ - INFO - [execution_mode=command_line data_type=train model_type=random_forest] Log file: /Users/joserubio/Desktop/proyectos/bain/outputs/pipeline/logs/PropertyValuationPipeline.log
+2025-08-02 22:05:10 - __main__ - INFO - === Main Execution Summary ===
+2025-08-02 22:05:10 - __main__ - INFO - Duration: 4.95s
+2025-08-02 22:05:10 - __main__ - INFO - Message counts: 3 info, 0 warnings, 0 errors, 0 critical
+2025-08-02 22:05:10 - __main__ - INFO - 
+2025-08-02 22:05:10 - __main__ - INFO - INFO MESSAGES (showing 3 of 3):
+2025-08-02 22:05:10 - __main__ - INFO -   [2025-08-02 22:05:05] Pipeline started with model type: random_forest
+2025-08-02 22:05:10 - __main__ - INFO -   [2025-08-02 22:05:10] Pipeline completed successfully in 4.95s
+2025-08-02 22:05:10 - __main__ - INFO -   [2025-08-02 22:05:10] Processed 15352 training samples and 6897 test samples
+2025-08-02 22:05:10 - __main__ - INFO - 
+2025-08-02 22:05:10 - __main__ - INFO - === End of Main Execution Summary ===
+2025-08-02 22:05:14 - src.utils.logging - INFO - Logging initialized for PropertyValuationPipeline
+2025-08-02 22:05:14 - src.utils.logging - INFO - Log file: /Users/joserubio/Desktop/proyectos/bain/outputs/pipeline/logs/PropertyValuationPipeline.log
+2025-08-02 22:05:14 - __main__ - INFO - Initial memory usage: RSS=172.36MB, VMS=400681.22MB, System=50.0%
+2025-08-02 22:05:14 - pipeline - INFO - Arguments: data_type=train, use_latest_data=False, validate_data=True, model_type=gradient_boosting, slice_features=['type', 'sector'], save_model=True, model_base_name=property_valuation
+2025-08-02 22:05:14 - __main__ - INFO - [execution_mode=command_line data_type=train model_type=gradient_boosting] Starting pipeline execution with command line arguments
+2025-08-02 22:05:14 - __main__ - INFO - Starting Complete Pipeline Execution
+2025-08-02 22:05:14 - __main__ - INFO - Memory before Complete Pipeline Execution: RSS=172.36MB, VMS=400681.22MB, System=50.0%
+2025-08-02 22:05:14 - __main__ - INFO - Current memory usage: RSS=172.36MB, VMS=400681.22MB, System=50.0%
+2025-08-02 22:05:14 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=True] Starting the property valuation pipeline
+2025-08-02 22:05:14 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=True] ================================================================================
+2025-08-02 22:05:14 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=True] STEP 1: RUNNING THE DATA PIPELINE
+2025-08-02 22:05:14 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=True] ================================================================================
+2025-08-02 22:05:14 - __main__ - INFO - Starting Data Pipeline
+2025-08-02 22:05:14 - __main__ - INFO - Memory before Data Pipeline: RSS=172.36MB, VMS=400681.22MB, System=50.0%
+2025-08-02 22:05:14 - src.pipeline.data_pipeline - INFO - Initialized DataPipeline with output_dir=/Users/joserubio/Desktop/proyectos/bain/outputs, schema_dir=/Users/joserubio/Desktop/proyectos/bain/outputs/pipeline/schema
+2025-08-02 22:05:14 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=True step=data_pipeline] Processing training data...
+2025-08-02 22:05:14 - src.pipeline.data_pipeline - INFO - Running data pipeline for train data
+2025-08-02 22:05:14 - src.pipeline.data_pipeline - INFO - Loading original train data
+2025-08-02 22:05:14 - src.utils.helpers - INFO - Loading original train data from: /Users/joserubio/Desktop/proyectos/bain/data/v3/train.csv
+2025-08-02 22:05:14 - src.pipeline.data_pipeline - INFO - Loaded data with shape (16212, 9)
+2025-08-02 22:05:14 - src.pipeline.data_pipeline - INFO - Cleaning data (removing zero values)
+2025-08-02 22:05:14 - src.pipeline.data_pipeline - INFO - Cleaned data with shape (16051, 9)
+2025-08-02 22:05:14 - src.pipeline.data_pipeline - INFO - Detecting and handling outliers
+2025-08-02 22:05:14 - src.utils.helpers - INFO - Generated versioned filename: v3.6_data_clean.csv
+2025-08-02 22:05:14 - src.utils.helpers - INFO - Generated versioned filename: v3.6_data_outliers.csv
+2025-08-02 22:05:14 - src.pipeline.data_pipeline - INFO - Separated data into 15352 clean samples and 699 outliers
+2025-08-02 22:05:14 - src.pipeline.data_pipeline - INFO - Generating schema for train_data
+2025-08-02 22:05:14 - src.utils.helpers - INFO - Generated versioned filename: v3.6_schema_train.json
+2025-08-02 22:05:14 - src.pipeline.data_pipeline - INFO - Schema saved to /Users/joserubio/Desktop/proyectos/bain/outputs/pipeline/schema/v3.6_schema_train.json
+2025-08-02 22:05:14 - src.utils.helpers - WARNING - No matching files found for pattern: v3.*_schema_train.json in directory: /Users/joserubio/Desktop/proyectos/bain/outputs/pipeline/data/schema
+2025-08-02 22:05:14 - src.utils.helpers - INFO - Found latest versioned file: /Users/joserubio/Desktop/proyectos/bain/outputs/pipeline/schema/v3.6_schema_train.json
+2025-08-02 22:05:14 - src.pipeline.data_pipeline - INFO - Validating data against schema /Users/joserubio/Desktop/proyectos/bain/outputs/pipeline/schema/v3.6_schema_train.json
+2025-08-02 22:05:14 - src.pipeline.data_pipeline - INFO - Data validation passed
+2025-08-02 22:05:14 - src.pipeline.data_pipeline - INFO - Data pipeline completed successfully for train data
+2025-08-02 22:05:14 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=True step=data_pipeline] Training data processed in 0.47s - Shape: (15352, 9)
+2025-08-02 22:05:14 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=True step=data_pipeline] Processing test data...
+2025-08-02 22:05:14 - src.pipeline.data_pipeline - INFO - Running data pipeline for test data
+2025-08-02 22:05:14 - src.pipeline.data_pipeline - INFO - Loading original test data
+2025-08-02 22:05:14 - src.utils.helpers - INFO - Loading original test data from: /Users/joserubio/Desktop/proyectos/bain/data/v3/test.csv
+2025-08-02 22:05:14 - src.pipeline.data_pipeline - INFO - Loaded data with shape (6949, 9)
+2025-08-02 22:05:14 - src.pipeline.data_pipeline - INFO - Cleaning data (removing zero values)
+2025-08-02 22:05:14 - src.pipeline.data_pipeline - INFO - Cleaned data with shape (6897, 9)
+2025-08-02 22:05:14 - src.utils.helpers - WARNING - No matching files found for pattern: v3.*_schema_train.json in directory: /Users/joserubio/Desktop/proyectos/bain/outputs/pipeline/data/schema
+2025-08-02 22:05:14 - src.utils.helpers - INFO - Found latest versioned file: /Users/joserubio/Desktop/proyectos/bain/outputs/pipeline/schema/v3.6_schema_train.json
+2025-08-02 22:05:14 - src.pipeline.data_pipeline - INFO - Validating data against schema /Users/joserubio/Desktop/proyectos/bain/outputs/pipeline/schema/v3.6_schema_train.json
+2025-08-02 22:05:14 - root - WARNING - Schema validation violations: ['Column net_usable_area: value 250000.0 above maximum 180116.0', 'Column latitude: value -33.5383 below minimum -33.52441', 'Column longitude: value -70.64698 below minimum -70.64366', 'Column price: value 14 below minimum 45.0']
+2025-08-02 22:05:14 - src.pipeline.data_pipeline - WARNING - Data validation failed with 4 violations
+2025-08-02 22:05:14 - src.pipeline.data_pipeline - WARNING - Data validation failed, but continuing with pipeline
+2025-08-02 22:05:14 - src.pipeline.data_pipeline - INFO - Data pipeline completed successfully for test data
+2025-08-02 22:05:14 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=True step=data_pipeline] Test data processed in 0.01s - Shape: (6897, 9)
+2025-08-02 22:05:14 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=True step=data_pipeline] Data pipeline completed in 0.48s
+2025-08-02 22:05:14 - __main__ - INFO - Memory after Data Pipeline: RSS=207.19MB, VMS=400692.12MB, System=50.0%
+2025-08-02 22:05:14 - __main__ - INFO - Completed Data Pipeline in 0.4791s
+2025-08-02 22:05:14 - __main__ - INFO - Memory change during Data Pipeline: RSS=34.83MB
+2025-08-02 22:05:14 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=True] 
+================================================================================
+2025-08-02 22:05:14 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=True] STEP 2: PREPARING FEATURES AND TARGET
+2025-08-02 22:05:14 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=True] ================================================================================
+2025-08-02 22:05:14 - __main__ - INFO - Starting Feature Preparation
+2025-08-02 22:05:14 - __main__ - INFO - Memory before Feature Preparation: RSS=207.19MB, VMS=400692.12MB, System=50.0%
+2025-08-02 22:05:14 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=True step=feature_preparation] Number of features: 8
+2025-08-02 22:05:14 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=True step=feature_preparation] Target variable: price
+2025-08-02 22:05:14 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=True step=feature_preparation] Training set: 15352 samples, 8 features
+2025-08-02 22:05:14 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=True step=feature_preparation] Test set: 6897 samples, 8 features
+2025-08-02 22:05:14 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=True step=feature_preparation] Feature preparation completed in 0.00s
+2025-08-02 22:05:14 - __main__ - INFO - Memory after Feature Preparation: RSS=207.20MB, VMS=400692.12MB, System=50.0%
+2025-08-02 22:05:14 - __main__ - INFO - Completed Feature Preparation in 0.0009s
+2025-08-02 22:05:14 - __main__ - INFO - Memory change during Feature Preparation: RSS=0.02MB
+2025-08-02 22:05:14 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=True] 
+================================================================================
+2025-08-02 22:05:14 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=True] STEP 3: RUNNING THE MODEL TRAINING PIPELINE
+2025-08-02 22:05:14 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=True] ================================================================================
+2025-08-02 22:05:14 - __main__ - INFO - Starting Model Training Pipeline
+2025-08-02 22:05:14 - __main__ - INFO - Memory before Model Training Pipeline: RSS=207.20MB, VMS=400692.12MB, System=50.0%
+2025-08-02 22:05:14 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=True step=model_training] Model type: gradient_boosting
+2025-08-02 22:05:14 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=True step=model_training] Slice features for evaluation: ['type', 'sector']
+2025-08-02 22:05:14 - src.pipeline.model_pipeline - INFO - Initialized ModelTrainingPipeline with model_dir=/Users/joserubio/Desktop/proyectos/bain/outputs/pipeline/models, output_dir=/Users/joserubio/Desktop/proyectos/bain/outputs
+2025-08-02 22:05:14 - __main__ - INFO - Memory usage before model training: RSS=207.20MB, VMS=400692.12MB, System=50.0%
+2025-08-02 22:05:14 - src.pipeline.model_pipeline - INFO - Running model training pipeline
+2025-08-02 22:05:14 - src.pipeline.model_pipeline - INFO - Training gradient_boosting model
+2025-08-02 22:05:14 - src.pipeline.model_pipeline - INFO - Categorical features: ['type', 'sector']
+2025-08-02 22:05:14 - src.pipeline.model_pipeline - INFO - Numerical features: ['net_usable_area', 'net_area', 'n_rooms', 'n_bathroom', 'latitude', 'longitude']
+2025-08-02 22:05:14 - src.models.model - INFO - Built pipeline with model type: gradient_boosting
+2025-08-02 22:05:21 - src.models.model - INFO - Model pipeline fitted successfully
+2025-08-02 22:05:21 - src.pipeline.model_pipeline - INFO - Model training completed
+2025-08-02 22:05:21 - src.pipeline.model_pipeline - INFO - Evaluating model
+2025-08-02 22:05:21 - src.utils.helpers - INFO - Generated versioned filename: v3.4_evaluation_gradient_boosting.json
+2025-08-02 22:05:21 - src.models.evaluate - INFO - Regression evaluation results: MSE=32606765.5307, RMSE=5710.2334, MAE=2624.5199, R²=0.7781
+2025-08-02 22:05:21 - src.models.evaluate - INFO - Evaluation results saved to /Users/joserubio/Desktop/proyectos/bain/outputs/pipeline/data/v3.4_evaluation_gradient_boosting.json
+2025-08-02 22:05:21 - src.pipeline.model_pipeline - INFO - Model evaluation completed
+2025-08-02 22:05:21 - src.pipeline.model_pipeline - INFO - Evaluating model with slicing on features: ['type', 'sector']
+2025-08-02 22:05:21 - src.utils.helpers - INFO - Generated versioned filename: v3.4_slice_evaluation_gradient_boosting.json
+2025-08-02 22:05:21 - src.models.evaluate - INFO - Regression evaluation results: MSE=32606765.5307, RMSE=5710.2334, MAE=2624.5199, R²=0.7781
+2025-08-02 22:05:21 - src.models.evaluate - INFO - Regression evaluation results: MSE=64422309.2741, RMSE=8026.3509, MAE=3938.9668, R²=0.6791
+2025-08-02 22:05:21 - src.models.evaluate - INFO - Regression evaluation results: MSE=10850091.2081, RMSE=3293.9477, MAE=1725.6513, R²=0.8134
+2025-08-02 22:05:21 - src.models.evaluate - INFO - Regression evaluation results: MSE=39958436.3535, RMSE=6321.2686, MAE=3591.0594, R²=0.7793
+2025-08-02 22:05:21 - src.models.evaluate - INFO - Regression evaluation results: MSE=25663124.1139, RMSE=5065.8784, MAE=2466.2660, R²=0.7633
+2025-08-02 22:05:21 - src.models.evaluate - INFO - Regression evaluation results: MSE=10537640.1309, RMSE=3246.1732, MAE=1968.8972, R²=0.7807
+2025-08-02 22:05:21 - src.models.evaluate - INFO - Regression evaluation results: MSE=5719666.2599, RMSE=2391.5824, MAE=1401.4838, R²=0.7912
+2025-08-02 22:05:21 - src.models.evaluate - INFO - Regression evaluation results: MSE=2425293.2622, RMSE=1557.3353, MAE=1027.2470, R²=0.8477
+2025-08-02 22:05:21 - src.models.evaluate - INFO - Regression evaluation results: MSE=82216255.0894, RMSE=9067.3180, MAE=3953.0246, R²=0.6081
+2025-08-02 22:05:21 - src.models.tfma_like_evaluator - INFO - Evaluation results saved to /Users/joserubio/Desktop/proyectos/bain/outputs/pipeline/data/v3.4_slice_evaluation_gradient_boosting.json
+2025-08-02 22:05:21 - src.pipeline.model_pipeline - INFO - Model evaluation with slicing completed
+2025-08-02 22:05:21 - src.pipeline.model_pipeline - INFO - Saving model with base_name=property_valuation
+2025-08-02 22:05:21 - src.utils.helpers - INFO - Generated versioned filename: v3.4_gradient_boosting_property_valuation.pkl
+2025-08-02 22:05:21 - src.models.serialization - INFO - Model saved to /Users/joserubio/Desktop/proyectos/bain/outputs/pipeline/models/v3.4_gradient_boosting_property_valuation.pkl using pickle
+2025-08-02 22:05:21 - src.utils.helpers - INFO - Generated versioned filename: v3.4_gradient_metadata_boosting_property_valuation.json
+2025-08-02 22:05:21 - src.models.serialization - INFO - Model metadata saved to /Users/joserubio/Desktop/proyectos/bain/outputs/pipeline/models/v3.4_gradient_metadata_boosting_property_valuation.json
+2025-08-02 22:05:21 - src.pipeline.model_pipeline - INFO - Model saved to /Users/joserubio/Desktop/proyectos/bain/outputs/pipeline/models/v3.4_gradient_boosting_property_valuation.pkl
+2025-08-02 22:05:21 - src.pipeline.model_pipeline - INFO - Model metadata saved to /Users/joserubio/Desktop/proyectos/bain/outputs/pipeline/models/v3.4_gradient_metadata_boosting_property_valuation.json
+2025-08-02 22:05:21 - src.pipeline.model_pipeline - INFO - Model training pipeline completed successfully
+2025-08-02 22:05:21 - __main__ - INFO - Memory usage after model training: RSS=216.09MB, VMS=400692.12MB, System=49.9%
+2025-08-02 22:05:21 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=True step=model_training] Model training pipeline completed in 7.37s
+2025-08-02 22:05:21 - __main__ - INFO - Memory after Model Training Pipeline: RSS=216.09MB, VMS=400692.12MB, System=49.9%
+2025-08-02 22:05:21 - __main__ - INFO - Completed Model Training Pipeline in 7.3653s
+2025-08-02 22:05:21 - __main__ - INFO - Memory change during Model Training Pipeline: RSS=8.89MB
+2025-08-02 22:05:21 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=True] 
+================================================================================
+2025-08-02 22:05:21 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=True] STEP 4: LOGGING THE RESULTS
+2025-08-02 22:05:21 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=True] ================================================================================
+2025-08-02 22:05:21 - __main__ - INFO - Starting Results Logging
+2025-08-02 22:05:21 - __main__ - INFO - Memory before Results Logging: RSS=216.09MB, VMS=400692.12MB, System=49.9%
+2025-08-02 22:05:21 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=True step=results_logging] Model evaluation results:
+2025-08-02 22:05:21 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=True step=results_logging]   mse: 32606765.5307
+2025-08-02 22:05:21 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=True step=results_logging]   rmse: 5710.2334
+2025-08-02 22:05:21 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=True step=results_logging]   mae: 2624.5199
+2025-08-02 22:05:21 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=True step=results_logging]   r2: 0.7781
+2025-08-02 22:05:21 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=True step=results_logging]   mape: 0.4666
+2025-08-02 22:05:21 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=True step=results_logging] Model saved to: /Users/joserubio/Desktop/proyectos/bain/outputs/pipeline/models/v3.4_gradient_boosting_property_valuation.pkl
+2025-08-02 22:05:21 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=True step=results_logging] Model metadata saved to: /Users/joserubio/Desktop/proyectos/bain/outputs/pipeline/models/v3.4_gradient_metadata_boosting_property_valuation.json
+2025-08-02 22:05:21 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=True step=results_logging] 
+Performance summary:
+2025-08-02 22:05:21 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=True step=results_logging]   data_pipeline: 0.48s
+2025-08-02 22:05:21 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=True step=results_logging]   feature_preparation: 0.00s
+2025-08-02 22:05:21 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=True step=results_logging]   model_pipeline: 7.37s
+2025-08-02 22:05:21 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=True step=results_logging] Total pipeline execution time: 7.85s
+2025-08-02 22:05:21 - __main__ - INFO - Memory after Results Logging: RSS=216.09MB, VMS=400692.12MB, System=49.9%
+2025-08-02 22:05:21 - __main__ - INFO - Completed Results Logging in 0.0005s
+2025-08-02 22:05:21 - __main__ - INFO - Memory change during Results Logging: RSS=0.00MB
+2025-08-02 22:05:21 - __main__ - INFO - Final memory usage: RSS=216.09MB, VMS=400692.12MB, System=49.9%
+2025-08-02 22:05:21 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=True] 
+================================================================================
+2025-08-02 22:05:21 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=True] PIPELINE EXECUTION SUMMARY
+2025-08-02 22:05:21 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=True] ================================================================================
+2025-08-02 22:05:21 - __main__ - INFO - === Pipeline Execution Summary ===
+2025-08-02 22:05:21 - __main__ - INFO - Duration: 7.85s
+2025-08-02 22:05:21 - __main__ - INFO - Message counts: 19 info, 0 warnings, 0 errors, 0 critical
+2025-08-02 22:05:21 - __main__ - INFO - 
+2025-08-02 22:05:21 - __main__ - INFO - INFO MESSAGES (showing 10 of 19):
+2025-08-02 22:05:21 - __main__ - INFO -   [2025-08-02 22:05:14] Pipeline started
+2025-08-02 22:05:21 - __main__ - INFO -   [2025-08-02 22:05:14] Data pipeline started
+2025-08-02 22:05:21 - __main__ - INFO -   [2025-08-02 22:05:14] Training data processed: 15352 samples, 9 features
+2025-08-02 22:05:21 - __main__ - INFO -   [2025-08-02 22:05:14] Test data processed: 6897 samples, 9 features
+2025-08-02 22:05:21 - __main__ - INFO -   [2025-08-02 22:05:14] Data pipeline completed in 0.48s
+2025-08-02 22:05:21 - __main__ - INFO -   [2025-08-02 22:05:14] Feature preparation started
+2025-08-02 22:05:21 - __main__ - INFO -   [2025-08-02 22:05:14] Selected 8 features for modeling
+2025-08-02 22:05:21 - __main__ - INFO -   [2025-08-02 22:05:14] Training set: 15352 samples, Test set: 6897 samples
+2025-08-02 22:05:21 - __main__ - INFO -   [2025-08-02 22:05:14] Feature preparation completed in 0.00s
+2025-08-02 22:05:21 - __main__ - INFO -   [2025-08-02 22:05:14] Model training started with model type: gradient_boosting
+2025-08-02 22:05:21 - __main__ - INFO -   ... and 9 more info messages
+2025-08-02 22:05:21 - __main__ - INFO - 
+2025-08-02 22:05:21 - __main__ - INFO - === End of Pipeline Execution Summary ===
+2025-08-02 22:05:21 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=True] 
+================================================================================
+2025-08-02 22:05:21 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=True] PIPELINE COMPLETED SUCCESSFULLY
+2025-08-02 22:05:21 - __main__ - INFO - [model_type=gradient_boosting data_type=train use_latest_data=False validate_data=True] ================================================================================
+2025-08-02 22:05:21 - __main__ - INFO - Memory after Complete Pipeline Execution: RSS=216.09MB, VMS=400692.12MB, System=49.9%
+2025-08-02 22:05:21 - __main__ - INFO - Completed Complete Pipeline Execution in 7.8484s
+2025-08-02 22:05:21 - __main__ - INFO - Memory change during Complete Pipeline Execution: RSS=43.73MB
+2025-08-02 22:05:21 - __main__ - INFO - Final memory usage after pipeline execution: RSS=216.09MB, VMS=400692.12MB, System=49.9%
+2025-08-02 22:05:21 - __main__ - INFO - [execution_mode=command_line data_type=train model_type=gradient_boosting] 
+Pipeline completed successfully!
+2025-08-02 22:05:21 - __main__ - INFO - [execution_mode=command_line data_type=train model_type=gradient_boosting] Processed 15352 training samples and 6897 test samples
+2025-08-02 22:05:21 - __main__ - INFO - [execution_mode=command_line data_type=train model_type=gradient_boosting] Total execution time: 7.85 seconds
+2025-08-02 22:05:21 - __main__ - INFO - [execution_mode=command_line data_type=train model_type=gradient_boosting] Log file: /Users/joserubio/Desktop/proyectos/bain/outputs/pipeline/logs/PropertyValuationPipeline.log
+2025-08-02 22:05:21 - __main__ - INFO - === Main Execution Summary ===
+2025-08-02 22:05:21 - __main__ - INFO - Duration: 7.85s
+2025-08-02 22:05:21 - __main__ - INFO - Message counts: 3 info, 0 warnings, 0 errors, 0 critical
+2025-08-02 22:05:21 - __main__ - INFO - 
+2025-08-02 22:05:21 - __main__ - INFO - INFO MESSAGES (showing 3 of 3):
+2025-08-02 22:05:21 - __main__ - INFO -   [2025-08-02 22:05:14] Pipeline started with model type: gradient_boosting
+2025-08-02 22:05:21 - __main__ - INFO -   [2025-08-02 22:05:21] Pipeline completed successfully in 7.85s
+2025-08-02 22:05:21 - __main__ - INFO -   [2025-08-02 22:05:21] Processed 15352 training samples and 6897 test samples
+2025-08-02 22:05:21 - __main__ - INFO - 
+2025-08-02 22:05:21 - __main__ - INFO - === End of Main Execution Summary ===

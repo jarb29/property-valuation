@@ -1,0 +1,760 @@
+{
+  "level": "INFO",
+  "message": "API logs are being written to: /app/outputs/predictions/api.log",
+  "name": "root",
+  "timestamp": "2025-08-03 01:37:30.795"
+}
+{
+  "level": "INFO",
+  "message": "Logging set up with level INFO",
+  "name": "root",
+  "timestamp": "2025-08-03 01:37:30.795"
+}
+{
+  "level": "INFO",
+  "message": "Starting API server on 0.0.0.0:8000",
+  "name": "root",
+  "timestamp": "2025-08-03 01:37:30.796"
+}
+{
+  "level": "INFO",
+  "message": "generated new fontManager",
+  "name": "matplotlib.font_manager",
+  "timestamp": "2025-08-03 01:37:31.267"
+}
+{
+  "level": "INFO",
+  "message": "API logs are being written to: /app/outputs/predictions/api.log",
+  "name": "root",
+  "timestamp": "2025-08-03 01:37:31.725"
+}
+{
+  "level": "INFO",
+  "message": "Logging set up with level INFO",
+  "name": "root",
+  "timestamp": "2025-08-03 01:37:31.726"
+}
+{
+  "color_message": "Started server process [\u001b[36m%d\u001b[0m]",
+  "level": "INFO",
+  "message": "Started server process [1]",
+  "name": "uvicorn.error",
+  "timestamp": "2025-08-03 01:37:31.727"
+}
+{
+  "color_message": "Started server process [\u001b[36m%d\u001b[0m]",
+  "level": "INFO",
+  "message": "Started server process [1]",
+  "name": "uvicorn.error",
+  "timestamp": "2025-08-03 01:37:31.727"
+}
+{
+  "level": "INFO",
+  "message": "Waiting for application startup.",
+  "name": "uvicorn.error",
+  "timestamp": "2025-08-03 01:37:31.728"
+}
+{
+  "level": "INFO",
+  "message": "Waiting for application startup.",
+  "name": "uvicorn.error",
+  "timestamp": "2025-08-03 01:37:31.728"
+}
+{
+  "level": "INFO",
+  "message": "API starting up",
+  "name": "src.api.main",
+  "timestamp": "2025-08-03 01:37:31.728"
+}
+{
+  "level": "INFO",
+  "message": "Application startup complete.",
+  "name": "uvicorn.error",
+  "timestamp": "2025-08-03 01:37:31.728"
+}
+{
+  "level": "INFO",
+  "message": "Application startup complete.",
+  "name": "uvicorn.error",
+  "timestamp": "2025-08-03 01:37:31.728"
+}
+{
+  "color_message": "Uvicorn running on \u001b[1m%s://%s:%d\u001b[0m (Press CTRL+C to quit)",
+  "level": "INFO",
+  "message": "Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)",
+  "name": "uvicorn.error",
+  "timestamp": "2025-08-03 01:37:31.729"
+}
+{
+  "color_message": "Uvicorn running on \u001b[1m%s://%s:%d\u001b[0m (Press CTRL+C to quit)",
+  "level": "INFO",
+  "message": "Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)",
+  "name": "uvicorn.error",
+  "timestamp": "2025-08-03 01:37:31.729"
+}
+{
+  "level": "INFO",
+  "message": "Request de2bbba8-2c86-4fcc-a6a6-a1228440a90b: GET / from 192.168.65.1",
+  "name": "src.api.middleware",
+  "timestamp": "2025-08-03 01:37:33.638"
+}
+{
+  "level": "INFO",
+  "message": "Response de2bbba8-2c86-4fcc-a6a6-a1228440a90b: GET / completed in 0.0007s with status 200",
+  "name": "src.api.middleware",
+  "timestamp": "2025-08-03 01:37:33.639"
+}
+{
+  "level": "INFO",
+  "message": "192.168.65.1:54677 - \"GET / HTTP/1.1\" 200",
+  "name": "uvicorn.access",
+  "timestamp": "2025-08-03 01:37:33.640"
+}
+{
+  "level": "INFO",
+  "message": "Request 8d943b76-04d2-4d19-8497-f5f267db474f: GET /health from 127.0.0.1",
+  "name": "src.api.middleware",
+  "timestamp": "2025-08-03 01:37:35.635"
+}
+{
+  "level": "INFO",
+  "message": "Response 8d943b76-04d2-4d19-8497-f5f267db474f: GET /health completed in 0.0004s with status 200",
+  "name": "src.api.middleware",
+  "timestamp": "2025-08-03 01:37:35.635"
+}
+{
+  "level": "INFO",
+  "message": "127.0.0.1:57542 - \"GET /health HTTP/1.1\" 200",
+  "name": "uvicorn.access",
+  "timestamp": "2025-08-03 01:37:35.637"
+}
+{
+  "level": "INFO",
+  "message": "Request ec8dff6b-5a67-47d8-b3fd-8deeaeba6312: GET /docs from 192.168.65.1",
+  "name": "src.api.middleware",
+  "timestamp": "2025-08-03 01:37:39.117"
+}
+{
+  "level": "INFO",
+  "message": "Response ec8dff6b-5a67-47d8-b3fd-8deeaeba6312: GET /docs completed in 0.0006s with status 200",
+  "name": "src.api.middleware",
+  "timestamp": "2025-08-03 01:37:39.118"
+}
+{
+  "level": "INFO",
+  "message": "192.168.65.1:53870 - \"GET /docs HTTP/1.1\" 200",
+  "name": "uvicorn.access",
+  "timestamp": "2025-08-03 01:37:39.119"
+}
+{
+  "level": "INFO",
+  "message": "Request e1cf6504-a3e6-4b8e-adac-d9ab5eb63cac: GET /openapi.json from 192.168.65.1",
+  "name": "src.api.middleware",
+  "timestamp": "2025-08-03 01:37:39.184"
+}
+{
+  "level": "WARNING",
+  "message": "email-validator not installed, email fields will be treated as str.\nTo install, run: pip install email-validator",
+  "name": "fastapi",
+  "timestamp": "2025-08-03 01:37:39.201"
+}
+{
+  "level": "INFO",
+  "message": "Response e1cf6504-a3e6-4b8e-adac-d9ab5eb63cac: GET /openapi.json completed in 0.0203s with status 200",
+  "name": "src.api.middleware",
+  "timestamp": "2025-08-03 01:37:39.205"
+}
+{
+  "level": "INFO",
+  "message": "192.168.65.1:53870 - \"GET /openapi.json HTTP/1.1\" 200",
+  "name": "uvicorn.access",
+  "timestamp": "2025-08-03 01:37:39.206"
+}
+{
+  "level": "INFO",
+  "message": "Request 6b2489bb-ce4f-4ecd-9736-e1b9ff0e633e: POST /api/v3/predictions from 192.168.65.1",
+  "name": "src.api.middleware",
+  "timestamp": "2025-08-03 01:37:49.578"
+}
+{
+  "level": "WARNING",
+  "message": "No models found in directory: /app/outputs/pipeline/models",
+  "name": "src.models.serialization",
+  "timestamp": "2025-08-03 01:37:49.583"
+}
+{
+  "level": "ERROR",
+  "message": "Error making prediction: ",
+  "name": "src.api.endpoints",
+  "timestamp": "2025-08-03 01:37:49.583"
+}
+{
+  "level": "INFO",
+  "message": "Response 6b2489bb-ce4f-4ecd-9736-e1b9ff0e633e: POST /api/v3/predictions completed in 0.0055s with status 500",
+  "name": "src.api.middleware",
+  "timestamp": "2025-08-03 01:37:49.585"
+}
+{
+  "level": "INFO",
+  "message": "192.168.65.1:50190 - \"POST /api/v3/predictions HTTP/1.1\" 500",
+  "name": "uvicorn.access",
+  "timestamp": "2025-08-03 01:37:49.585"
+}
+{
+  "level": "INFO",
+  "message": "Request bfd2880d-eca1-4a5f-a6e7-1ebc27cfc584: GET /health from 127.0.0.1",
+  "name": "src.api.middleware",
+  "timestamp": "2025-08-03 01:38:05.699"
+}
+{
+  "level": "INFO",
+  "message": "Response bfd2880d-eca1-4a5f-a6e7-1ebc27cfc584: GET /health completed in 0.0005s with status 200",
+  "name": "src.api.middleware",
+  "timestamp": "2025-08-03 01:38:05.700"
+}
+{
+  "level": "INFO",
+  "message": "127.0.0.1:59548 - \"GET /health HTTP/1.1\" 200",
+  "name": "uvicorn.access",
+  "timestamp": "2025-08-03 01:38:05.700"
+}
+{
+  "level": "INFO",
+  "message": "Shutting down",
+  "name": "uvicorn.error",
+  "timestamp": "2025-08-03 01:38:21.952"
+}
+{
+  "level": "INFO",
+  "message": "Shutting down",
+  "name": "uvicorn.error",
+  "timestamp": "2025-08-03 01:38:21.952"
+}
+{
+  "level": "INFO",
+  "message": "Waiting for application shutdown.",
+  "name": "uvicorn.error",
+  "timestamp": "2025-08-03 01:38:22.058"
+}
+{
+  "level": "INFO",
+  "message": "Waiting for application shutdown.",
+  "name": "uvicorn.error",
+  "timestamp": "2025-08-03 01:38:22.059"
+}
+{
+  "level": "INFO",
+  "message": "API shutting down",
+  "name": "src.api.main",
+  "timestamp": "2025-08-03 01:38:22.060"
+}
+{
+  "level": "INFO",
+  "message": "Application shutdown complete.",
+  "name": "uvicorn.error",
+  "timestamp": "2025-08-03 01:38:22.061"
+}
+{
+  "level": "INFO",
+  "message": "Application shutdown complete.",
+  "name": "uvicorn.error",
+  "timestamp": "2025-08-03 01:38:22.061"
+}
+{
+  "color_message": "Finished server process [\u001b[36m%d\u001b[0m]",
+  "level": "INFO",
+  "message": "Finished server process [1]",
+  "name": "uvicorn.error",
+  "timestamp": "2025-08-03 01:38:22.063"
+}
+{
+  "color_message": "Finished server process [\u001b[36m%d\u001b[0m]",
+  "level": "INFO",
+  "message": "Finished server process [1]",
+  "name": "uvicorn.error",
+  "timestamp": "2025-08-03 01:38:22.064"
+}
+{
+  "level": "INFO",
+  "message": "API logs are being written to: /Users/joserubio/Desktop/proyectos/bain/outputs/predictions/api.log",
+  "name": "root",
+  "timestamp": "2025-08-03 02:04:23.208"
+}
+{
+  "level": "INFO",
+  "message": "Logging set up with level INFO",
+  "name": "root",
+  "timestamp": "2025-08-03 02:04:23.208"
+}
+{
+  "level": "INFO",
+  "message": "Starting API server on 0.0.0.0:8000",
+  "name": "root",
+  "timestamp": "2025-08-03 02:04:23.208"
+}
+{
+  "level": "INFO",
+  "message": "Will watch for changes in these directories: ['/Users/joserubio/Desktop/proyectos/bain']",
+  "name": "uvicorn.error",
+  "timestamp": "2025-08-03 02:04:23.209"
+}
+{
+  "level": "INFO",
+  "message": "Will watch for changes in these directories: ['/Users/joserubio/Desktop/proyectos/bain']",
+  "name": "uvicorn.error",
+  "timestamp": "2025-08-03 02:04:23.209"
+}
+{
+  "color_message": "Uvicorn running on \u001b[1m%s://%s:%d\u001b[0m (Press CTRL+C to quit)",
+  "level": "INFO",
+  "message": "Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)",
+  "name": "uvicorn.error",
+  "timestamp": "2025-08-03 02:04:23.209"
+}
+{
+  "color_message": "Uvicorn running on \u001b[1m%s://%s:%d\u001b[0m (Press CTRL+C to quit)",
+  "level": "INFO",
+  "message": "Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)",
+  "name": "uvicorn.error",
+  "timestamp": "2025-08-03 02:04:23.209"
+}
+{
+  "color_message": "Started reloader process [\u001b[36m\u001b[1m35983\u001b[0m] using \u001b[36m\u001b[1mStatReload\u001b[0m",
+  "level": "INFO",
+  "message": "Started reloader process [35983] using StatReload",
+  "name": "uvicorn.error",
+  "timestamp": "2025-08-03 02:04:23.209"
+}
+{
+  "color_message": "Started reloader process [\u001b[36m\u001b[1m35983\u001b[0m] using \u001b[36m\u001b[1mStatReload\u001b[0m",
+  "level": "INFO",
+  "message": "Started reloader process [35983] using StatReload",
+  "name": "uvicorn.error",
+  "timestamp": "2025-08-03 02:04:23.209"
+}
+{
+  "level": "INFO",
+  "message": "API logs are being written to: /Users/joserubio/Desktop/proyectos/bain/outputs/predictions/api.log",
+  "name": "root",
+  "timestamp": "2025-08-03 02:04:24.398"
+}
+{
+  "level": "INFO",
+  "message": "Logging set up with level INFO",
+  "name": "root",
+  "timestamp": "2025-08-03 02:04:24.399"
+}
+{
+  "color_message": "Started server process [\u001b[36m%d\u001b[0m]",
+  "level": "INFO",
+  "message": "Started server process [35985]",
+  "name": "uvicorn.error",
+  "timestamp": "2025-08-03 02:04:24.400"
+}
+{
+  "color_message": "Started server process [\u001b[36m%d\u001b[0m]",
+  "level": "INFO",
+  "message": "Started server process [35985]",
+  "name": "uvicorn.error",
+  "timestamp": "2025-08-03 02:04:24.400"
+}
+{
+  "level": "INFO",
+  "message": "Waiting for application startup.",
+  "name": "uvicorn.error",
+  "timestamp": "2025-08-03 02:04:24.400"
+}
+{
+  "level": "INFO",
+  "message": "Waiting for application startup.",
+  "name": "uvicorn.error",
+  "timestamp": "2025-08-03 02:04:24.400"
+}
+{
+  "level": "INFO",
+  "message": "API starting up",
+  "name": "src.api.main",
+  "timestamp": "2025-08-03 02:04:24.400"
+}
+{
+  "level": "INFO",
+  "message": "Application startup complete.",
+  "name": "uvicorn.error",
+  "timestamp": "2025-08-03 02:04:24.400"
+}
+{
+  "level": "INFO",
+  "message": "Application startup complete.",
+  "name": "uvicorn.error",
+  "timestamp": "2025-08-03 02:04:24.401"
+}
+{
+  "level": "INFO",
+  "message": "API logs are being written to: /Users/joserubio/Desktop/proyectos/bain/outputs/predictions/api.log",
+  "name": "root",
+  "timestamp": "2025-08-03 02:04:35.353"
+}
+{
+  "level": "INFO",
+  "message": "Logging set up with level INFO",
+  "name": "root",
+  "timestamp": "2025-08-03 02:04:35.353"
+}
+{
+  "level": "WARNING",
+  "message": "Port 8000 is already in use. Using port 8001 instead.",
+  "name": "root",
+  "timestamp": "2025-08-03 02:04:35.353"
+}
+{
+  "level": "INFO",
+  "message": "Starting API server on 0.0.0.0:8001",
+  "name": "root",
+  "timestamp": "2025-08-03 02:04:35.353"
+}
+{
+  "level": "INFO",
+  "message": "API logs are being written to: /Users/joserubio/Desktop/proyectos/bain/outputs/predictions/api.log",
+  "name": "root",
+  "timestamp": "2025-08-03 02:04:36.311"
+}
+{
+  "level": "INFO",
+  "message": "Logging set up with level INFO",
+  "name": "root",
+  "timestamp": "2025-08-03 02:04:36.311"
+}
+{
+  "color_message": "Started server process [\u001b[36m%d\u001b[0m]",
+  "level": "INFO",
+  "message": "Started server process [36005]",
+  "name": "uvicorn.error",
+  "timestamp": "2025-08-03 02:04:36.312"
+}
+{
+  "color_message": "Started server process [\u001b[36m%d\u001b[0m]",
+  "level": "INFO",
+  "message": "Started server process [36005]",
+  "name": "uvicorn.error",
+  "timestamp": "2025-08-03 02:04:36.312"
+}
+{
+  "level": "INFO",
+  "message": "Waiting for application startup.",
+  "name": "uvicorn.error",
+  "timestamp": "2025-08-03 02:04:36.313"
+}
+{
+  "level": "INFO",
+  "message": "Waiting for application startup.",
+  "name": "uvicorn.error",
+  "timestamp": "2025-08-03 02:04:36.313"
+}
+{
+  "level": "INFO",
+  "message": "API starting up",
+  "name": "src.api.main",
+  "timestamp": "2025-08-03 02:04:36.313"
+}
+{
+  "level": "INFO",
+  "message": "Application startup complete.",
+  "name": "uvicorn.error",
+  "timestamp": "2025-08-03 02:04:36.313"
+}
+{
+  "level": "INFO",
+  "message": "Application startup complete.",
+  "name": "uvicorn.error",
+  "timestamp": "2025-08-03 02:04:36.313"
+}
+{
+  "color_message": "Uvicorn running on \u001b[1m%s://%s:%d\u001b[0m (Press CTRL+C to quit)",
+  "level": "INFO",
+  "message": "Uvicorn running on http://0.0.0.0:8001 (Press CTRL+C to quit)",
+  "name": "uvicorn.error",
+  "timestamp": "2025-08-03 02:04:36.313"
+}
+{
+  "color_message": "Uvicorn running on \u001b[1m%s://%s:%d\u001b[0m (Press CTRL+C to quit)",
+  "level": "INFO",
+  "message": "Uvicorn running on http://0.0.0.0:8001 (Press CTRL+C to quit)",
+  "name": "uvicorn.error",
+  "timestamp": "2025-08-03 02:04:36.313"
+}
+{
+  "level": "INFO",
+  "message": "API logs are being written to: /Users/joserubio/Desktop/proyectos/bain/outputs/predictions/api.log",
+  "name": "root",
+  "timestamp": "2025-08-03 02:04:43.576"
+}
+{
+  "level": "INFO",
+  "message": "Logging set up with level INFO",
+  "name": "root",
+  "timestamp": "2025-08-03 02:04:43.576"
+}
+{
+  "level": "WARNING",
+  "message": "Port 8000 is already in use. Using port 8002 instead.",
+  "name": "root",
+  "timestamp": "2025-08-03 02:04:43.576"
+}
+{
+  "level": "INFO",
+  "message": "Starting API server on 0.0.0.0:8002",
+  "name": "root",
+  "timestamp": "2025-08-03 02:04:43.576"
+}
+{
+  "color_message": "Uvicorn running on \u001b[1m%s://%s:%d\u001b[0m (Press CTRL+C to quit)",
+  "level": "INFO",
+  "message": "Uvicorn running on http://0.0.0.0:8002 (Press CTRL+C to quit)",
+  "name": "uvicorn.error",
+  "timestamp": "2025-08-03 02:04:43.577"
+}
+{
+  "color_message": "Uvicorn running on \u001b[1m%s://%s:%d\u001b[0m (Press CTRL+C to quit)",
+  "level": "INFO",
+  "message": "Uvicorn running on http://0.0.0.0:8002 (Press CTRL+C to quit)",
+  "name": "uvicorn.error",
+  "timestamp": "2025-08-03 02:04:43.577"
+}
+{
+  "color_message": "Started parent process [\u001b[36m\u001b[1m36024\u001b[0m]",
+  "level": "INFO",
+  "message": "Started parent process [36024]",
+  "name": "uvicorn.error",
+  "timestamp": "2025-08-03 02:04:43.577"
+}
+{
+  "color_message": "Started parent process [\u001b[36m\u001b[1m36024\u001b[0m]",
+  "level": "INFO",
+  "message": "Started parent process [36024]",
+  "name": "uvicorn.error",
+  "timestamp": "2025-08-03 02:04:43.577"
+}
+{
+  "level": "INFO",
+  "message": "API logs are being written to: /Users/joserubio/Desktop/proyectos/bain/outputs/predictions/api.log",
+  "name": "root",
+  "timestamp": "2025-08-03 02:04:45.204"
+}
+{
+  "level": "INFO",
+  "message": "Logging set up with level INFO",
+  "name": "root",
+  "timestamp": "2025-08-03 02:04:45.204"
+}
+{
+  "level": "INFO",
+  "message": "API logs are being written to: /Users/joserubio/Desktop/proyectos/bain/outputs/predictions/api.log",
+  "name": "root",
+  "timestamp": "2025-08-03 02:04:45.205"
+}
+{
+  "level": "INFO",
+  "message": "Logging set up with level INFO",
+  "name": "root",
+  "timestamp": "2025-08-03 02:04:45.205"
+}
+{
+  "color_message": "Started server process [\u001b[36m%d\u001b[0m]",
+  "level": "INFO",
+  "message": "Started server process [36028]",
+  "name": "uvicorn.error",
+  "timestamp": "2025-08-03 02:04:45.206"
+}
+{
+  "color_message": "Started server process [\u001b[36m%d\u001b[0m]",
+  "level": "INFO",
+  "message": "Started server process [36028]",
+  "name": "uvicorn.error",
+  "timestamp": "2025-08-03 02:04:45.206"
+}
+{
+  "level": "INFO",
+  "message": "Waiting for application startup.",
+  "name": "uvicorn.error",
+  "timestamp": "2025-08-03 02:04:45.206"
+}
+{
+  "level": "INFO",
+  "message": "Waiting for application startup.",
+  "name": "uvicorn.error",
+  "timestamp": "2025-08-03 02:04:45.206"
+}
+{
+  "level": "INFO",
+  "message": "API logs are being written to: /Users/joserubio/Desktop/proyectos/bain/outputs/predictions/api.log",
+  "name": "root",
+  "timestamp": "2025-08-03 02:04:45.206"
+}
+{
+  "level": "INFO",
+  "message": "Logging set up with level INFO",
+  "name": "root",
+  "timestamp": "2025-08-03 02:04:45.207"
+}
+{
+  "level": "INFO",
+  "message": "API starting up",
+  "name": "src.api.main",
+  "timestamp": "2025-08-03 02:04:45.207"
+}
+{
+  "color_message": "Started server process [\u001b[36m%d\u001b[0m]",
+  "level": "INFO",
+  "message": "Started server process [36029]",
+  "name": "uvicorn.error",
+  "timestamp": "2025-08-03 02:04:45.207"
+}
+{
+  "color_message": "Started server process [\u001b[36m%d\u001b[0m]",
+  "level": "INFO",
+  "message": "Started server process [36029]",
+  "name": "uvicorn.error",
+  "timestamp": "2025-08-03 02:04:45.207"
+}
+{
+  "level": "INFO",
+  "message": "Waiting for application startup.",
+  "name": "uvicorn.error",
+  "timestamp": "2025-08-03 02:04:45.207"
+}
+{
+  "level": "INFO",
+  "message": "Waiting for application startup.",
+  "name": "uvicorn.error",
+  "timestamp": "2025-08-03 02:04:45.207"
+}
+{
+  "level": "INFO",
+  "message": "Application startup complete.",
+  "name": "uvicorn.error",
+  "timestamp": "2025-08-03 02:04:45.207"
+}
+{
+  "level": "INFO",
+  "message": "Application startup complete.",
+  "name": "uvicorn.error",
+  "timestamp": "2025-08-03 02:04:45.207"
+}
+{
+  "level": "INFO",
+  "message": "API starting up",
+  "name": "src.api.main",
+  "timestamp": "2025-08-03 02:04:45.207"
+}
+{
+  "level": "INFO",
+  "message": "Application startup complete.",
+  "name": "uvicorn.error",
+  "timestamp": "2025-08-03 02:04:45.208"
+}
+{
+  "level": "INFO",
+  "message": "Application startup complete.",
+  "name": "uvicorn.error",
+  "timestamp": "2025-08-03 02:04:45.208"
+}
+{
+  "color_message": "Started server process [\u001b[36m%d\u001b[0m]",
+  "level": "INFO",
+  "message": "Started server process [36027]",
+  "name": "uvicorn.error",
+  "timestamp": "2025-08-03 02:04:45.208"
+}
+{
+  "color_message": "Started server process [\u001b[36m%d\u001b[0m]",
+  "level": "INFO",
+  "message": "Started server process [36027]",
+  "name": "uvicorn.error",
+  "timestamp": "2025-08-03 02:04:45.208"
+}
+{
+  "level": "INFO",
+  "message": "Waiting for application startup.",
+  "name": "uvicorn.error",
+  "timestamp": "2025-08-03 02:04:45.208"
+}
+{
+  "level": "INFO",
+  "message": "Waiting for application startup.",
+  "name": "uvicorn.error",
+  "timestamp": "2025-08-03 02:04:45.208"
+}
+{
+  "level": "INFO",
+  "message": "API starting up",
+  "name": "src.api.main",
+  "timestamp": "2025-08-03 02:04:45.208"
+}
+{
+  "level": "INFO",
+  "message": "Application startup complete.",
+  "name": "uvicorn.error",
+  "timestamp": "2025-08-03 02:04:45.209"
+}
+{
+  "level": "INFO",
+  "message": "Application startup complete.",
+  "name": "uvicorn.error",
+  "timestamp": "2025-08-03 02:04:45.209"
+}
+{
+  "level": "INFO",
+  "message": "API logs are being written to: /Users/joserubio/Desktop/proyectos/bain/outputs/predictions/api.log",
+  "name": "root",
+  "timestamp": "2025-08-03 02:04:45.210"
+}
+{
+  "level": "INFO",
+  "message": "Logging set up with level INFO",
+  "name": "root",
+  "timestamp": "2025-08-03 02:04:45.210"
+}
+{
+  "color_message": "Started server process [\u001b[36m%d\u001b[0m]",
+  "level": "INFO",
+  "message": "Started server process [36026]",
+  "name": "uvicorn.error",
+  "timestamp": "2025-08-03 02:04:45.212"
+}
+{
+  "color_message": "Started server process [\u001b[36m%d\u001b[0m]",
+  "level": "INFO",
+  "message": "Started server process [36026]",
+  "name": "uvicorn.error",
+  "timestamp": "2025-08-03 02:04:45.212"
+}
+{
+  "level": "INFO",
+  "message": "Waiting for application startup.",
+  "name": "uvicorn.error",
+  "timestamp": "2025-08-03 02:04:45.212"
+}
+{
+  "level": "INFO",
+  "message": "Waiting for application startup.",
+  "name": "uvicorn.error",
+  "timestamp": "2025-08-03 02:04:45.212"
+}
+{
+  "level": "INFO",
+  "message": "API starting up",
+  "name": "src.api.main",
+  "timestamp": "2025-08-03 02:04:45.212"
+}
+{
+  "level": "INFO",
+  "message": "Application startup complete.",
+  "name": "uvicorn.error",
+  "timestamp": "2025-08-03 02:04:45.212"
+}
+{
+  "level": "INFO",
+  "message": "Application startup complete.",
+  "name": "uvicorn.error",
+  "timestamp": "2025-08-03 02:04:45.212"
+}
