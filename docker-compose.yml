@@ -7,13 +7,13 @@ services:
     ports:
       - "${API_PORT:-8000}:8000"
     volumes:
-      - ./:/app
       - ./data:/app/data
       - ./outputs:/app/outputs
     env_file:
       - .env
     environment:
       - ENVIRONMENT=production
+    command: ["uvicorn", "src.api.main:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "2"]
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8000/health"]

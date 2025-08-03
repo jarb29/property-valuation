@@ -66,7 +66,7 @@ The system is organized into several key components:
 
 1. Clone the repository:
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/jarb29/property-valuation
    cd property-valuation
    ```
 
@@ -141,6 +141,9 @@ docker-compose --profile dev up api-dev
 
 # Run the full ML pipeline
 docker-compose --profile pipeline up pipeline
+or # Use port 8001 instead
+API_PORT=8001 docker-compose up api
+
 
 # Specify a different data version
 docker-compose -e DATA_VERSION=v2 --profile pipeline up pipeline

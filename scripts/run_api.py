@@ -17,7 +17,7 @@ from contextlib import closing
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from src.api.logging import setup_logging
-from src.config import API_HOST, API_PORT, API_WORKERS, API_DEBUG, LOG_DIR
+from src.config import API_HOST, API_PORT, API_WORKERS, API_DEBUG, LOG_DIR, API_LOGS_DIR
 
 
 def is_port_available(host, port):
@@ -161,7 +161,7 @@ def main():
                 "api_file": {
                     "formatter": "json",
                     "class": "logging.handlers.RotatingFileHandler",
-                    "filename": os.path.join(LOG_DIR, "api.log"),
+                    "filename": os.path.join(API_LOGS_DIR, "api.log"),
                     "maxBytes": 10 * 1024 * 1024,  # 10 MB
                     "backupCount": 5,
                 },

@@ -14,15 +14,14 @@ import json
 import time
 from functools import wraps
 from datetime import datetime
-
+from src.config import TRAIN_DATA_PATH, TEST_DATA_PATH
 
 # Adjust these imports according to your actual project structure
 from src.config import (
     DATA_VERSION_DIR,
     OUTPUT_DIR,
     PIPELINE_DATA_DIR,
-    JUPYTER_DATA_DIR,
-    DATA_VERSION
+    JUPYTER_DATA_DIR
 )
 
 logger = logging.getLogger(__name__)
@@ -242,6 +241,7 @@ def get_versioned_filename(base_name: str, file_type: str, directory: str, exten
     Returns:
         str: The versioned filename
     """
+    from src.config import DATA_VERSION
     # Ensure directory exists
     ensure_directory_exists(directory)
 
@@ -296,6 +296,7 @@ def get_latest_versioned_file(base_name: str, file_type: str, directory: str, ex
     """
     # Use DATA_VERSION from config if data_version is not provided
     if data_version is None:
+        from src.config import DATA_VERSION
         data_version = DATA_VERSION
 
     # Create the pattern to search for existing files
@@ -341,9 +342,6 @@ def load_original_data(data_type='train'):
     Returns:
         pandas.DataFrame: The loaded data
     """
-    import pandas as pd
-    from src.config import TRAIN_DATA_PATH, TEST_DATA_PATH
-
 
     # Determine the file path based on data_type
     if data_type == 'train':
