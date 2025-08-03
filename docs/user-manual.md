@@ -2,19 +2,6 @@
 
 Comprehensive guide to the Property Valuation ML System - from basic usage to advanced configuration.
 
-**Table of Contents:**
-- [🏗️ System Overview](#system-overview)
-- [🚀 Quick Start](#quick-start)
-- [⚙️ Configuration](#configuration)
-- [📊 Data Versioning System](#data-versioning-system)
-- [🤖 Model Management](#model-management)
-- [📋 Data Validation](#data-validation)
-- [🔗 Integration Examples](#integration-examples)
-- [🧪 Testing](#testing)
-- [📊 Monitoring](#monitoring)
-- [📈 Performance Metrics](#performance-metrics)
-- [🚨 Troubleshooting](#troubleshooting)
-
 ---
 
 ## 🏗️ System Overview
