@@ -17,46 +17,39 @@ theme:
   name: material
   language: en
   
-  # Color palette with professional dark/light mode
+  # Professional color scheme
   palette:
-    - media: "(prefers-color-scheme: light)"
-      scheme: default
-      primary: indigo
-      accent: blue
+    - scheme: default
+      primary: deep purple
+      accent: purple
       toggle:
         icon: material/brightness-7
         name: Switch to dark mode
-    - media: "(prefers-color-scheme: dark)"
-      scheme: slate
-      primary: indigo
-      accent: blue
+    - scheme: slate
+      primary: deep purple
+      accent: purple
       toggle:
         icon: material/brightness-4
         name: Switch to light mode
   
-  # Advanced navigation features
+  # Clean navigation features
   features:
-    - content.action.edit
     - content.code.copy
     - content.tabs.link
-    - header.autohide
-    - navigation.expand
-    - navigation.footer
     - navigation.instant
     - navigation.sections
-    - navigation.tabs
-    - navigation.tabs.sticky
     - navigation.top
-    - navigation.tracking
     - search.highlight
-    - search.share
     - search.suggest
     - toc.follow
+  
+  # Custom logo and favicon
+  logo: material/home
+  favicon: material/home
   
   # Icons
   icon:
     repo: fontawesome/brands/github
-    edit: material/pencil
 
 # Markdown Extensions
 markdown_extensions:
@@ -76,8 +69,8 @@ markdown_extensions:
   - pymdownx.caret
   - pymdownx.details
   - pymdownx.emoji:
-      emoji_generator: !!python/name:materialx.emoji.to_svg
-      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:pymdownx.emoji.to_svg
+      emoji_index: !!python/name:pymdownx.emoji.twemoji
   - pymdownx.highlight:
       anchor_linenums: true
       line_spans: __span
@@ -101,13 +94,6 @@ markdown_extensions:
 plugins:
   - search:
       separator: '[\s\-,:!=\[\]()"/]+|\.(?!\d)|&[lg]t;|(?!\b)(?=[A-Z][a-z])'
-  - minify:
-      minify_html: true
-      minify_js: true
-      minify_css: true
-      htmlmin_opts:
-        remove_comments: true
-      cache_safe: true
 
 # Extra CSS and JavaScript
 extra_css:
