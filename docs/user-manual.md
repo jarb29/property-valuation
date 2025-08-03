@@ -1,384 +1,436 @@
----
-layout: default
-title: User Manual
----
-
 # User Manual
 
-This comprehensive guide provides in-depth information about the Property Valuation ML System's architecture, components, and how to use them effectively.
+Comprehensive guide to the Property Valuation ML System - from basic usage to advanced configuration.
 
-## System Architecture
+**Table of Contents:**
+- [🏗️ System Overview](#system-overview)
+- [🚀 Quick Start](#quick-start)
+- [⚙️ Configuration](#configuration)
+- [📊 Data Versioning System](#data-versioning-system)
+- [🤖 Model Management](#model-management)
+- [📋 Data Validation](#data-validation)
+- [🔗 Integration Examples](#integration-examples)
+- [🧪 Testing](#testing)
+- [📊 Monitoring](#monitoring)
+- [📈 Performance Metrics](#performance-metrics)
+- [🚨 Troubleshooting](#troubleshooting)
 
-The Property Valuation ML System is designed with a modular architecture that separates concerns and allows for flexibility and scalability. The system consists of several key components:
+---
 
-### 1. Data Processing Layer
+## 🏗️ System Overview
 
-The data processing layer handles data loading, validation, cleaning, and feature engineering:
+The Property Valuation ML System is an enterprise-grade machine learning platform for accurate real estate property valuation in the Chilean market.
 
-- **Data Loaders**: Load data from various sources (CSV files, databases)
-- **Data Validators**: Ensure data quality and schema compliance
-- **Feature Engineers**: Transform raw data into model-ready features
-- **Data Versioning**: Manage different versions of datasets
+### Architecture
 
-### 2. Model Layer
+```mermaid
+flowchart TD
+    subgraph DataLayer ["Data Layer"]
+        A[Raw Data Sources] --> B[Data Versioning System]
+        B --> C[Data Validation & Schema]
+    end
+    
+    subgraph MLPipeline ["ML Pipeline"]
+        D[Feature Engineering]
+        E[Model Training]
+        F[Model Evaluation]
+        G[Model Registry]
+        D --> E
+        E --> F
+        F --> G
+    end
+    
+    subgraph APILayer ["API Layer"]
+        H[Model Loading]
+        I[REST API Endpoints]
+        J[Response Validation]
+        H --> I
+        I --> J
+    end
+    
+    subgraph Infrastructure ["Infrastructure"]
+        K[Docker Containers]
+        L[Logging & Monitoring]
+        M[Authentication]
+    end
+    
+    subgraph ClientApps ["Client Applications"]
+        N[Web Applications]
+        O[Mobile Apps]
+        P[Third-party Integrations]
+    end
+    
+    C --> D
+    G --> H
+    K --> I
+    L --> I
+    M --> I
+    I --> N
+    I --> O
+    I --> P
+```
 
-The model layer is responsible for training, evaluating, and serving machine learning models:
+---
 
-- **Model Trainers**: Train different types of models (Gradient Boosting, Random Forest, etc.)
-- **Model Evaluators**: Assess model performance using various metrics
-- **Model Registry**: Store and version trained models
-- **Model Selectors**: Select the best model based on performance metrics
+## 🚀 Quick Start
 
-### 3. API Layer
+### Training Models
 
-The API layer provides RESTful endpoints for interacting with the system:
+```bash
+# Train models
+python scripts/pipeline.py
 
-- **Prediction Endpoints**: Serve model predictions
-- **Model Information Endpoints**: Provide metadata about models
-- **Health Check Endpoints**: Monitor system health
-- **Authentication**: Secure API access
+# Docker training
+docker-compose --profile pipeline up pipeline
+```
 
-### 4. Infrastructure Layer
+### Running the API
 
-The infrastructure layer provides the foundation for running the system:
+```bash
+# Development
+python scripts/run_api.py --reload
 
-- **Docker Containers**: Isolate and package the application
-- **Logging**: Record system activities and errors
-- **Configuration**: Manage system settings
-- **Monitoring**: Track system performance
+# Production
+docker-compose up api
+```
 
-## Data Versioning System
+---
 
-### Overview
+## 📊 Data Versioning System
 
-The data versioning system ensures consistency between datasets, models, and API endpoints:
+The system uses a sophisticated versioning mechanism for complete traceability:
+
+### How Versioning Works
 
 ```
 DATA_VERSION (e.g., v3)
      │
-     ├─── Determines data paths: data/v3/train.csv, data/v3/test.csv
+     ├─── Data paths: data/v3/train.csv, data/v3/test.csv
      │
-     ├─── Defaults MODEL_VERSION (if not explicitly set)
+     ├─── Sub-versions: v3.1, v3.2, v3.3, v3.4, v3.5, v3.6
      │     │
-     │     └─── Determines model file names: model_v3.pkl
+     │     ├─── Pipeline: outputs/pipeline/models/v3.4_gradient_boosting.pkl
+     │     └─── Jupyter: outputs/jupyter/models/v3.3_gradient_boosting.pkl
      │
-     └─── Determines API endpoint paths: /api/v3/predictions
+     └─── API endpoints: /api/v3/predictions
 ```
 
-### Using Different Data Versions
+### File System Flow
 
-To use a specific data version:
-
-```bash
-# Set in .env file
-DATA_VERSION=v2
-
-# Or set as environment variable
-export DATA_VERSION=v2
-python scripts/pipeline.py
-
-# Or pass directly to Docker
-docker-compose -e DATA_VERSION=v2 up pipeline
+```mermaid
+flowchart TD
+    subgraph Input ["Input Data"]
+        D1[data/v3/train.csv]
+        D2[data/v3/test.csv]
+    end
+    
+    subgraph Processing ["Processing"]
+        J[Jupyter Notebooks]
+        P[Pipeline Scripts]
+    end
+    
+    subgraph OutputsDir ["outputs/"]
+        subgraph JupyterOut ["jupyter/"]
+            JM[models/v3.3_model.pkl]
+            JS[schema/v3.3_schema.json]
+            JD[data/v3.3_clean.csv]
+        end
+        
+        subgraph PipelineOut ["pipeline/"]
+            PM[models/v3.4_model.pkl]
+            PS[schema/v3.4_schema.json]
+            PD[data/v3.4_clean.csv]
+        end
+        
+        subgraph PredOut ["predictions/"]
+            AL[api.log]
+            EL[error.log]
+        end
+    end
+    
+    subgraph API ["API Service"]
+        MS[Model Selection]
+        ML[Model Loading]
+        PR[Predictions]
+    end
+    
+    D1 --> J
+    D2 --> J
+    D1 --> P
+    D2 --> P
+    
+    J --> JM
+    J --> JS
+    J --> JD
+    
+    P --> PM
+    P --> PS
+    P --> PD
+    
+    MS --> PM
+    MS --> JM
+    ML --> MS
+    PR --> ML
+    PR --> AL
+    PR --> EL
 ```
 
-### Creating a New Data Version
+### File Structure
 
-To create a new data version:
-
-1. Create a new directory in the `data/` folder (e.g., `data/v4/`)
-2. Add your dataset files (`train.csv`, `test.csv`)
-3. Set `DATA_VERSION=v4` in your environment
-4. Run the pipeline to train models on the new data
-
-## ML Pipeline
-
-### Pipeline Components
-
-The ML pipeline consists of several stages:
-
-1. **Data Loading**: Load raw data from the specified data version
-2. **Data Validation**: Validate data against schema (optional)
-3. **Data Preprocessing**: Clean and prepare data for modeling
-4. **Feature Engineering**: Create and transform features
-5. **Model Training**: Train multiple model types
-6. **Model Evaluation**: Evaluate models using specified metrics
-7. **Model Selection**: Select the best model based on performance
-8. **Model Persistence**: Save the selected model and metadata
-
-### Running the Pipeline
-
-To run the complete pipeline:
-
-```bash
-# Using Python
-python scripts/pipeline.py
-
-# Using Docker
-docker-compose --profile pipeline up pipeline
+```
+outputs/
+├── pipeline/                    # Production outputs
+│   ├── models/v3.4_gradient_boosting_property_valuation.pkl
+│   ├── schema/v3.4_schema_train.json
+│   └── data/v3.4_data_clean.csv
+├── jupyter/                     # Research outputs
+│   ├── models/v3.3_gradient_boosting_property_valuation.pkl
+│   └── schema/v3.3_schema_analysis.json
+└── predictions/                 # API logs
+    ├── api.log
+    └── error.log
 ```
 
-### Pipeline Options
+---
 
-The pipeline supports several options:
+## 🤖 Model Management
 
-```bash
-# Specify model type
-python scripts/pipeline.py --model-type random_forest
+### Model Metadata
 
-# Validate data during processing
-python scripts/pipeline.py --validate-data
+Each model includes comprehensive metadata:
 
-# Use a specific data version
-DATA_VERSION=v2 python scripts/pipeline.py
-
-# Specify evaluation metric
-MODEL_METRIC=mae python scripts/pipeline.py
+```json
+{
+  "model_type": "gradient_boosting",
+  "features": ["type", "sector", "net_usable_area", "net_area", "n_rooms", "n_bathroom", "latitude", "longitude"],
+  "evaluation_metrics": {
+    "rmse": 5710.23,
+    "mae": 2624.52,
+    "mape": 0.467
+  },
+  "training_data_shape": [15352, 9],
+  "timestamp": "2025-08-02T22:05:21.892530"
+}
 ```
 
-## API Usage
+### Model Selection
 
-### Authentication
+| Metric | Description | Use Case |
+|--------|-------------|----------|
+| **RMSE** | Root Mean Square Error | General accuracy (default) |
+| **MAE** | Mean Absolute Error | Robust to outliers |
+| **R²** | Coefficient of Determination | Explained variance |
+| **MAPE** | Mean Absolute Percentage Error | Relative accuracy |
 
-All API requests require an API key:
+---
 
-```bash
-curl -X POST http://localhost:8000/api/v3/predictions \
-  -H "Content-Type: application/json" \
-  -H "X-API-Key: your_api_key_here" \
-  -d '{"features": {...}}'
-```
+## 📋 Data Validation
 
-The API key is configured using the `API_KEY` environment variable.
+### Schema Structure
 
-### Single Property Valuation
+The system validates data using comprehensive schemas:
 
-To predict the value of a single property:
-
-```bash
-curl -X POST http://localhost:8000/api/v3/predictions \
-  -H "Content-Type: application/json" \
-  -H "X-API-Key: your_api_key_here" \
-  -d '{
-    "features": {
-      "type": "departamento",
-      "sector": "las condes",
-      "net_usable_area": 120.5,
-      "net_area": 150.0,
-      "n_rooms": 3,
-      "n_bathroom": 2,
-      "latitude": -33.4172,
-      "longitude": -70.5476
-    }
-  }'
-```
-
-### Batch Property Valuation
-
-To predict values for multiple properties:
-
-```bash
-curl -X POST http://localhost:8000/api/v3/predictions/batch \
-  -H "Content-Type: application/json" \
-  -H "X-API-Key: your_api_key_here" \
-  -d '{
-    "properties": [
-      {
-        "features": {
-          "type": "departamento",
-          "sector": "las condes",
-          "net_usable_area": 120.5,
-          "net_area": 150.0,
-          "n_rooms": 3,
-          "n_bathroom": 2,
-          "latitude": -33.4172,
-          "longitude": -70.5476
-        }
-      },
-      {
-        "features": {
-          "type": "casa",
-          "sector": "providencia",
-          "net_usable_area": 200.0,
-          "net_area": 250.0,
-          "n_rooms": 4,
-          "n_bathroom": 3,
-          "latitude": -33.4298,
-          "longitude": -70.6345
-        }
+```json
+{
+  "dataset_name": "train_data",
+  "shape": {"rows": 15352, "columns": 9},
+  "columns": {
+    "type": {
+      "categorical": {
+        "unique_values_list": ["departamento", "casa"],
+        "value_counts": {"departamento": 9017, "casa": 6335}
       }
-    ]
-  }'
-```
-
-### Model Information
-
-To retrieve information about the current model:
-
-```bash
-curl -X GET http://localhost:8000/api/v3/model/info \
-  -H "X-API-Key: your_api_key_here"
-```
-
-### Health Check
-
-To check the health of the API:
-
-```bash
-curl -X GET http://localhost:8000/api/v3/health \
-  -H "X-API-Key: your_api_key_here"
-```
-
-## Advanced Usage
-
-### Custom Feature Engineering
-
-To implement custom feature engineering:
-
-1. Create a new feature engineering class in `src/data/feature_engineering.py`
-2. Register your feature engineering class in `src/pipeline/data_pipeline.py`
-3. Update the pipeline configuration to use your custom feature engineering
-
-Example:
-
-```python
-# src/data/feature_engineering.py
-class CustomFeatureEngineer(BaseFeatureEngineer):
-    def transform(self, df):
-        # Your custom feature engineering logic
-        df['custom_feature'] = df['feature1'] * df['feature2']
-        return df
-
-# src/pipeline/data_pipeline.py
-feature_engineers = {
-    'default': DefaultFeatureEngineer(),
-    'custom': CustomFeatureEngineer()
+    },
+    "net_usable_area": {
+      "numerical": {
+        "min": 10.0, "max": 180116.0,
+        "mean": 250.34, "std": 2851.11
+      }
+    }
+  }
 }
 ```
 
-### Custom Models
+### Validation Features
 
-To add a custom model:
+- **Data Type Validation**: Ensures correct column types
+- **Range Validation**: Validates numerical ranges  
+- **Categorical Validation**: Checks valid category values
+- **Statistical Profiling**: Tracks data distribution changes
 
-1. Create a new model class in `src/models/models.py`
-2. Register your model in `src/pipeline/model_pipeline.py`
-3. Update the pipeline configuration to use your custom model
+---
 
-Example:
+## ⚙️ Configuration
 
-```python
-# src/models/models.py
-class CustomModel(BaseModel):
-    def train(self, X, y):
-        # Your custom model training logic
-        self.model = YourCustomAlgorithm()
-        self.model.fit(X, y)
-        return self
+### Environment Variables
 
-# src/pipeline/model_pipeline.py
-models = {
-    'gradient_boosting': GradientBoostingModel(),
-    'random_forest': RandomForestModel(),
-    'custom': CustomModel()
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `DATA_VERSION` | Data version to use | `v3` |
+| `MODEL_METRIC` | Model selection metric | `rmse` |
+| `API_HOST` | Server host | `0.0.0.0` |
+| `API_PORT` | Server port | `8000` |
+| `API_WORKERS` | Worker processes | `1` |
+| `LOG_LEVEL` | Logging level | `INFO` |
+
+### Model Loading
+
+```bash
+# Load from pipeline outputs (default)
+MODEL_LOAD_TARGET=pipeline
+
+# Load from jupyter outputs  
+MODEL_LOAD_TARGET=jupyter
+
+# Specify exact model version
+MODEL_VERSION=v3.4
+```
+
+---
+
+## 📊 Monitoring
+
+### Logging Structure
+
+```
+outputs/
+├── pipeline/logs/PropertyValuationPipeline.log    # Training logs
+├── predictions/api.log                            # API access logs
+└── predictions/error.log                          # Error logs
+```
+
+### Log Formats
+
+**API Logs:**
+```json
+{
+  "timestamp": "2025-08-02T22:05:21.892530",
+  "endpoint": "/api/v3/predictions",
+  "status_code": 200,
+  "response_time": 0.0234,
+  "model_version": "v3.4_gradient_boosting",
+  "prediction": 185000000
 }
 ```
 
-### Logging and Monitoring
-
-The system includes comprehensive logging:
-
-- **API Logs**: `outputs/predictions/api.log`
-- **Pipeline Logs**: `outputs/pipeline/logs/pipeline.log`
-- **Error Logs**: `outputs/predictions/error.log`
-
-To configure logging:
-
-```bash
-# Set log level
-LOG_LEVEL=DEBUG python scripts/run_api.py
-
-# Configure log file size
-LOG_MAX_BYTES=20971520 LOG_BACKUP_COUNT=10 python scripts/run_api.py
+**Pipeline Logs:**
+```json
+{
+  "timestamp": "2025-08-02T22:05:21.892530",
+  "component": "ModelTraining",
+  "model_type": "gradient_boosting",
+  "data_version": "v3.4",
+  "metrics": {"rmse": 5710.23, "mae": 2624.52}
+}
 ```
 
-## Best Practices
+---
 
-### Production Deployment
+## 🧪 Testing
 
-For production deployment:
-
-1. Use Docker with resource limits
-2. Set a strong API key
-3. Configure proper logging
-4. Use multiple workers for the API
-5. Set up monitoring and alerting
-
-Example production Docker command:
+### API Testing
 
 ```bash
-docker-compose -e API_WORKERS=4 -e LOG_LEVEL=WARNING up -d api
+# Unit tests
+python -m pytest tests/test_api.py
+
+# Integration tests
+python -m pytest tests/test_integration.py
 ```
 
-### Data Management
+---
 
-Best practices for data management:
+## 🚨 Troubleshooting
 
-1. Keep data versions in separate directories
-2. Document data schema changes
-3. Validate data before processing
-4. Back up data regularly
-5. Use consistent naming conventions
+### Common Issues
 
-### Model Management
+!!! warning "Model Loading Errors"
+    **Problem**: Model file not found
+    
+    **Solution**: 
+    ```bash
+    # Check available models
+    ls outputs/pipeline/models/
+    
+    # Retrain if necessary
+    python scripts/pipeline.py
+    ```
 
-Best practices for model management:
+!!! warning "Version Mismatch"
+    **Problem**: API version doesn't match model version
+    
+    **Solution**: 
+    ```bash
+    # Ensure consistent versioning
+    export DATA_VERSION=v3
+    export MODEL_VERSION=v3.4
+    python scripts/run_api.py
+    ```
 
-1. Version models consistently
-2. Document model changes
-3. Track model performance metrics
-4. Compare models before deployment
-5. Monitor model performance in production
+!!! warning "Performance Issues"
+    **Problem**: Slow API responses
+    
+    **Solution**: 
+    ```bash
+    # Enable model caching
+    export MODEL_CACHE_SIZE=5
+    
+    # Increase workers
+    export API_WORKERS=4
+    ```
 
-## Troubleshooting
+---
 
-### Common API Issues
+## 📈 Performance Metrics
 
-- **401 Unauthorized**: Check your API key
-- **400 Bad Request**: Verify your request format
-- **500 Internal Server Error**: Check API logs for details
+### Model Performance (v3.4)
 
-### Common Pipeline Issues
+| Metric | Value | Target |
+|--------|-------|--------|
+| **RMSE** | 5,710 CLP | < 6,000 CLP |
+| **MAE** | 2,625 CLP | < 3,000 CLP |
+| **MAPE** | 46.7% | < 50% |
+| **Training Samples** | 15,352 | 15,000+ |
 
-- **Missing data files**: Ensure data files exist in the correct version directory
-- **Model training failures**: Check pipeline logs for details
-- **Feature engineering errors**: Verify data format and feature engineering logic
+### API Performance
 
-## Appendix
+| Metric | Current | Target |
+|--------|---------|--------|
+| **Response Time** | 23ms | < 50ms |
+| **Throughput** | 1,000 req/min | 1,500 req/min |
+| **Availability** | 99.9% | 99.95% |
+| **Error Rate** | 0.1% | < 0.5% |
 
-### API Response Codes
+---
 
-| Code | Description |
-|------|-------------|
-| 200 | Success |
-| 400 | Bad Request |
-| 401 | Unauthorized |
-| 404 | Not Found |
-| 500 | Internal Server Error |
+## 🔗 Integration Examples
 
-### Model Performance Metrics
+### Batch Processing
 
-| Metric | Description |
-|--------|-------------|
-| RMSE | Root Mean Squared Error |
-| MAE | Mean Absolute Error |
-| R² | Coefficient of Determination |
+```python
+import requests
 
-### Environment Variables Reference
+def batch_valuate_properties(properties):
+    response = requests.post(
+        "http://localhost:8000/api/v3/predictions/batch",
+        headers={"X-API-Key": "your_key"},
+        json={"properties": properties}
+    )
+    return response.json()
+```
 
-See the [Installation Guide](installation-guide.md#environment-variables) for a complete list of environment variables.
+### Real-time Integration
 
-### File Formats
+```python
+import asyncio
+import aiohttp
 
-- **Data Files**: CSV format with headers
-- **Model Files**: Pickle (.pkl) format
-- **Schema Files**: JSON format
-- **Log Files**: Text format
+async def real_time_valuation(property_data):
+    async with aiohttp.ClientSession() as session:
+        async with session.post(
+            "http://localhost:8000/api/v3/predictions",
+            headers={"X-API-Key": "your_key"},
+            json={"features": property_data}
+        ) as response:
+            return await response.json()
+```

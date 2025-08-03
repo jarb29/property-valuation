@@ -1,0 +1,22 @@
+# MkDocs Documentation Requirements
+
+# Core MkDocs
+mkdocs>=1.5.0
+mkdocs-material>=9.4.0
+
+# Essential plugins
+mkdocs-minify-plugin>=0.7.0
+mkdocs-git-revision-date-localized-plugin>=1.2.0
+mkdocs-git-committers-plugin-2>=1.2.0
+
+# Enhanced markdown extensions
+pymdown-extensions>=10.3.0
+markdown-include>=0.8.1
+
+# Additional utilities
+mkdocs-awesome-pages-plugin>=2.9.0
+mkdocs-redirects>=1.2.0
+mkdocs-macros-plugin>=1.0.0
+
+# Development tools
+mkdocs-live-reload>=1.0.0

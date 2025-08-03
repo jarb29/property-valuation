@@ -331,6 +331,63 @@ The Docker configuration includes several advanced features:
 - **Health checks**: Monitors service availability
 - **Container naming**: Simplifies container management
 
+## Documentation
+
+This project uses MkDocs with the Material theme to provide comprehensive, searchable, and well-organized documentation.
+
+### MkDocs Setup
+
+The documentation is built using [MkDocs](https://www.mkdocs.org/), a fast and simple static site generator designed specifically for project documentation:
+
+1. **Installation**:
+   ```bash
+   # Install MkDocs and required plugins
+   pip install -r requirements-docs.txt
+   ```
+
+2. **Local Development**:
+   ```bash
+   # Start the MkDocs development server
+   mkdocs serve
+   ```
+   This will start a local server at `http://127.0.0.1:8000/` that automatically reloads when you make changes.
+
+3. **Building the Documentation**:
+   ```bash
+   # Build the static site
+   mkdocs build
+   ```
+   This creates a `site` directory with the built HTML files.
+
+### Documentation Structure
+
+- `mkdocs.yml`: Configuration file in the project root
+- `docs/`: Documentation source files
+  - `index.md`: Main landing page
+  - `getting-started.md`: Quick start guide
+  - `installation-guide.md`: Detailed installation instructions
+  - `user-manual.md`: Comprehensive user guide
+  - `api-documentation.md`: API reference
+  - `github-pages-deployment.md`: Guide for deploying to GitHub Pages
+  - `Challenge.md`: Original project requirements
+  - `assets/css/extra.css`: Custom CSS styles
+
+### GitHub Pages Deployment
+
+The documentation can be deployed to GitHub Pages with a single command:
+
+```bash
+# Deploy to GitHub Pages
+mkdocs gh-deploy
+```
+
+This command:
+1. Builds your documentation
+2. Creates or updates a branch called `gh-pages`
+3. Pushes the built site to that branch
+4. GitHub automatically serves the site from this branch
+
+For more details, see the [GitHub Pages Deployment Guide](docs/github-pages-deployment.md).
 
 ### Versioning
 

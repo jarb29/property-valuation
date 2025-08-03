@@ -1,0 +1,470 @@
+/* Property Valuation ML System Documentation - Professional Styles */
+
+/* Root variables for consistent theming */
+:root {
+  --pv-primary: #3f51b5;
+  --pv-primary-light: #7986cb;
+  --pv-primary-dark: #303f9f;
+  --pv-accent: #2196f3;
+  --pv-success: #4caf50;
+  --pv-warning: #ff9800;
+  --pv-error: #f44336;
+  --pv-info: #2196f3;
+  --pv-text-primary: #212121;
+  --pv-text-secondary: #757575;
+  --pv-background: #fafafa;
+  --pv-surface: #ffffff;
+  --pv-border: #e0e0e0;
+  --pv-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  --pv-shadow-hover: 0 4px 8px rgba(0,0,0,0.15);
+  --pv-border-radius: 8px;
+  --pv-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Dark theme variables */
+[data-md-color-scheme="slate"] {
+  --pv-text-primary: #ffffff;
+  --pv-text-secondary: #b0bec5;
+  --pv-background: #121212;
+  --pv-surface: #1e1e1e;
+  --pv-border: #333333;
+  --pv-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  --pv-shadow-hover: 0 4px 8px rgba(0,0,0,0.4);
+}
+
+/* Typography improvements */
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--pv-text-primary);
+  font-feature-settings: 'kern' 1, 'liga' 1, 'calt' 1;
+}
+
+/* Headings with professional styling */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--pv-text-primary);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  scroll-margin-top: 4rem;
+}
+
+h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  border-bottom: 2px solid var(--pv-primary);
+  padding-bottom: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+h2 {
+  font-size: 2rem;
+  border-bottom: 1px solid var(--pv-border);
+  padding-bottom: 0.3rem;
+  margin-top: 3rem;
+}
+
+h3 {
+  font-size: 1.5rem;
+  color: var(--pv-primary);
+}
+
+h4 {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+/* Enhanced links */
+a {
+  color: var(--pv-primary);
+  text-decoration: none;
+  transition: var(--pv-transition);
+  border-bottom: 1px solid transparent;
+}
+
+a:hover {
+  color: var(--pv-primary-dark);
+  border-bottom-color: var(--pv-primary);
+}
+
+/* Professional code styling */
+code {
+  font-family: 'JetBrains Mono', 'Fira Code', 'Monaco', 'Consolas', monospace;
+  font-size: 0.875em;
+  background: var(--pv-surface);
+  border: 1px solid var(--pv-border);
+  border-radius: 4px;
+  padding: 0.2em 0.4em;
+  font-weight: 500;
+}
+
+pre {
+  background: var(--pv-surface);
+  border: 1px solid var(--pv-border);
+  border-radius: var(--pv-border-radius);
+  padding: 1.5rem;
+  overflow-x: auto;
+  box-shadow: var(--pv-shadow);
+  margin: 1.5rem 0;
+}
+
+pre code {
+  background: transparent;
+  border: none;
+  padding: 0;
+  font-size: 0.9em;
+  line-height: 1.5;
+}
+
+/* Enhanced tables */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 2rem 0;
+  background: var(--pv-surface);
+  border-radius: var(--pv-border-radius);
+  overflow: hidden;
+  box-shadow: var(--pv-shadow);
+}
+
+table th {
+  background: var(--pv-primary);
+  color: white;
+  font-weight: 600;
+  padding: 1rem;
+  text-align: left;
+  font-size: 0.9em;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+table td {
+  padding: 1rem;
+  border-bottom: 1px solid var(--pv-border);
+  vertical-align: top;
+}
+
+table tr:hover {
+  background: rgba(63, 81, 181, 0.05);
+}
+
+table tr:last-child td {
+  border-bottom: none;
+}
+
+/* Professional admonitions */
+.admonition {
+  margin: 2rem 0;
+  padding: 1.5rem;
+  border-radius: var(--pv-border-radius);
+  border-left: 4px solid;
+  box-shadow: var(--pv-shadow);
+  background: var(--pv-surface);
+  transition: var(--pv-transition);
+}
+
+.admonition:hover {
+  box-shadow: var(--pv-shadow-hover);
+  transform: translateY(-1px);
+}
+
+.admonition.note {
+  border-color: var(--pv-info);
+  background: linear-gradient(135deg, rgba(33, 150, 243, 0.1), rgba(33, 150, 243, 0.05));
+}
+
+.admonition.tip {
+  border-color: var(--pv-success);
+  background: linear-gradient(135deg, rgba(76, 175, 80, 0.1), rgba(76, 175, 80, 0.05));
+}
+
+.admonition.warning {
+  border-color: var(--pv-warning);
+  background: linear-gradient(135deg, rgba(255, 152, 0, 0.1), rgba(255, 152, 0, 0.05));
+}
+
+.admonition.danger {
+  border-color: var(--pv-error);
+  background: linear-gradient(135deg, rgba(244, 67, 54, 0.1), rgba(244, 67, 54, 0.05));
+}
+
+.admonition-title {
+  font-weight: 700;
+  margin-bottom: 1rem;
+  font-size: 1.1em;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.admonition-title::before {
+  content: '';
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.admonition.note .admonition-title::before {
+  background: var(--pv-info);
+}
+
+.admonition.tip .admonition-title::before {
+  background: var(--pv-success);
+}
+
+.admonition.warning .admonition-title::before {
+  background: var(--pv-warning);
+}
+
+.admonition.danger .admonition-title::before {
+  background: var(--pv-error);
+}
+
+/* Enhanced blockquotes */
+blockquote {
+  margin: 2rem 0;
+  padding: 1.5rem 2rem;
+  border-left: 4px solid var(--pv-primary);
+  background: linear-gradient(135deg, rgba(63, 81, 181, 0.1), rgba(63, 81, 181, 0.05));
+  border-radius: 0 var(--pv-border-radius) var(--pv-border-radius) 0;
+  font-style: italic;
+  position: relative;
+}
+
+blockquote::before {
+  content: '"';
+  font-size: 4rem;
+  color: var(--pv-primary);
+  position: absolute;
+  top: -0.5rem;
+  left: 1rem;
+  opacity: 0.3;
+  font-family: Georgia, serif;
+}
+
+/* Professional lists */
+ul, ol {
+  padding-left: 2rem;
+  margin: 1rem 0;
+}
+
+li {
+  margin: 0.5rem 0;
+  line-height: 1.6;
+}
+
+li::marker {
+  color: var(--pv-primary);
+  font-weight: 600;
+}
+
+/* Task lists */
+.task-list-item {
+  list-style: none;
+  margin-left: -2rem;
+  padding-left: 2rem;
+}
+
+.task-list-item input[type="checkbox"] {
+  margin-right: 0.5rem;
+  transform: scale(1.2);
+  accent-color: var(--pv-primary);
+}
+
+/* Enhanced navigation */
+.md-nav__item--active > .md-nav__link {
+  color: var(--pv-primary);
+  font-weight: 600;
+}
+
+.md-nav__link:hover {
+  color: var(--pv-primary-dark);
+}
+
+/* Professional buttons and badges */
+.md-button {
+  background: var(--pv-primary);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--pv-border-radius);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: var(--pv-transition);
+  box-shadow: var(--pv-shadow);
+}
+
+.md-button:hover {
+  background: var(--pv-primary-dark);
+  box-shadow: var(--pv-shadow-hover);
+  transform: translateY(-2px);
+}
+
+/* Code copy button styling */
+.md-clipboard {
+  background: var(--pv-primary);
+  border-radius: 4px;
+  transition: var(--pv-transition);
+}
+
+.md-clipboard:hover {
+  background: var(--pv-primary-dark);
+}
+
+/* Search improvements */
+.md-search__input {
+  border-radius: var(--pv-border-radius);
+  border: 1px solid var(--pv-border);
+}
+
+.md-search__input:focus {
+  border-color: var(--pv-primary);
+  box-shadow: 0 0 0 2px rgba(63, 81, 181, 0.2);
+}
+
+/* Footer styling */
+.md-footer {
+  background: var(--pv-surface);
+  border-top: 1px solid var(--pv-border);
+}
+
+/* Responsive design improvements */
+@media screen and (max-width: 768px) {
+  body {
+    font-size: 15px;
+    padding: 1rem;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  h2 {
+    font-size: 1.75rem;
+  }
+
+  h3 {
+    font-size: 1.5rem;
+  }
+
+  pre {
+    padding: 1rem;
+    margin: 1rem 0;
+  }
+
+  table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .admonition {
+    padding: 1rem;
+    margin: 1rem 0;
+  }
+}
+
+/* Print styles */
+@media print {
+  .md-header,
+  .md-sidebar,
+  .md-footer {
+    display: none;
+  }
+
+  body {
+    font-size: 12pt;
+    line-height: 1.5;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    page-break-after: avoid;
+  }
+
+  pre, blockquote {
+    page-break-inside: avoid;
+  }
+}
+
+/* Custom utility classes */
+.text-center {
+  text-align: center;
+}
+
+.text-muted {
+  color: var(--pv-text-secondary);
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-radius: 4px;
+  background: var(--pv-primary);
+  color: white;
+}
+
+.badge.success {
+  background: var(--pv-success);
+}
+
+.badge.warning {
+  background: var(--pv-warning);
+}
+
+.badge.error {
+  background: var(--pv-error);
+}
+
+/* API documentation specific styles */
+.endpoint {
+  background: var(--pv-surface);
+  border: 1px solid var(--pv-border);
+  border-radius: var(--pv-border-radius);
+  padding: 1.5rem;
+  margin: 2rem 0;
+  box-shadow: var(--pv-shadow);
+}
+
+.endpoint-method {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  margin-right: 1rem;
+}
+
+.endpoint-method.post {
+  background: #4caf50;
+  color: white;
+}
+
+.endpoint-method.get {
+  background: #2196f3;
+  color: white;
+}
+
+.endpoint-method.put {
+  background: #ff9800;
+  color: white;
+}
+
+.endpoint-method.delete {
+  background: #f44336;
+  color: white;
+}
+
+.endpoint-path {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 600;
+  color: var(--pv-text-primary);
+}

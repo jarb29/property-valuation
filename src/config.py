@@ -68,21 +68,6 @@ data_version_dirs = [
     if os.path.isdir(os.path.join(DATA_DIR, d)) and d.startswith("v")
 ]
 print(f"Found data version folders: {data_version_dirs}")
-
-# If no version folders are found and user hasn't explicitly set DATA_VERSION, pick the first
-if not data_version_dirs:
-    if "DATA_VERSION" not in os.environ and data_version_dirs:
-        DATA_VERSION = data_version_dirs[0]
-else:
-    # Create the default version folder if it doesn't exist
-    os.makedirs(os.path.join(DATA_DIR, DATA_VERSION), exist_ok=True)
-
-# 6. API Settings
-API_HOST = os.getenv("API_HOST", "0.0.0.0")
-API_PORT = int(os.getenv("API_PORT", "8000"))
-API_WORKERS = int(os.getenv("API_WORKERS", "1"))
-API_DEBUG = os.getenv("API_DEBUG", "False").lower() in ("true", "1", "t")
-
 # 7. Data Version Settings
 DATA_VERSION = os.getenv("DATA_VERSION", "v3")
 
@@ -91,18 +76,31 @@ API_KEY = os.getenv("API_KEY", "default_api_key")
 MODEL_VERSION = os.getenv("MODEL_VERSION", DATA_VERSION)
 MODEL_METRIC = os.getenv("MODEL_METRIC", "rmse")
 MODEL_LOAD_TARGET = os.getenv("MODEL_LOAD_TARGET", "pipeline")
+# If no version folders are found and user hasn't explicitly set DATA_VERSION, pick the first
+if not data_version_dirs:
+    if "DATA_VERSION" not in os.environ and data_version_dirs:
+        DATA_VERSION = data_version_dirs[0]
+else:
+    # Create the default version folder if it doesn't exist
+    os.makedirs(os.path.join(DATA_DIR, DATA_VERSION), exist_ok=True)
+
+# 9. API Settings
+API_HOST = os.getenv("API_HOST", "0.0.0.0")
+API_PORT = int(os.getenv("API_PORT", "8000"))
+API_WORKERS = int(os.getenv("API_WORKERS", "1"))
+API_DEBUG = os.getenv("API_DEBUG", "False").lower() in ("true", "1", "t")
 
 # Here we define MODEL_DIR to fix any undefined references:
 MODEL_DIR = PIPELINE_MODELS_DIR
 DEFAULT_MODEL_PATH = os.path.join(MODEL_DIR, f"model_{MODEL_VERSION}.pkl")
 
-# 9. Data Settings
+# 10. Data Settings
 DATA_VERSION_DIR = os.path.join(DATA_DIR, DATA_VERSION)
 print(f"Data version directory: {DATA_VERSION_DIR}")
 TRAIN_DATA_PATH = os.path.join(DATA_VERSION_DIR, "train.csv")
 TEST_DATA_PATH = os.path.join(DATA_VERSION_DIR, "test.csv")
 
-# 10. Logging Settings
+# 11. Logging Settings
 LOG_LEVEL = os.getenv("LOG_LEVEL", "INFO")
 LOG_MAX_BYTES = int(os.getenv("LOG_MAX_BYTES", str(10 * 1024 * 1024)))  # 10 MB by default
 LOG_BACKUP_COUNT = int(os.getenv("LOG_BACKUP_COUNT", "5"))  # 5 backup files by default

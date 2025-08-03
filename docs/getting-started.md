@@ -1,74 +1,161 @@
+# Getting Started
+
+Welcome to the Property Valuation ML System! This guide will help you get up and running quickly with our enterprise-grade machine learning platform.
+
 ---
-layout: default
-title: Getting Started
+
+## 📋 Prerequisites
+
+Before you begin, ensure your system meets these requirements:
+
+!!! info "System Requirements"
+    - **Python**: 3.8 or higher
+    - **Docker**: Latest version (recommended)
+    - **Memory**: Minimum 4GB RAM
+    - **Storage**: 2GB free space
+    - **OS**: Linux, macOS, or Windows
+
+### Required Tools
+
+=== "Essential"
+    - [Python 3.8+](https://python.org/downloads/)
+    - [Git](https://git-scm.com/downloads)
+
+=== "Recommended"
+    - [Docker Desktop](https://docker.com/products/docker-desktop/)
+    - [VS Code](https://code.visualstudio.com/) with Python extension
+    - [Postman](https://postman.com/) for API testing
+
 ---
 
-# Getting Started with Property Valuation ML System
+## 🚀 Quick Installation
 
-This guide will help you quickly get started with the Property Valuation ML System.
+Choose your preferred installation method:
 
-## Prerequisites
+### Option A: Docker Setup (Recommended)
 
-Before you begin, ensure you have the following installed:
-
-- Python 3.8+
-- Docker and Docker Compose (for containerized deployment)
-- Git
-
-## Quick Start
-
-### 1. Clone the Repository
+Docker provides the fastest and most reliable setup experience:
 
 ```bash
+# 1. Clone the repository
 git clone <repository-url>
 cd property-valuation
-```
 
-### 2. Choose Your Setup Method
-
-You can set up the system using either Docker (recommended) or a local Python environment.
-
-#### Option A: Docker Setup (Recommended)
-
-1. Build and start the API service:
-
-```bash
+# 2. Start the API service
 docker-compose up api
+
+# 3. Verify installation
+curl http://localhost:8000/api/v3/health
 ```
 
-2. The API will be available at `http://localhost:8000`
+!!! success "Docker Benefits"
+    - ✅ No dependency conflicts
+    - ✅ Consistent environment
+    - ✅ Production-ready configuration
+    - ✅ Easy scaling and deployment
 
-#### Option B: Local Python Setup
+### Option B: Local Python Setup
 
-1. Create and activate a virtual environment:
+For development and customization:
 
 ```bash
+# 1. Clone and navigate
+git clone <repository-url>
+cd property-valuation
+
+# 2. Create virtual environment
 python -m venv .venv
-source .venv/bin/activate  # On Windows: .venv\Scripts\activate
-```
 
-2. Install dependencies:
+# 3. Activate environment
+# On macOS/Linux:
+source .venv/bin/activate
+# On Windows:
+.venv\Scripts\activate
 
-```bash
+# 4. Install dependencies
 pip install -r requirements.txt
-```
 
-3. Set up environment variables:
-
-```bash
+# 5. Configure environment
 cp .env.example .env
-# Edit .env with your configuration
-```
 
-4. Run the API:
-
-```bash
+# 6. Start the API
 python scripts/run_api.py
 ```
 
-## Making Your First API Request
+---
 
-Once the API is running, you can make a prediction request:
+## 🔧 Configuration
+
+### Environment Variables
+
+The system uses environment variables for configuration. Key settings:
+
+| Variable | Description | Default | Example |
+|----------|-------------|---------|---------|
+| `DATA_VERSION` | Data version to use | `v3` | `v2`, `v3` |
+| `MODEL_METRIC` | Model selection metric | `rmse` | `mae`, `r2` |
+| `API_HOST` | API server host | `0.0.0.0` | `localhost` |
+| `API_PORT` | API server port | `8000` | `8080` |
+| `API_KEY` | Authentication key | `default_api_key` | `your_secure_key` |
+
+### Sample Configuration
+
+Create your `.env` file:
+
+```bash
+# Data Configuration
+DATA_VERSION=v3
+MODEL_VERSION=v3
+MODEL_METRIC=rmse
+MODEL_LOAD_TARGET=pipeline
+
+# API Configuration
+API_HOST=0.0.0.0
+API_PORT=8000
+API_KEY=your_secure_api_key
+API_DEBUG=False
+
+# Logging Configuration
+LOG_LEVEL=INFO
+```
+
+---
+
+## 🧪 Verify Your Installation
+
+### 1. Health Check
+
+Test that the API is running:
+
+```bash
+curl -X GET http://localhost:8000/api/v3/health \
+  -H "X-API-Key: default_api_key"
+```
+
+Expected response:
+```json
+{
+  "status": "healthy",
+  "api_version": "1.0.0",
+  "model_loaded": true,
+  "model_version": "best_rmse_pipeline",
+  "data_version": "v3",
+  "uptime": 60
+}
+```
+
+### 2. Model Information
+
+Check the loaded model:
+
+```bash
+curl -X GET http://localhost:8000/api/v3/model/info \
+  -H "X-API-Key: default_api_key"
+```
+
+### 3. Sample Prediction
+
+Make your first prediction:
 
 ```bash
 curl -X POST http://localhost:8000/api/v3/predictions \
@@ -88,54 +175,203 @@ curl -X POST http://localhost:8000/api/v3/predictions \
   }'
 ```
 
-You should receive a response like:
-
+Expected response:
 ```json
 {
   "prediction": 185000000,
   "prediction_time": 0.0234,
-  "model_version": "best_mae_pipeline"
+  "model_version": "best_rmse_pipeline"
 }
 ```
 
-## Next Steps
+---
 
-Now that you have the system up and running, you might want to:
+## 🎯 Your First Workflow
 
-1. **Explore the API Documentation**: Check out the [API Documentation](api-documentation.md) for details on all available endpoints.
+Now that everything is set up, let's walk through a complete workflow:
 
-2. **Train a Custom Model**: Learn how to train your own model with custom data:
+### Step 1: Explore the Data
+
+```bash
+# Check available data versions
+ls data/
+
+# View sample data
+head -5 data/v3/train.csv
+```
+
+### Step 2: Train a Model (Optional)
 
 ```bash
 # Run the ML pipeline with default settings
 docker-compose --profile pipeline up pipeline
 
-# Or with custom settings
-DATA_VERSION=v2 docker-compose --profile pipeline up pipeline
+# Or with custom configuration
+DATA_VERSION=v3 MODEL_METRIC=mae docker-compose --profile pipeline up pipeline
 ```
 
-3. **Configure the System**: Review the [Installation Guide](installation-guide.md) for detailed configuration options.
+### Step 3: Make Predictions
 
-4. **Understand the Architecture**: Explore the [User Manual](user-manual.md) to understand the system's architecture and components.
+Use the API to make predictions for different property types:
 
-## Troubleshooting
+=== "Apartment"
+    ```json
+    {
+      "features": {
+        "type": "departamento",
+        "sector": "providencia",
+        "net_usable_area": 85.0,
+        "net_area": 100.0,
+        "n_rooms": 2,
+        "n_bathroom": 1,
+        "latitude": -33.4298,
+        "longitude": -70.6345
+      }
+    }
+    ```
 
-If you encounter any issues:
+=== "House"
+    ```json
+    {
+      "features": {
+        "type": "casa",
+        "sector": "las condes",
+        "net_usable_area": 200.0,
+        "net_area": 300.0,
+        "n_rooms": 4,
+        "n_bathroom": 3,
+        "latitude": -33.4172,
+        "longitude": -70.5476
+      }
+    }
+    ```
 
-1. Check the logs:
-   - API logs: `outputs/predictions/api.log`
-   - Pipeline logs: `outputs/pipeline/logs/pipeline.log`
+### Step 4: Batch Processing
 
-2. Ensure all environment variables are set correctly
+For multiple properties:
 
-3. Verify Docker is running properly if using containerized deployment
+```bash
+curl -X POST http://localhost:8000/api/v3/predictions/batch \
+  -H "Content-Type: application/json" \
+  -H "X-API-Key: default_api_key" \
+  -d '{
+    "properties": [
+      {"features": {...}},
+      {"features": {...}}
+    ]
+  }'
+```
 
-4. Check the model file exists: `outputs/pipeline/models/model_v3.pkl` (or your specific version)
+---
 
-## Getting Help
+## 🔍 Development Tools
 
-If you need further assistance, please:
+### API Documentation
 
-1. Check the [full documentation](https://github.com/username/property-valuation)
-2. Open an issue on GitHub
-3. Contact the maintainers
+Access interactive API documentation:
+
+- **Swagger UI**: http://localhost:8000/docs
+- **ReDoc**: http://localhost:8000/redoc
+
+### Monitoring and Logs
+
+Monitor your system:
+
+```bash
+# View API logs
+tail -f outputs/predictions/api.log
+
+# View pipeline logs
+tail -f outputs/pipeline/logs/pipeline.log
+
+# Docker logs
+docker-compose logs -f api
+```
+
+### Development Mode
+
+For active development:
+
+```bash
+# Start with hot reload
+python scripts/run_api.py --reload
+
+# Or with Docker
+docker-compose --profile dev up api-dev
+```
+
+---
+
+## 🚨 Troubleshooting
+
+### Common Issues
+
+!!! warning "Port Already in Use"
+    **Problem**: Port 8000 is already in use
+    
+    **Solution**: 
+    ```bash
+    # Use a different port
+    API_PORT=8080 python scripts/run_api.py
+    # Or kill the process using the port
+    lsof -ti:8000 | xargs kill -9
+    ```
+
+!!! warning "Model Not Found"
+    **Problem**: No model file found
+    
+    **Solution**: 
+    ```bash
+    # Train a model first
+    python scripts/pipeline.py
+    # Or check if model exists
+    ls outputs/pipeline/models/
+    ```
+
+!!! warning "Permission Denied"
+    **Problem**: Docker permission issues
+    
+    **Solution**: 
+    ```bash
+    # Add user to docker group (Linux)
+    sudo usermod -aG docker $USER
+    # Or run with sudo
+    sudo docker-compose up api
+    ```
+
+### Getting Help
+
+If you encounter issues:
+
+1. **Check the logs** for detailed error messages
+2. **Verify environment variables** are set correctly
+3. **Ensure all dependencies** are installed
+4. **Check Docker status** if using containers
+
+---
+
+## 🎉 Next Steps
+
+Congratulations! You now have a working Property Valuation ML System. Here's what to explore next:
+
+| Next Step | Description | Link |
+|-----------|-------------|------|
+| **API Deep Dive** | Learn all API endpoints and features | [API Documentation](api-documentation.md) |
+| **System Architecture** | Understand the complete system design | [User Manual](user-manual.md) |
+| **Custom Models** | Train models with your own data | [User Manual - Training](user-manual.md#model-training) |
+| **Production Deployment** | Deploy to production environments | [User Manual - Deployment](user-manual.md#deployment) |
+
+---
+
+## 📞 Support
+
+Need help? We're here for you:
+
+- **📖 Documentation**: Complete guides and references
+- **🐛 GitHub Issues**: Bug reports and feature requests  
+- **📧 Email**: team@property-valuation.com
+- **💬 Community**: Join our developer community
+
+<div class="text-center">
+  <p><strong>Ready to build amazing property valuation applications!</strong></p>
+</div>

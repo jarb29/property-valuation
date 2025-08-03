@@ -1,7 +1,3 @@
----
-layout: default
-title: Original Challenge
----
 
 # Property-Friends Real State case
 > This is an hypothetical scenario and is not related with an actual project.
