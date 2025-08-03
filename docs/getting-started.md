@@ -38,14 +38,21 @@ Docker provides the fastest and most reliable setup experience:
 
 ```bash
 # 1. Clone the repository
-git clone <repository-url>
+git clone https://github.com/jarb29/property-valuation
 cd property-valuation
 
-# 2. Start the API service
+# 2. Prepare your data
+mkdir -p data/v1
+# Copy your train.csv and test.csv files to data/v1/
+
+# 3. Run the ML pipeline
+docker-compose --profile pipeline up pipeline
+
+# 4. Start the API service
 docker-compose up api
 
-# 3. Verify installation
-curl http://localhost:8000/api/v3/health
+# 5. Verify installation
+curl http://localhost:8000/api/v1/health
 ```
 
 !!! success "Docker Benefits"
@@ -60,25 +67,33 @@ For development and customization:
 
 ```bash
 # 1. Clone and navigate
-git clone <repository-url>
+git clone https://github.com/jarb29/property-valuation
 cd property-valuation
 
-# 2. Create virtual environment
+# 2. Prepare your data
+mkdir -p data/v1
+# Copy your train.csv and test.csv files to data/v1/
+
+# 3. Create virtual environment
 python -m venv .venv
 
-# 3. Activate environment
+# 4. Activate environment
 # On macOS/Linux:
 source .venv/bin/activate
 # On Windows:
 .venv\Scripts\activate
 
-# 4. Install dependencies
+# 5. Install dependencies
 pip install -r requirements.txt
 
-# 5. Configure environment
+# 6. Configure environment
 cp .env.example .env
+# Edit .env to set DATA_VERSION=v1
 
-# 6. Start the API
+# 7. Run the ML pipeline
+python scripts/pipeline.py
+
+# 8. Start the API
 python scripts/run_api.py
 ```
 
@@ -92,7 +107,7 @@ The system uses environment variables for configuration. Key settings:
 
 | Variable | Description | Default | Example |
 |----------|-------------|---------|---------|
-| `DATA_VERSION` | Data version to use | `v3` | `v2`, `v3` |
+| `DATA_VERSION` | Data version to use | `v1` | `v1`, `v2`, `v3` |
 | `MODEL_METRIC` | Model selection metric | `rmse` | `mae`, `r2` |
 | `API_HOST` | API server host | `0.0.0.0` | `localhost` |
 | `API_PORT` | API server port | `8000` | `8080` |
@@ -104,8 +119,8 @@ Create your `.env` file:
 
 ```bash
 # Data Configuration
-DATA_VERSION=v3
-MODEL_VERSION=v3
+DATA_VERSION=v1
+MODEL_VERSION=v1
 MODEL_METRIC=rmse
 MODEL_LOAD_TARGET=pipeline
 
@@ -119,6 +134,34 @@ API_DEBUG=False
 LOG_LEVEL=INFO
 ```
 
+### Model Configuration Details
+
+The system uses these key variables (defined in `src/config`) for intelligent model selection:
+
+| Variable | Purpose | Options | Example |
+|----------|---------|---------|----------|
+| `API_KEY` | API authentication | Any string | `"my_secure_key"` |
+| `MODEL_VERSION` | Model version to load | Defaults to `DATA_VERSION` | `v1`, `v2`, `v3` |
+| `MODEL_METRIC` | Best model selection criteria | `rmse`, `mae`, `r2` | `rmse` |
+| `MODEL_LOAD_TARGET` | Model source location | `pipeline`, `jupyter` | `pipeline` |
+
+**How Model Selection Works:**
+
+1. **Training Phase**: Multiple models are trained and saved with performance metrics
+2. **Selection Phase**: System chooses the best model based on `MODEL_METRIC`
+3. **Loading Phase**: API loads the selected model from `MODEL_LOAD_TARGET` location
+4. **Versioning**: All artifacts are saved with version numbers for traceability
+
+**Example Workflow:**
+```bash
+# Train models with different configurations
+MODEL_METRIC=rmse python scripts/pipeline.py  # Selects best RMSE model
+MODEL_METRIC=mae python scripts/pipeline.py   # Selects best MAE model
+
+# API automatically loads the best model based on your configuration
+MODEL_LOAD_TARGET=pipeline MODEL_METRIC=rmse python scripts/run_api.py
+```
+
 ---
 
 ## 🧪 Verify Your Installation
@@ -128,7 +171,7 @@ LOG_LEVEL=INFO
 Test that the API is running:
 
 ```bash
-curl -X GET http://localhost:8000/api/v3/health \
+curl -X GET http://localhost:8000/api/v1/health \
   -H "X-API-Key: default_api_key"
 ```
 
@@ -149,7 +192,7 @@ Expected response:
 Check the loaded model:
 
 ```bash
-curl -X GET http://localhost:8000/api/v3/model/info \
+curl -X GET http://localhost:8000/api/v1/model/info \
   -H "X-API-Key: default_api_key"
 ```
 
@@ -158,7 +201,7 @@ curl -X GET http://localhost:8000/api/v3/model/info \
 Make your first prediction:
 
 ```bash
-curl -X POST http://localhost:8000/api/v3/predictions \
+curl -X POST http://localhost:8000/api/v1/predictions \
   -H "Content-Type: application/json" \
   -H "X-API-Key: default_api_key" \
   -d '{
@@ -197,20 +240,40 @@ Now that everything is set up, let's walk through a complete workflow:
 ls data/
 
 # View sample data
-head -5 data/v3/train.csv
+head -5 data/v1/train.csv
 ```
 
-### Step 2: Train a Model (Optional)
+### Step 2: Train a Model
 
 ```bash
 # Run the ML pipeline with default settings
 docker-compose --profile pipeline up pipeline
 
 # Or with custom configuration
-DATA_VERSION=v3 MODEL_METRIC=mae docker-compose --profile pipeline up pipeline
+DATA_VERSION=v1 MODEL_METRIC=mae docker-compose --profile pipeline up pipeline
 ```
 
-### Step 3: Make Predictions
+### Step 3: Start the API
+
+After training, start the API server:
+
+```bash
+# Start the API service
+docker-compose up api
+
+# Or use a different port if 8000 is busy
+API_PORT=8080 docker-compose up api
+```
+
+**Verify the API is running:**
+```bash
+# Check API health
+curl http://localhost:8000/api/v1/health
+
+# Expected response: {"status": "healthy", "model_loaded": true}
+```
+
+### Step 4: Make Predictions
 
 Use the API to make predictions for different property types:
 
@@ -246,12 +309,12 @@ Use the API to make predictions for different property types:
     }
     ```
 
-### Step 4: Batch Processing
+### Step 5: Batch Processing
 
 For multiple properties:
 
 ```bash
-curl -X POST http://localhost:8000/api/v3/predictions/batch \
+curl -X POST http://localhost:8000/api/v1/predictions/batch \
   -H "Content-Type: application/json" \
   -H "X-API-Key: default_api_key" \
   -d '{
@@ -307,15 +370,31 @@ docker-compose --profile dev up api-dev
 ### Common Issues
 
 !!! warning "Port Already in Use"
-    **Problem**: Port 8000 is already in use
+    **Problem**: Port 8000 is already in use (Docker error: "port is already allocated")
     
-    **Solution**: 
+    **Solutions**: 
     ```bash
-    # Use a different port
-    API_PORT=8080 python scripts/run_api.py
-    # Or kill the process using the port
+    # Option 1: Use a different port (recommended)
+    API_PORT=8080 docker-compose up api
+    
+    # Option 2: Kill the process using port 8000
     lsof -ti:8000 | xargs kill -9
+    
+    # Option 3: Stop all Docker containers first
+    docker-compose down
+    
+    # Option 4: Check what's using the port
+    lsof -i :8000
+    
+    # Option 5: For Python API (auto-finds available port)
+    python scripts/run_api.py --auto-port
     ```
+    
+    !!! tip "Smart Port Detection"
+        The Python API script automatically finds available ports and shows helpful messages:
+        ```
+        WARNING: Port 8000 is already in use. Using port 8001 instead.
+        ```
 
 !!! warning "Model Not Found"
     **Problem**: No model file found

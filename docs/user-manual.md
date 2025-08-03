@@ -117,62 +117,69 @@ DATA_VERSION (e.g., v3)
 
 ### File System Flow
 
-```mermaid
-flowchart TD
-    subgraph Input ["Input Data"]
-        D1[data/v3/train.csv]
-        D2[data/v3/test.csv]
-    end
-    
-    subgraph Processing ["Processing"]
-        J[Jupyter Notebooks]
-        P[Pipeline Scripts]
-    end
-    
-    subgraph OutputsDir ["outputs/"]
-        subgraph JupyterOut ["jupyter/"]
-            JM[models/v3.3_model.pkl]
-            JS[schema/v3.3_schema.json]
-            JD[data/v3.3_clean.csv]
-        end
-        
-        subgraph PipelineOut ["pipeline/"]
-            PM[models/v3.4_model.pkl]
-            PS[schema/v3.4_schema.json]
-            PD[data/v3.4_clean.csv]
-        end
-        
-        subgraph PredOut ["predictions/"]
-            AL[api.log]
-            EL[error.log]
-        end
-    end
-    
-    subgraph API ["API Service"]
-        MS[Model Selection]
-        ML[Model Loading]
-        PR[Predictions]
-    end
-    
-    D1 --> J
-    D2 --> J
-    D1 --> P
-    D2 --> P
-    
-    J --> JM
-    J --> JS
-    J --> JD
-    
-    P --> PM
-    P --> PS
-    P --> PD
-    
-    MS --> PM
-    MS --> JM
-    ML --> MS
-    PR --> ML
-    PR --> AL
-    PR --> EL
+!!! info "Data Processing Workflow"
+    The system follows a clear data flow from input to API predictions:
+
+#### 1. Input Data
+```
+📁 data/v1/
+   ├── 📄 train.csv     (Training dataset)
+   └── 📄 test.csv      (Testing dataset)
+```
+
+#### 2. Processing Options
+
+=== "Pipeline (Production)"
+    ```bash
+    python scripts/pipeline.py
+    # Generates: outputs/pipeline/
+    ```
+
+=== "Jupyter (Research)"
+    ```bash
+    jupyter notebook notebooks/
+    # Generates: outputs/jupyter/
+    ```
+
+#### 3. Generated Outputs
+
+**Pipeline Outputs** (Production-ready):
+```
+📁 outputs/pipeline/
+   ├── 🤖 models/
+   │   └── v1.4_gradient_boosting.pkl
+   ├── 📋 schema/
+   │   └── v1.4_schema_train.json
+   └── 📊 data/
+       └── v1.4_data_clean.csv
+```
+
+**Jupyter Outputs** (Research):
+```
+📁 outputs/jupyter/
+   ├── 🤖 models/
+   │   └── v1.3_gradient_boosting.pkl
+   └── 📋 schema/
+       └── v1.3_schema_analysis.json
+```
+
+#### 4. API Service Flow
+
+```
+🎯 Model Selection
+    ↓
+📥 Model Loading (from pipeline/ or jupyter/)
+    ↓
+🔮 Predictions
+    ↓
+📝 Logging (to predictions/)
+```
+
+#### 5. Runtime Logs
+```
+📁 outputs/predictions/
+   ├── 📊 api.log       (API access logs)
+   └── ❌ error.log     (Error tracking)
 ```
 
 ### File Structure

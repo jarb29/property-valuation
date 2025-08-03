@@ -32,7 +32,7 @@ Docker provides the easiest and most consistent way to deploy the system across 
 #### Steps
 1. Clone the repository:
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/jarb29/property-valuation
    cd property-valuation
    ```
 
@@ -52,7 +52,7 @@ Docker provides the easiest and most consistent way to deploy the system across 
 
 4. Verify the installation:
    ```bash
-   curl http://localhost:8000/api/v3/health
+   curl http://localhost:8000/api/v1/health
    ```
 
 #### Docker Compose Profiles
@@ -86,7 +86,7 @@ For development or when Docker is not available, you can install the system dire
 #### Steps
 1. Clone the repository:
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/jarb29/property-valuation
    cd property-valuation
    ```
 
@@ -119,7 +119,7 @@ For development or when Docker is not available, you can install the system dire
 
 6. Verify the installation:
    ```bash
-   curl http://localhost:8000/api/v3/health
+   curl http://localhost:8000/api/v1/health
    ```
 
 ## Configuration
@@ -131,8 +131,8 @@ The system is configured using environment variables. You can set these in a `.e
 #### Core Settings
 | Variable | Description | Default | Notes |
 |----------|-------------|---------|-------|
-| `DATA_VERSION` | Version of data to use | `v3` | Controls which data folder is used (`data/v3`) |
-| `MODEL_VERSION` | Version of model to use | Same as `DATA_VERSION` | Used in model filenames (`model_v3.pkl`) |
+| `DATA_VERSION` | Version of data to use | `v1` | Controls which data folder is used (`data/v1`) |
+| `MODEL_VERSION` | Version of model to use | Same as `DATA_VERSION` | Used in model filenames (`model_v1.pkl`) |
 | `MODEL_METRIC` | Metric for model selection | `rmse` | Options: `rmse`, `mae`, `r2` |
 | `MODEL_LOAD_TARGET` | Source of models | `pipeline` | Options: `pipeline`, `jupyter` |
 

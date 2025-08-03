@@ -2,11 +2,11 @@
 site_name: Property Valuation ML System
 site_description: Enterprise-grade machine learning system for real estate property valuation in the Chilean market
 site_author: Property Valuation Team
-site_url: https://username.github.io/property-valuation/
+site_url: https://jarb29.github.io/property-valuation/
 
 # Repository
-repo_name: username/property-valuation
-repo_url: https://github.com/username/property-valuation
+repo_name: jarb29/property-valuation
+repo_url: https://github.com/jarb29/property-valuation
 edit_uri: edit/main/docs/
 
 # Copyright
@@ -106,11 +106,9 @@ extra_javascript:
 extra:
   social:
     - icon: fontawesome/brands/github
-      link: https://github.com/username/property-valuation
-    - icon: fontawesome/brands/docker
-      link: https://hub.docker.com/r/username/property-valuation
+      link: https://github.com/jarb29/property-valuation
     - icon: fontawesome/solid/paper-plane
-      link: mailto:team@property-valuation.com
+      link: mailto:jose@example.com
 
 # Navigation structure
 nav:

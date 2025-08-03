@@ -88,16 +88,7 @@
   text-decoration: underline;
 }
 
-/* Hero section */
-.hero {
-  background: linear-gradient(135deg, var(--primary), var(--secondary));
-  color: white;
-  padding: 4rem 2rem;
-  text-align: center;
-  border-radius: 16px;
-  margin: 2rem 0;
-  box-shadow: var(--shadow);
-}
+
 
 /* Responsive */
 @media (max-width: 768px) {
