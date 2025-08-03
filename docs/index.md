@@ -43,18 +43,9 @@ Get up and running in minutes:
     python scripts/run_api.py
     ```
 
-## ✨ Features
-
-- **🤖 ML Pipeline** - Automated training and evaluation
-- **🚀 REST API** - Production-ready endpoints
-- **📊 Data Versioning** - Complete traceability
-- **🐳 Docker Ready** - Containerized deployment
-- **📈 Monitoring** - Comprehensive logging
-- **🎯 Smart Model Selection** - Automatic best model selection by metric
-
 ## 🔧 Model Configuration
 
-The system automatically selects the best model based on your criteria:
+The system automatically selects the best model based on your criteria (configured in `src/config.py`):
 
 ```bash
 # Configure model selection
@@ -63,17 +54,23 @@ MODEL_LOAD_TARGET=pipeline  # Load from pipeline outputs
 DATA_VERSION=v1          # Use v1 dataset
 ```
 
-**Available Metrics:** `rmse`, `mae`, `r2`  
-**Model Sources:** `pipeline`, `jupyter`  
-**Data Versions:** `v1`, `v2`, `v3`...
+!!! danger "Important: Data Version Selection"
+    **You MUST specify which data version to use:**
+    ```bash
+    DATA_VERSION=v1  # ⚠️ REQUIRED: Select your data version
+    ```
+    Available versions: `v1`, `v2`, `v3`...
+
+**Available Metrics:** `rmse`, `mae`, `mape`  
+**Model Sources:** `pipeline`, `jupyter`
 
 ## 📊 Performance
 
 | Metric | Current | Target | Selection |
 |--------|---------|--------|----------|
-| RMSE | 5,710 CLP | < 6,000 | `MODEL_METRIC=rmse` |
-| MAE | 2,625 CLP | < 3,000 | `MODEL_METRIC=mae` |
-| R² | 0.847 | > 0.80 | `MODEL_METRIC=r2` |
+| RMSE | 5,749 CLP | < 6,000 | `MODEL_METRIC=rmse` |
+| MAE | 2,622 CLP | < 3,000 | `MODEL_METRIC=mae` |
+| MAPE | 46.5% | < 50% | `MODEL_METRIC=mape` |
 | Response Time | 23ms | < 50ms | - |
 
 ## 🎯 Test It Now
@@ -84,6 +81,15 @@ curl -X POST http://localhost:8000/api/v1/predictions \
   -H "X-API-Key: default_api_key" \
   -d '{"features": {"type": "departamento", "sector": "las condes", "net_usable_area": 120.5, "net_area": 150.0, "n_rooms": 3, "n_bathroom": 2, "latitude": -33.4172, "longitude": -70.5476}}'
 ```
+
+## ✨ Features
+
+- **🤖 ML Pipeline** - Automated training and evaluation
+- **🚀 REST API** - Production-ready endpoints
+- **📊 Data Versioning** - Complete traceability
+- **🐳 Docker Ready** - Containerized deployment
+- **🎯 Smart Model Selection** - Automatic best model selection by metric
+- **📈 Monitoring** - Comprehensive logging
 
 ## 📚 Documentation
 

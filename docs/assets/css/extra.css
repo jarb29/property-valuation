@@ -90,6 +90,17 @@
 
 
 
+/* Critical warning styling */
+.md-typeset .admonition.danger {
+  border-left-color: #f44336;
+  background-color: rgba(244, 67, 54, 0.1);
+}
+
+.md-typeset .admonition.warning {
+  border-left-color: #ff9800;
+  background-color: rgba(255, 152, 0, 0.1);
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .hero {

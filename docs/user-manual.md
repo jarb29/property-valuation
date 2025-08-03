@@ -226,7 +226,6 @@ Each model includes comprehensive metadata:
 |--------|-------------|----------|
 | **RMSE** | Root Mean Square Error | General accuracy (default) |
 | **MAE** | Mean Absolute Error | Robust to outliers |
-| **R²** | Coefficient of Determination | Explained variance |
 | **MAPE** | Mean Absolute Percentage Error | Relative accuracy |
 
 ---

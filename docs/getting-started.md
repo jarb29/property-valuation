@@ -142,7 +142,7 @@ The system uses these key variables (defined in `src/config`) for intelligent mo
 |----------|---------|---------|----------|
 | `API_KEY` | API authentication | Any string | `"my_secure_key"` |
 | `MODEL_VERSION` | Model version to load | Defaults to `DATA_VERSION` | `v1`, `v2`, `v3` |
-| `MODEL_METRIC` | Best model selection criteria | `rmse`, `mae`, `r2` | `rmse` |
+| `MODEL_METRIC` | Best model selection criteria | `rmse`, `mae`, `mape` | `rmse` |
 | `MODEL_LOAD_TARGET` | Model source location | `pipeline`, `jupyter` | `pipeline` |
 
 **How Model Selection Works:**
@@ -161,6 +161,13 @@ MODEL_METRIC=mae python scripts/pipeline.py   # Selects best MAE model
 # API automatically loads the best model based on your configuration
 MODEL_LOAD_TARGET=pipeline MODEL_METRIC=rmse python scripts/run_api.py
 ```
+
+!!! warning "Critical: Data Version Selection"
+    **Always specify your data version before training or running the API:**
+    ```bash
+    export DATA_VERSION=v1  # ⚠️ REQUIRED: Choose v1, v2, v3, etc.
+    ```
+    This determines which dataset and models the system will use.
 
 ---
 
