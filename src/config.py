@@ -69,7 +69,7 @@ data_version_dirs = [
 ]
 print(f"Found data version folders: {data_version_dirs}")
 # 7. Data Version Settings
-DATA_VERSION = os.getenv("DATA_VERSION", "v3")
+DATA_VERSION = os.getenv("DATA_VERSION", "v1") # <- change the version of the data please
 
 # 8. Model Settings
 API_KEY = os.getenv("API_KEY", "default_api_key")
