@@ -7,11 +7,12 @@ This script runs the FastAPI application using uvicorn.
 
 import os
 import sys
-import argparse
-import logging
-import uvicorn
-import socket
+import errno
+from argparse import ArgumentParser
+from logging import getLogger, error, warning, info, exception
+from socket import socket as Socket, AF_INET, SOCK_STREAM
 from contextlib import closing
+import uvicorn
 
 # Add the project root directory to the Python path
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
@@ -31,8 +32,8 @@ def is_port_available(host, port):
     Returns:
         bool: True if the port is available, False otherwise.
     """
-    with closing(socket.socket(socket.AF_INET, socket.SOCK_STREAM)) as sock:
-        sock.settimeout(2)
+    with closing(Socket(AF_INET, SOCK_STREAM)) as sock:
+        sock.settimeout(0.5)
         result = sock.connect_ex((host, port))
         return result != 0
 
@@ -62,7 +63,7 @@ def parse_args():
     Returns:
         argparse.Namespace: The parsed arguments.
     """
-    parser = argparse.ArgumentParser(description='Run the API server')
+    parser = ArgumentParser(description='Run the API server')
 
     parser.add_argument('--host', type=str, default=API_HOST,
                         help=f'Host to bind the server to (default: {API_HOST})')
@@ -108,25 +109,30 @@ def main():
 
     # Set up logging
     setup_logging()
-    logging.getLogger().setLevel(getattr(logging, args.log_level))
+    getLogger().setLevel(getattr(__import__('logging'), args.log_level))
 
     # Handle port availability (only if no-auto-port is explicitly set)
     port = args.port
     if args.no_auto_port and not is_port_available(args.host, port):
-        logging.error(f"Port {port} is already in use. Please try the following:")
-        logging.error(f"1. Use a different port: python scripts/run_api.py --port {port+1}")
-        logging.error(f"2. Remove --no-auto-port to automatically find an available port")
-        logging.error(f"3. Stop the process using port {port}: lsof -i :{port}")
+        safe_port = int(port)
+        error(f"Port {safe_port} is already in use. Please try the following:")
+        error(f"1. Use a different port: python scripts/run_api.py --port {safe_port+1}")
+        error("2. Remove --no-auto-port to automatically find an available port")
+        error(f"3. Stop the process using port {safe_port}: lsof -i :{safe_port}")
         sys.exit(1)
     elif not args.no_auto_port and not is_port_available(args.host, port):
         new_port = find_available_port(args.host, port + 1)
         if new_port:
-            logging.warning(f"Port {port} is in use. Using port {new_port} instead.")
+            warning(f"Port {port} is in use. Using port {new_port} instead.")
             port = new_port
-        # If no port found, let uvicorn handle the error
+        else:
+            error(f"No available ports found starting from {port + 1}")
+            sys.exit(1)
 
-    # Log the start of the API server
-    logging.info(f"Starting API server on {args.host}:{port}")
+    # Log the start of the API server (sanitize inputs)
+    safe_host = str(args.host).replace('\n', '').replace('\r', '')
+    safe_port = int(port)
+    info(f"Starting API server on {safe_host}:{safe_port}")
 
     try:
         # Ensure log directory exists
@@ -182,13 +188,14 @@ def main():
         )
 
     except OSError as e:
-        if e.errno == 48 or "address already in use" in str(e).lower():
-            logging.error(f"Port {port} is unavailable. Try: python scripts/run_api.py --port {port+1}")
+        if e.errno == errno.EADDRINUSE or "address already in use" in str(e).lower():
+            safe_port = int(port)
+            error(f"Port {safe_port} is unavailable. Try: python scripts/run_api.py --port {safe_port+1}")
         else:
-            logging.exception(f"Error running API server: {str(e)}")
+            exception("Error running API server")
         sys.exit(1)
     except Exception as e:
-        logging.exception(f"Error running API server: {str(e)}")
+        exception("Error running API server")
         sys.exit(1)
 
 
