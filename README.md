@@ -9,12 +9,14 @@ This project implements an end-to-end machine learning solution for accurate pro
 ## Features
 
 - **Machine Learning Pipeline**
+
   - Automated data processing and feature engineering
   - Multiple model options (Gradient Boosting, Random Forest, Linear Regression)
   - Comprehensive model evaluation and performance metrics
   - Version-controlled data and model management
 
 - **RESTful API**
+
   - Single property valuation endpoint
   - Batch prediction for multiple properties
   - Model information and health check endpoints
@@ -65,18 +67,21 @@ The system is organized into several key components:
 ### Local Setup
 
 1. Clone the repository:
+
    ```bash
    git clone https://github.com/jarb29/property-valuation
    cd property-valuation
    ```
 
 2. Create and activate a virtual environment:
+
    ```bash
    python -m venv .venv
    source .venv/bin/activate  # On Windows: .venv\Scripts\activate
    ```
 
 3. Install dependencies:
+
    ```bash
    pip install -r requirements.txt
    ```
@@ -90,6 +95,7 @@ The system is organized into several key components:
 ### Docker Setup
 
 1. Build and start the containers:
+
    ```bash
    docker-compose up -d
    ```
@@ -156,16 +162,19 @@ docker-compose -e DATA_VERSION=v2 --profile pipeline up pipeline
 > **Note**: The API endpoints include the data version in their paths (e.g., `/api/v3/...`). This version matches the `DATA_VERSION` environment variable.
 
 - **POST /api/v3/predictions**
+
   - Single property valuation
   - Requires property features (type, sector, area, rooms, etc.)
   - Returns predicted price and model metadata
 
 - **POST /api/v3/predictions/batch**
+
   - Batch property valuation
   - Accepts multiple property records
   - Returns array of predictions with metadata
 
 - **GET /api/v3/model/info**
+
   - Retrieves model information
   - Returns model version, features, and description
 
@@ -209,16 +218,19 @@ The system implements a robust data versioning mechanism that ensures consistenc
 ### How It Works
 
 1. **Version-Based Directory Structure**:
+
    - Data is organized in version-specific directories: `data/v1`, `data/v2`, `data/v3`, etc.
    - Each version directory contains its own `train.csv` and `test.csv` files
    - This structure allows multiple data versions to coexist without conflicts
 
 2. **Version Selection**:
+
    - The active data version is controlled by the `DATA_VERSION` environment variable (default: `v3`)
    - When the system starts, it automatically detects available data versions
    - If the specified version doesn't exist, it's created automatically
 
 3. **Version-Based Outputs**:
+
    - All outputs (models, schemas, processed data) are named according to the active data version
    - Models are saved as `model_{MODEL_VERSION}.pkl` (e.g., `model_v3.pkl`)
    - API endpoints include the version in their paths (e.g., `/api/v3/predictions`)
@@ -274,42 +286,44 @@ The system is highly configurable through environment variables:
 
 ### Data and Model Settings
 
-| Variable | Description | Default | Notes |
-|----------|-------------|---------|-------|
-| `DATA_VERSION` | Version of data to use | `v3` | Controls which data folder is used (`data/v3`) |
-| `MODEL_VERSION` | Version of model to use | Same as `DATA_VERSION` | Used in model filenames (`model_v3.pkl`) |
-| `MODEL_METRIC` | Metric for model selection | `rmse` | Options: `rmse`, `mae`, `r2` |
-| `MODEL_LOAD_TARGET` | Source of models | `pipeline` | Options: `pipeline`, `jupyter` |
+| Variable            | Description                | Default                | Notes                                          |
+| ------------------- | -------------------------- | ---------------------- | ---------------------------------------------- |
+| `DATA_VERSION`      | Version of data to use     | `v3`                   | Controls which data folder is used (`data/v3`) |
+| `MODEL_VERSION`     | Version of model to use    | Same as `DATA_VERSION` | Used in model filenames (`model_v3.pkl`)       |
+| `MODEL_METRIC`      | Metric for model selection | `rmse`                 | Options: `rmse`, `mae`, `r2`                   |
+| `MODEL_LOAD_TARGET` | Source of models           | `pipeline`             | Options: `pipeline`, `jupyter`                 |
 
 ### API Settings
 
-| Variable | Description | Default |
-|----------|-------------|---------|
-| `API_HOST` | Host for the API server | `0.0.0.0` |
-| `API_PORT` | Port for the API server | `8000` |
-| `API_WORKERS` | Number of worker processes | `1` |
-| `API_DEBUG` | Enable debug mode | `False` |
-| `API_KEY` | API authentication key | `default_api_key` |
+| Variable      | Description                | Default           |
+| ------------- | -------------------------- | ----------------- |
+| `API_HOST`    | Host for the API server    | `0.0.0.0`         |
+| `API_PORT`    | Port for the API server    | `8000`            |
+| `API_WORKERS` | Number of worker processes | `1`               |
+| `API_DEBUG`   | Enable debug mode          | `False`           |
+| `API_KEY`     | API authentication key     | `default_api_key` |
 
 ### Logging Settings
 
-| Variable | Description | Default |
-|----------|-------------|---------|
-| `LOG_LEVEL` | Logging level | `INFO` |
-| `LOG_MAX_BYTES` | Maximum log file size | `10485760` (10MB) |
-| `LOG_BACKUP_COUNT` | Number of backup log files | `5` |
+| Variable           | Description                | Default           |
+| ------------------ | -------------------------- | ----------------- |
+| `LOG_LEVEL`        | Logging level              | `INFO`            |
+| `LOG_MAX_BYTES`    | Maximum log file size      | `10485760` (10MB) |
+| `LOG_BACKUP_COUNT` | Number of backup log files | `5`               |
 
 ## Docker Configuration
 
 The project includes a Docker setup with multiple services:
 
 - **api**: Main API service for production
+
   - Resource limits: 1 CPU, 1GB memory
   - Production environment with 2 workers
   - Read-only access to data directory
   - Built-in health check
 
 - **api-dev**: Development API with hot reload
+
   - Debug mode enabled
   - Hot reload for code changes
   - Detailed logging (DEBUG level)
@@ -343,16 +357,19 @@ This project uses MkDocs with the Material theme to provide comprehensive, searc
 The documentation is built using [MkDocs](https://www.mkdocs.org/), a fast and simple static site generator designed specifically for project documentation:
 
 1. **Installation**:
+
    ```bash
    # Install MkDocs and required plugins
    pip install -r requirements-docs.txt
    ```
 
 2. **Local Development**:
+
    ```bash
    # Start the MkDocs development server
    mkdocs serve
    ```
+
    This will start a local server at `http://127.0.0.1:8000/` that automatically reloads when you make changes.
 
 3. **Building the Documentation**:
@@ -385,6 +402,7 @@ mkdocs gh-deploy
 ```
 
 This command:
+
 1. Builds your documentation
 2. Creates or updates a branch called `gh-pages`
 3. Pushes the built site to that branch
@@ -412,14 +430,3 @@ The project uses Docker for containerization as detailed in the [Docker Configur
 - Separate configurations for development and production
 
 For more details on the Docker setup, refer to the Dockerfile and docker-compose.yml files in the repository.
-
-## License
-
-[Specify your license information here]
-
-## Contributors
-
-[List contributors here]
-# property-valuation
-# property-valuation
-# property-valuation
