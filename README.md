@@ -135,14 +135,14 @@ DATA_VERSION=v2 python scripts/pipeline.py
 ```bash
 # Run the API service
 docker-compose up api
-
+or # Use port 8001 instead
+API_PORT=8001 docker-compose up api
 # Run the development API with hot reload
 docker-compose --profile dev up api-dev
 
 # Run the full ML pipeline
 docker-compose --profile pipeline up pipeline
-or # Use port 8001 instead
-API_PORT=8001 docker-compose up api
+
 
 
 # Specify a different data version
