@@ -8,8 +8,8 @@ import traceback
 import psutil
 import json
 
-from src.config import (LOG_DIR, PIPELINE_LOGS_DIR, LOG_MAX_BYTES, LOG_BACKUP_COUNT,
-                        API_LOGS_DIR, PREDICTION_LOGS_DIR, SCHEMA_VALIDATION_LOGS_DIR, ERROR_LOGS_DIR)
+from src.config import (PIPELINE_LOGS_DIR, LOG_MAX_BYTES, LOG_BACKUP_COUNT,
+                        PREDICTION_LOGS_DIR, SCHEMA_VALIDATION_LOGS_DIR)
 
 # Color codes for console output
 COLORS_ENABLED = platform.system() != "Windows" or os.environ.get("ANSICON") is not None
@@ -107,7 +107,7 @@ def configure_logging(app_name: str = 'PropertyValuation', log_level: str = 'INF
                      date_format: Optional[str] = None, use_colors: bool = True,
                      max_bytes: Optional[int] = None, backup_count: Optional[int] = None,
                      exclude_modules: Optional[List[str]] = None) -> str:
-    """Alias for setup_logging with additional parameters for compatibility."""
+    """Configure logging with custom parameters."""
     if log_to_file and log_file is None:
         app_name_clean = app_name.replace(' ', '')
         log_file = os.path.join(PIPELINE_LOGS_DIR, f"{app_name_clean}.log")
@@ -116,10 +116,46 @@ def configure_logging(app_name: str = 'PropertyValuation', log_level: str = 'INF
     if log_format is None:
         log_format = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
     
-    if log_to_file:
-        setup_logging(log_level, log_file, log_format, log_to_console)
-    else:
-        setup_logging(log_level, None, log_format, log_to_console)
+    # Use provided parameters or defaults
+    max_bytes = max_bytes or LOG_MAX_BYTES
+    backup_count = backup_count or LOG_BACKUP_COUNT
+    
+    # Set up logging with custom parameters
+    numeric_level = getattr(logging, log_level.upper(), None)
+    if not isinstance(numeric_level, int):
+        raise ValueError(f"Invalid log level: {log_level}")
+
+    root_logger = logging.getLogger()
+    root_logger.setLevel(numeric_level)
+
+    # Remove existing handlers
+    for handler in root_logger.handlers[:]:
+        root_logger.removeHandler(handler)
+
+    handlers = []
+
+    # Console handler
+    if log_to_console:
+        console_handler = logging.StreamHandler()
+        console_handler.setLevel(numeric_level)
+        if use_colors:
+            console_handler.setFormatter(ColoredFormatter(log_format))
+        else:
+            console_handler.setFormatter(logging.Formatter(log_format))
+        handlers.append(console_handler)
+
+    # File handler with custom rotation settings
+    if log_to_file and log_file:
+        os.makedirs(os.path.dirname(log_file), exist_ok=True)
+        file_handler = logging.handlers.RotatingFileHandler(
+            log_file, maxBytes=max_bytes, backupCount=backup_count
+        )
+        file_handler.setLevel(numeric_level)
+        file_handler.setFormatter(logging.Formatter(log_format))
+        handlers.append(file_handler)
+
+    for handler in handlers:
+        root_logger.addHandler(handler)
     
     return log_file if log_to_file else ""
 

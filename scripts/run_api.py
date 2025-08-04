@@ -70,11 +70,12 @@ def parse_args():
     parser.add_argument('--port', type=int, default=API_PORT,
                         help=f'Port to bind the server to (default: {API_PORT})')
 
-    parser.add_argument('--auto-port', action='store_true',
-                        help='Automatically find an available port if the specified port is in use')
-
-    parser.add_argument('--no-auto-port', action='store_true',
-                        help='Disable automatic port finding')
+    # Mutually exclusive port options
+    port_group = parser.add_mutually_exclusive_group()
+    port_group.add_argument('--auto-port', action='store_true',
+                           help='Automatically find an available port if the specified port is in use')
+    port_group.add_argument('--no-auto-port', action='store_true',
+                           help='Disable automatic port finding')
 
     parser.add_argument('--workers', type=int, default=API_WORKERS,
                         help=f'Number of worker processes (default: {API_WORKERS})')
@@ -89,7 +90,13 @@ def parse_args():
                         choices=['DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL'],
                         help='Logging level (default: INFO)')
 
-    return parser.parse_args()
+    args = parser.parse_args()
+    
+    # Validate workers/reload conflict
+    if args.reload and args.workers > 1:
+        parser.error("--reload cannot be used with --workers > 1. Use --workers 1 for development.")
+    
+    return args
 
 
 def main():
@@ -103,30 +110,20 @@ def main():
     setup_logging()
     logging.getLogger().setLevel(getattr(logging, args.log_level))
 
-    # Check if the specified port is available
+    # Handle port availability (only if no-auto-port is explicitly set)
     port = args.port
-    if not is_port_available(args.host, port):
-        if not args.no_auto_port:
-            # Try to find an available port (default behavior)
-            new_port = find_available_port(args.host, port + 1)
-            if new_port:
-                logging.warning(f"Port {port} is already in use. Using port {new_port} instead.")
-                port = new_port
-            else:
-                logging.error(f"Port {port} is already in use and no available ports found in range {port+1}-{port+10}.")
-                logging.error(f"Please try the following:")
-                logging.error(f"1. Use a different port with --port option: python scripts/run_api.py --port {port+20}")
-                logging.error(f"2. Stop the process using port {port} and try again")
-                logging.error(f"3. To find processes using this port, run: lsof -i :{port}")
-                sys.exit(1)
-        else:
-            # Port is not available and auto-port is disabled
-            logging.error(f"Port {port} is already in use. Please try the following:")
-            logging.error(f"1. Use a different port with --port option: python scripts/run_api.py --port {port+1}")
-            logging.error(f"2. Remove --no-auto-port to automatically find an available port")
-            logging.error(f"3. Stop the process using port {port} and try again")
-            logging.error(f"4. To find processes using this port, run: lsof -i :{port}")
-            sys.exit(1)
+    if args.no_auto_port and not is_port_available(args.host, port):
+        logging.error(f"Port {port} is already in use. Please try the following:")
+        logging.error(f"1. Use a different port: python scripts/run_api.py --port {port+1}")
+        logging.error(f"2. Remove --no-auto-port to automatically find an available port")
+        logging.error(f"3. Stop the process using port {port}: lsof -i :{port}")
+        sys.exit(1)
+    elif not args.no_auto_port and not is_port_available(args.host, port):
+        new_port = find_available_port(args.host, port + 1)
+        if new_port:
+            logging.warning(f"Port {port} is in use. Using port {new_port} instead.")
+            port = new_port
+        # If no port found, let uvicorn handle the error
 
     # Log the start of the API server
     logging.info(f"Starting API server on {args.host}:{port}")
@@ -185,17 +182,11 @@ def main():
         )
 
     except OSError as e:
-        # This is a fallback in case our port checking didn't catch the issue
         if e.errno == 48 or "address already in use" in str(e).lower():
-            logging.error(f"Port {port} is already in use. Please try the following:")
-            logging.error(f"1. Use a different port with --port option: python scripts/run_api.py --port {port+1}")
-            logging.error(f"2. Remove --no-auto-port to automatically find an available port")
-            logging.error(f"3. Stop the process using port {port} and try again")
-            logging.error(f"4. To find processes using this port, run: lsof -i :{port}")
-            sys.exit(1)
+            logging.error(f"Port {port} is unavailable. Try: python scripts/run_api.py --port {port+1}")
         else:
             logging.exception(f"Error running API server: {str(e)}")
-            sys.exit(1)
+        sys.exit(1)
     except Exception as e:
         logging.exception(f"Error running API server: {str(e)}")
         sys.exit(1)

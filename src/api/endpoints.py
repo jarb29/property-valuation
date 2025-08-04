@@ -34,16 +34,16 @@ router = APIRouter(
     }
 )
 
-# Cache for loaded models
+# Cache for loaded models and metadata
 model_cache = {}
 
 
-def get_model():
+def get_model_with_metadata():
     """
-    Get the best model from the cache or load it from disk.
+    Get the best model and its metadata from cache or load from disk.
 
     Returns:
-        Any: The loaded model.
+        tuple: (model, model_path, model_version)
 
     Raises:
         HTTPException: If the model cannot be loaded.
@@ -56,6 +56,20 @@ def get_model():
         return model_cache[model_key]
 
     try:
+        # Get the best model path
+        best_model_path = get_best_model(
+            metric=MODEL_METRIC,
+            load_target=MODEL_LOAD_TARGET
+        )
+
+        if not best_model_path:
+            raise HTTPException(status_code=500, detail="No best model found")
+
+        # Extract version from model path
+        model_filename = os.path.basename(best_model_path)
+        version_parts = model_filename.split('_')
+        model_version = version_parts[0] if len(version_parts) >= 1 else "unknown"
+
         # Load the best model
         logger.info(f"Loading best model using metric={MODEL_METRIC}, load_target={MODEL_LOAD_TARGET}")
         model = load_best_model(
@@ -63,11 +77,12 @@ def get_model():
             load_target=MODEL_LOAD_TARGET
         )
 
-        # Cache model
-        model_cache[model_key] = model
+        # Cache model with metadata
+        model_data = (model, best_model_path, model_version)
+        model_cache[model_key] = model_data
         logger.info(f"Loaded best model using metric={MODEL_METRIC}, load_target={MODEL_LOAD_TARGET}")
 
-        return model
+        return model_data
     except Exception as e:
         logger.error(f"Error loading best model: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Error loading model: {str(e)}")
@@ -153,39 +168,17 @@ async def predict(request: PredictionRequest):
     start_time = time.time()
 
     try:
-        # Get the best model path
-        best_model_path = get_best_model(
-            metric=MODEL_METRIC,
-            load_target=MODEL_LOAD_TARGET
-        )
-
-        if not best_model_path:
-            raise HTTPException(status_code=500, detail="No best model found")
-
-        # Extract version from model path
-        model_filename = os.path.basename(best_model_path)
-        version_parts = model_filename.split('_')
-        if len(version_parts) >= 1:
-            model_version = version_parts[0]  # e.g., "v3.4"
-        else:
-            model_version = "unknown"
+        # Get model and metadata in single call
+        model, best_model_path, model_version = get_model_with_metadata()
 
         # Determine schema directory based on load target
-        if MODEL_LOAD_TARGET.lower() == 'pipeline':
-            schema_dir = PIPELINE_SCHEMA_DIR
-        elif MODEL_LOAD_TARGET.lower() == 'jupyter':
-            schema_dir = JUPYTER_SCHEMA_DIR
-        else:
-            schema_dir = PIPELINE_SCHEMA_DIR
-
-        # Construct schema path
+        schema_dir = PIPELINE_SCHEMA_DIR if MODEL_LOAD_TARGET.lower() == 'pipeline' else JUPYTER_SCHEMA_DIR
         schema_path = os.path.join(schema_dir, f"{model_version}_schema_train.json")
 
         # Convert features to DataFrame for validation
         features_df = pd.DataFrame([request.features])
 
         # Create a typical property record with price for validation
-        # This is needed because the schema might expect a price column
         typical_property = pd.DataFrame({
             'type': [request.features.get('type', 'departamento')],
             'sector': [request.features.get('sector', 'las condes')],
@@ -212,7 +205,7 @@ async def predict(request: PredictionRequest):
             "input_data": request.features
         }
 
-        # Log validation metadata using the log_schema_validation function
+        # Log validation metadata
         log_schema_validation('single', validation_metadata)
 
         # Log validation results
@@ -222,24 +215,12 @@ async def predict(request: PredictionRequest):
             logger.warning(f"Input data validation failed against schema: {schema_path}")
             logger.warning(f"Violations: {violations}")
 
-        # Get the best model
-        model = get_model()  # Always uses the best model by default
-
         # Make prediction
         prediction = model.predict(features_df)[0]
-
-        # Calculate prediction time
         prediction_time = time.time() - start_time
 
         logger.info(f"Prediction made in {prediction_time:.4f} seconds")
 
-        # Log prediction for monitoring purposes
-        # This creates a structured JSON log entry with timestamp, model info, input data, and prediction result
-        # These logs can be used for:
-        # - Monitoring model performance over time
-        # - Detecting drift in input data or predictions
-        # - Auditing model usage and decisions
-        # - Debugging issues with specific predictions
         model_version_str = f"best_{MODEL_METRIC}_{MODEL_LOAD_TARGET}"
 
         log_model_prediction(
@@ -250,7 +231,6 @@ async def predict(request: PredictionRequest):
             processing_time=prediction_time
         )
 
-        # Return response
         return PredictionResponse(
             prediction=prediction,
             prediction_time=prediction_time,
@@ -345,32 +325,11 @@ async def batch_predict(request: BatchPredictionRequest):
     start_time = time.time()
 
     try:
-        # Get the best model path
-        best_model_path = get_best_model(
-            metric=MODEL_METRIC,
-            load_target=MODEL_LOAD_TARGET
-        )
+        # Get model and metadata in single call
+        model, best_model_path, model_version = get_model_with_metadata()
 
-        if not best_model_path:
-            raise HTTPException(status_code=500, detail="No best model found")
-
-        # Extract version from model path
-        model_filename = os.path.basename(best_model_path)
-        version_parts = model_filename.split('_')
-        if len(version_parts) >= 1:
-            model_version = version_parts[0]  # e.g., "v3.4"
-        else:
-            model_version = "unknown"
-
-        # Determine schema directory based on load target
-        if MODEL_LOAD_TARGET.lower() == 'pipeline':
-            schema_dir = PIPELINE_SCHEMA_DIR
-        elif MODEL_LOAD_TARGET.lower() == 'jupyter':
-            schema_dir = JUPYTER_SCHEMA_DIR
-        else:
-            schema_dir = PIPELINE_SCHEMA_DIR
-
-        # Construct schema path
+        # Determine schema directory and construct path
+        schema_dir = PIPELINE_SCHEMA_DIR if MODEL_LOAD_TARGET.lower() == 'pipeline' else JUPYTER_SCHEMA_DIR
         schema_path = os.path.join(schema_dir, f"{model_version}_schema_train.json")
 
         # Convert instances to DataFrame for validation
@@ -416,7 +375,7 @@ async def batch_predict(request: BatchPredictionRequest):
             "input_data": request.instances
         }
 
-        # Log validation metadata using the log_schema_validation function
+        # Log validation metadata
         log_schema_validation('batch', validation_metadata)
 
         # Log validation results
@@ -426,26 +385,12 @@ async def batch_predict(request: BatchPredictionRequest):
             logger.warning(f"Some batch instances failed validation against schema: {schema_path}")
             logger.warning(f"Violations: {all_violations}")
 
-        # Get the best model
-        model = get_model()  # Always uses the best model by default
-
         # Make predictions
         predictions = model.predict(features_df).tolist()
-
-        # Calculate prediction time
         prediction_time = time.time() - start_time
 
         logger.info(f"Batch prediction made for {len(request.instances)} instances in {prediction_time:.4f} seconds")
 
-        # Log batch prediction for monitoring purposes
-        # This creates structured JSON log entries for each prediction in the batch
-        # Each log entry contains timestamp, model info, input data, and prediction result
-        # These logs can be used for:
-        # - Monitoring model performance over time
-        # - Detecting drift in input data or predictions
-        # - Auditing model usage and decisions
-        # - Debugging issues with specific predictions
-        # - Analyzing batch prediction patterns
         model_version_str = f"best_{MODEL_METRIC}_{MODEL_LOAD_TARGET}"
 
         # Log each prediction in the batch individually for detailed monitoring
@@ -458,7 +403,6 @@ async def batch_predict(request: BatchPredictionRequest):
                 processing_time=prediction_time
             )
 
-        # Return response
         return BatchPredictionResponse(
             predictions=predictions,
             prediction_time=prediction_time,
@@ -516,23 +460,8 @@ async def get_model_info():
     - System compatibility checks
     """
     try:
-        # Get the best model path
-        best_model_path = get_best_model(
-            metric=MODEL_METRIC,
-            load_target=MODEL_LOAD_TARGET
-        )
-
-        if not best_model_path:
-            raise HTTPException(status_code=500, detail="No best model found")
-
-        # Extract version from model path
-        model_filename = os.path.basename(best_model_path)
-        version_parts = model_filename.split('_')
-        if len(version_parts) >= 1:
-            model_version = version_parts[0]
-        else:
-            model_version = "unknown"
-
+        # Get model metadata
+        _, _, model_version = get_model_with_metadata()
         model_version_str = f"best_{MODEL_METRIC}_{MODEL_LOAD_TARGET}"
 
         return ModelInfo(
@@ -601,7 +530,7 @@ async def health_check():
     """
     try:
         # Try to get model to ensure it's loadable
-        get_model()
+        get_model_with_metadata()
         return {"status": "healthy", "timestamp": datetime.now().isoformat()}
     except Exception as e:
         logger.error(f"Health check failed: {str(e)}")

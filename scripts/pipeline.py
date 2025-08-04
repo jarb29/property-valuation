@@ -15,7 +15,7 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')
 
 from src.pipeline.data_pipeline import DataPipeline
 from src.pipeline.model_pipeline import ModelTrainingPipeline
-from src.config import MODEL_DIR, OUTPUT_DIR, PIPELINE_LOGS_DIR, LOG_MAX_BYTES, LOG_BACKUP_COUNT
+from src.config import LOG_MAX_BYTES, LOG_BACKUP_COUNT
 from src.utils.logging import (
     configure_logging, ContextLogger, PerformanceLoggerContext,
     LogSummary, log_memory_usage, log_exception

@@ -91,3 +91,9 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so

@@ -81,10 +81,6 @@ app = FastAPI(
             "name": "Model Management",
             "description": "Model information and metadata endpoints",
         },
-        {
-            "name": "System Monitoring",
-            "description": "Health monitoring and system status endpoints",
-        },
     ],
     debug=API_DEBUG
 )
