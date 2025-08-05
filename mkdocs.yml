@@ -44,8 +44,8 @@ theme:
     - toc.follow
   
   # Custom logo and favicon
-  logo: material/home
-  favicon: material/home
+  logo: material/brain
+  favicon: material/brain
   
   # Icons
   icon:
