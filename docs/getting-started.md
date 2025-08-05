@@ -8,23 +8,13 @@ Welcome to the Property Valuation ML System! This guide will help you get up and
 
 Before you begin, ensure your system meets these requirements:
 
-!!! info "System Requirements"
-    - **Python**: 3.8 or higher
-    - **Docker**: Latest version (recommended)
-    - **Memory**: Minimum 4GB RAM
-    - **Storage**: 2GB free space
-    - **OS**: Linux, macOS, or Windows
+!!! info "System Requirements" - **Python**: 3.8 or higher - **Docker**: Latest version (recommended) - **Memory**: Minimum 4GB RAM - **Storage**: 2GB free space - **OS**: Linux, macOS, or Windows
 
 ### Required Tools
 
-=== "Essential"
-    - [Python 3.8+](https://python.org/downloads/)
-    - [Git](https://git-scm.com/downloads)
+=== "Essential" - [Python 3.8+](https://python.org/downloads/) - [Git](https://git-scm.com/downloads)
 
-=== "Recommended"
-    - [Docker Desktop](https://docker.com/products/docker-desktop/)
-    - [VS Code](https://code.visualstudio.com/) with Python extension
-    - [Postman](https://postman.com/) for API testing
+=== "Recommended" - [Docker Desktop](https://docker.com/products/docker-desktop/) - [VS Code](https://code.visualstudio.com/) with Python extension - [Postman](https://postman.com/) for API testing
 
 ---
 
@@ -46,10 +36,9 @@ mkdir -p data/v1
 # Copy your train.csv and test.csv files to data/v1/
 
 # Create minimal .env file
-cat > .env << 'END'
-API_HOST=0.0.0.0
-API_PORT=8000
-END
+echo "API_HOST=0.0.0.0" > .env
+echo "API_PORT=8000" >> .env
+
 
 # 3. Run the ML pipeline
 docker-compose --profile pipeline up pipeline
@@ -61,11 +50,7 @@ docker-compose up api
 curl http://localhost:8000/api/v1/health
 ```
 
-!!! success "Docker Benefits"
-    - ✅ No dependency conflicts
-    - ✅ Consistent environment
-    - ✅ Production-ready configuration
-    - ✅ Easy scaling and deployment
+!!! success "Docker Benefits" - ✅ No dependency conflicts - ✅ Consistent environment - ✅ Production-ready configuration - ✅ Easy scaling and deployment
 
 ### Option B: Local Python Setup
 
@@ -111,13 +96,13 @@ python scripts/run_api.py
 
 The system uses environment variables for configuration. Key settings:
 
-| Variable | Description | Default | Example |
-|----------|-------------|---------|---------|
-| `DATA_VERSION` | Data version to use | `v1` | `v1`, `v2`, `v3` |
-| `MODEL_METRIC` | Model selection metric | `rmse` | `mae`, `r2` |
-| `API_HOST` | API server host | `0.0.0.0` | `localhost` |
-| `API_PORT` | API server port | `8000` | `8080` |
-| `API_KEY` | Authentication key | `default_api_key` | `your_secure_key` |
+| Variable       | Description            | Default           | Example           |
+| -------------- | ---------------------- | ----------------- | ----------------- |
+| `DATA_VERSION` | Data version to use    | `v1`              | `v1`, `v2`, `v3`  |
+| `MODEL_METRIC` | Model selection metric | `rmse`            | `mae`, `r2`       |
+| `API_HOST`     | API server host        | `0.0.0.0`         | `localhost`       |
+| `API_PORT`     | API server port        | `8000`            | `8080`            |
+| `API_KEY`      | Authentication key     | `default_api_key` | `your_secure_key` |
 
 ### Sample Configuration
 
@@ -144,12 +129,12 @@ LOG_LEVEL=INFO
 
 The system uses these key variables (defined in `src/config`) for intelligent model selection:
 
-| Variable | Purpose | Options | Example |
-|----------|---------|---------|----------|
-| `API_KEY` | API authentication | Any string | `"my_secure_key"` |
-| `MODEL_VERSION` | Model version to load | Defaults to `DATA_VERSION` | `v1`, `v2`, `v3` |
-| `MODEL_METRIC` | Best model selection criteria | `rmse`, `mae`, `mape` | `rmse` |
-| `MODEL_LOAD_TARGET` | Model source location | `pipeline`, `jupyter` | `pipeline` |
+| Variable            | Purpose                       | Options                    | Example           |
+| ------------------- | ----------------------------- | -------------------------- | ----------------- |
+| `API_KEY`           | API authentication            | Any string                 | `"my_secure_key"` |
+| `MODEL_VERSION`     | Model version to load         | Defaults to `DATA_VERSION` | `v1`, `v2`, `v3`  |
+| `MODEL_METRIC`      | Best model selection criteria | `rmse`, `mae`, `mape`      | `rmse`            |
+| `MODEL_LOAD_TARGET` | Model source location         | `pipeline`, `jupyter`      | `pipeline`        |
 
 **How Model Selection Works:**
 
@@ -159,6 +144,7 @@ The system uses these key variables (defined in `src/config`) for intelligent mo
 4. **Versioning**: All artifacts are saved with version numbers for traceability
 
 **Example Workflow:**
+
 ```bash
 # Train models with different configurations
 MODEL_METRIC=rmse python scripts/pipeline.py  # Selects best RMSE model
@@ -169,11 +155,11 @@ MODEL_LOAD_TARGET=pipeline MODEL_METRIC=rmse python scripts/run_api.py
 ```
 
 !!! warning "Critical: Data Version Selection"
-    **Always specify your data version before training or running the API:**
-    ```bash
+**Always specify your data version before training or running the API:**
+`bash
     export DATA_VERSION=v1  # ⚠️ REQUIRED: Choose v1, v2, v3, etc.
-    ```
-    This determines which dataset and models the system will use.
+    `
+This determines which dataset and models the system will use.
 
 ---
 
@@ -189,6 +175,7 @@ curl -X GET http://localhost:8000/api/v1/health \
 ```
 
 Expected response:
+
 ```json
 {
   "status": "healthy",
@@ -232,6 +219,7 @@ curl -X POST http://localhost:8000/api/v1/predictions \
 ```
 
 Expected response:
+
 ```json
 {
   "prediction": 185000000,
@@ -279,6 +267,7 @@ API_PORT=8080 docker-compose up api
 ```
 
 **Verify the API is running:**
+
 ```bash
 # Check API health
 curl http://localhost:8000/api/v1/health
@@ -291,7 +280,7 @@ curl http://localhost:8000/api/v1/health
 Use the API to make predictions for different property types:
 
 === "Apartment"
-    ```json
+`json
     {
       "features": {
         "type": "departamento",
@@ -304,10 +293,10 @@ Use the API to make predictions for different property types:
         "longitude": -70.6345
       }
     }
-    ```
+    `
 
 === "House"
-    ```json
+`json
     {
       "features": {
         "type": "casa",
@@ -320,7 +309,7 @@ Use the API to make predictions for different property types:
         "longitude": -70.5476
       }
     }
-    ```
+    `
 
 ### Step 5: Batch Processing
 
@@ -383,26 +372,26 @@ docker-compose --profile dev up api-dev
 ### Common Issues
 
 !!! warning "Port Already in Use"
-    **Problem**: Port 8000 is already in use (Docker error: "port is already allocated")
-    
-    **Solutions**: 
+**Problem**: Port 8000 is already in use (Docker error: "port is already allocated")
+
+    **Solutions**:
     ```bash
     # Option 1: Use a different port (recommended)
     API_PORT=8080 docker-compose up api
-    
+
     # Option 2: Kill the process using port 8000
     lsof -ti:8000 | xargs kill -9
-    
+
     # Option 3: Stop all Docker containers first
     docker-compose down
-    
+
     # Option 4: Check what's using the port
     lsof -i :8000
-    
+
     # Option 5: For Python API (auto-finds available port)
     python scripts/run_api.py --auto-port
     ```
-    
+
     !!! tip "Smart Port Detection"
         The Python API script automatically finds available ports and shows helpful messages:
         ```
@@ -410,9 +399,9 @@ docker-compose --profile dev up api-dev
         ```
 
 !!! warning "Model Not Found"
-    **Problem**: No model file found
-    
-    **Solution**: 
+**Problem**: No model file found
+
+    **Solution**:
     ```bash
     # Train a model first
     python scripts/pipeline.py
@@ -421,9 +410,9 @@ docker-compose --profile dev up api-dev
     ```
 
 !!! warning "Permission Denied"
-    **Problem**: Docker permission issues
-    
-    **Solution**: 
+**Problem**: Docker permission issues
+
+    **Solution**:
     ```bash
     # Add user to docker group (Linux)
     sudo usermod -aG docker $USER
@@ -446,12 +435,12 @@ If you encounter issues:
 
 Congratulations! You now have a working Property Valuation ML System. Here's what to explore next:
 
-| Next Step | Description | Link |
-|-----------|-------------|------|
-| **API Deep Dive** | Learn all API endpoints and features | [API Documentation](api-documentation.md) |
-| **System Architecture** | Understand the complete system design | [User Manual](user-manual.md) |
-| **Custom Models** | Train models with your own data | [User Manual - Training](user-manual.md#model-training) |
-| **Production Deployment** | Deploy to production environments | [User Manual - Deployment](user-manual.md#deployment) |
+| Next Step                 | Description                           | Link                                                    |
+| ------------------------- | ------------------------------------- | ------------------------------------------------------- |
+| **API Deep Dive**         | Learn all API endpoints and features  | [API Documentation](api-documentation.md)               |
+| **System Architecture**   | Understand the complete system design | [User Manual](user-manual.md)                           |
+| **Custom Models**         | Train models with your own data       | [User Manual - Training](user-manual.md#model-training) |
+| **Production Deployment** | Deploy to production environments     | [User Manual - Deployment](user-manual.md#deployment)   |
 
 ---
 
@@ -460,7 +449,7 @@ Congratulations! You now have a working Property Valuation ML System. Here's wha
 Need help? We're here for you:
 
 - **📖 Documentation**: Complete guides and references
-- **🐛 GitHub Issues**: Bug reports and feature requests  
+- **🐛 GitHub Issues**: Bug reports and feature requests
 - **📧 Email**: team@property-valuation.com
 - **💬 Community**: Join our developer community
 
