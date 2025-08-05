@@ -1,6 +1,35 @@
 # Property Valuation ML System
 
-A professional machine learning system for real estate property valuation in the Chilean market, featuring a robust ML pipeline and a production-ready API.
+Machine learning system for Chilean real estate property valuation.
+
+## 🚀 Quick Start
+
+Get up and running in minutes:
+
+```bash
+git clone https://github.com/jarb29/property-valuation
+cd property-valuation
+
+# Create data directory and add your data
+mkdir -p data/v1
+# Copy your train.csv and test.csv to data/v1/
+
+# Create minimal .env file
+cat > .env << EOF
+API_HOST=0.0.0.0
+API_PORT=8000
+EOF
+
+# Run the ML pipeline first
+docker-compose --profile pipeline up pipeline
+
+# Then start the API
+docker-compose up api
+```
+
+## 🔧 Model Configuration
+
+The system uses environment variables for configuration. The minimal `.env` file above contains only the essential settings needed for Docker operation.
 
 ## Overview
 
