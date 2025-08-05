@@ -36,6 +36,13 @@ Choose your preferred installation method:
 
 Docker provides the fastest and most reliable setup experience:
 
+!!! note "Create .env file first"
+    Before running Docker commands, create a minimal `.env` file:
+    ```bash
+    echo "API_HOST=0.0.0.0" > .env
+    echo "API_PORT=8000" >> .env
+    ```
+
 ```bash
 # 1. Clone the repository
 git clone https://github.com/jarb29/property-valuation
