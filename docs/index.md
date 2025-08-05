@@ -7,6 +7,13 @@ Machine learning system for Chilean real estate property valuation.
 Get up and running in minutes:
 
 === "Docker"
+    !!! note "Create .env file first"
+        Before running Docker commands, create a minimal `.env` file:
+        ```bash
+        echo "API_HOST=0.0.0.0" > .env
+        echo "API_PORT=8000" >> .env
+        ```
+    
     ```bash
     git clone https://github.com/jarb29/property-valuation
     cd property-valuation
