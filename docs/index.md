@@ -74,12 +74,12 @@ DATA_VERSION=v1          # Use v1 dataset
 
 ## 📊 Performance
 
-| Metric | Current | Target | Selection |
-|--------|---------|--------|----------|
-| RMSE | 5,749 CLP | < 6,000 | `MODEL_METRIC=rmse` |
-| MAE | 2,622 CLP | < 3,000 | `MODEL_METRIC=mae` |
-| MAPE | 46.5% | < 50% | `MODEL_METRIC=mape` |
-| Response Time | 23ms | < 50ms | - |
+| Metric        | Current   | Target  | Selection           |
+| ------------- | --------- | ------- | ------------------- |
+| RMSE          | 5,749 CLP | < 6,000 | `MODEL_METRIC=rmse` |
+| MAE           | 2,622 CLP | < 3,000 | `MODEL_METRIC=mae`  |
+| MAPE          | 46.5%     | < 50%   | `MODEL_METRIC=mape` |
+| Response Time | 23ms      | < 50ms  | -                   |
 
 ## 🎯 Test It Now
 
@@ -102,6 +102,6 @@ curl -X POST http://localhost:8000/api/v1/predictions \
 ## 📚 Documentation
 
 - **[Getting Started](getting-started.md)** - Setup and installation
-- **[User Manual](user-manual.md)** - Complete system guide  
+- **[User Manual](user-manual.md)** - Complete system guide
 - **[API Reference](api-documentation.md)** - Endpoint documentation
 - **[Challenge](Challenge.md)** - Original requirements
