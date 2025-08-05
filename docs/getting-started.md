@@ -45,16 +45,13 @@ cd property-valuation
 mkdir -p data/v1
 # Copy your train.csv and test.csv files to data/v1/
 
-# 3. Create minimal .env file
-printf 'API_HOST=0.0.0.0\nAPI_PORT=8000\n' > .env
-
-# 4. Run the ML pipeline
+# 3. Run the ML pipeline
 docker-compose --profile pipeline up pipeline
 
-# 5. Start the API service
+# 4. Start the API service
 docker-compose up api
 
-# 6. Verify installation
+# 5. Verify installation
 curl http://localhost:8000/api/v1/health
 ```
 
