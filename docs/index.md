@@ -43,6 +43,13 @@ Get up and running in minutes:
     python scripts/run_api.py
     ```
 
+!!! note "Docker Setup: Create .env file first"
+    Before running Docker commands, create a minimal `.env` file:
+    ```
+    API_HOST=0.0.0.0
+    API_PORT=8000
+    ```
+
 ## 🔧 Model Configuration
 
 The system automatically selects the best model based on your criteria (configured in `src/config.py`):
