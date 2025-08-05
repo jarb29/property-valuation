@@ -1,0 +1,109 @@
+/* Modern Professional Theme */
+:root {
+  --primary: #6366f1;
+  --secondary: #8b5cf6;
+  --accent: #06b6d4;
+  --surface: #ffffff;
+  --text: #1f2937;
+  --text-light: #6b7280;
+  --border: #e5e7eb;
+  --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+[data-md-color-scheme="slate"] {
+  --surface: #1e293b;
+  --text: #f8fafc;
+  --text-light: #cbd5e1;
+  --border: #334155;
+}
+
+/* Clean header */
+.md-header {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);
+}
+
+/* Typography */
+.md-typeset h1 {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700;
+  border: none;
+}
+
+.md-typeset h2 {
+  color: var(--primary);
+  font-weight: 600;
+  border-bottom: 2px solid var(--accent);
+  padding-bottom: 0.5rem;
+}
+
+/* Code blocks */
+.highlight {
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+/* Cards and sections */
+.md-typeset .admonition {
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(10px);
+}
+
+/* Tables */
+.md-typeset table {
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+}
+
+.md-typeset table th {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: white;
+  font-weight: 600;
+}
+
+/* Navigation */
+.md-nav__item--active > .md-nav__link {
+  color: var(--primary);
+  font-weight: 600;
+}
+
+/* Buttons and links */
+.md-typeset a {
+  color: var(--primary);
+  transition: all 0.2s ease;
+}
+
+.md-typeset a:hover {
+  color: var(--secondary);
+  text-decoration: underline;
+}
+
+
+
+/* Critical warning styling */
+.md-typeset .admonition.danger {
+  border-left-color: #f44336;
+  background-color: rgba(244, 67, 54, 0.1);
+}
+
+.md-typeset .admonition.warning {
+  border-left-color: #ff9800;
+  background-color: rgba(255, 152, 0, 0.1);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .hero {
+    padding: 2rem 1rem;
+  }
+}
