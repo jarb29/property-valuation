@@ -15,15 +15,18 @@ Get up and running in minutes:
     mkdir -p data/v1
     # Copy your train.csv and test.csv to data/v1/
     
-    # Create minimal .env file
-    echo API_HOST=0.0.0.0 > .env
-    echo API_PORT=8000 >> .env
-    
     # Run the ML pipeline first
     docker-compose --profile pipeline up pipeline
     
     # Then start the API
     docker-compose up api
+    ```
+
+!!! note "Create .env file first"
+    Before running Docker commands, create a minimal `.env` file:
+    ```
+    API_HOST=0.0.0.0
+    API_PORT=8000
     ```
 
 === "Local"
