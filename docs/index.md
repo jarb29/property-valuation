@@ -22,13 +22,6 @@ Get up and running in minutes:
     docker-compose up api
     ```
 
-!!! note "Create .env file first"
-    Before running Docker commands, create a minimal `.env` file:
-    ```
-    API_HOST=0.0.0.0
-    API_PORT=8000
-    ```
-
 === "Local"
     ```bash
     git clone https://github.com/jarb29/property-valuation
