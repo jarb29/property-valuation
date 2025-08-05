@@ -8,13 +8,23 @@ Welcome to the Property Valuation ML System! This guide will help you get up and
 
 Before you begin, ensure your system meets these requirements:
 
-!!! info "System Requirements" - **Python**: 3.8 or higher - **Docker**: Latest version (recommended) - **Memory**: Minimum 4GB RAM - **Storage**: 2GB free space - **OS**: Linux, macOS, or Windows
+!!! info "System Requirements"
+    - **Python**: 3.8 or higher
+    - **Docker**: Latest version (recommended)
+    - **Memory**: Minimum 4GB RAM
+    - **Storage**: 2GB free space
+    - **OS**: Linux, macOS, or Windows
 
 ### Required Tools
 
-=== "Essential" - [Python 3.8+](https://python.org/downloads/) - [Git](https://git-scm.com/downloads)
+=== "Essential"
+    - [Python 3.8+](https://python.org/downloads/)
+    - [Git](https://git-scm.com/downloads/)
 
-=== "Recommended" - [Docker Desktop](https://docker.com/products/docker-desktop/) - [VS Code](https://code.visualstudio.com/) with Python extension - [Postman](https://postman.com/) for API testing
+=== "Recommended"
+    - [Docker Desktop](https://docker.com/products/docker-desktop/)
+    - [VS Code](https://code.visualstudio.com/) with Python extension
+    - [Postman](https://postman.com/) for API testing
 
 ---
 
@@ -50,7 +60,11 @@ docker-compose up api
 curl http://localhost:8000/api/v1/health
 ```
 
-!!! success "Docker Benefits" - ✅ No dependency conflicts - ✅ Consistent environment - ✅ Production-ready configuration - ✅ Easy scaling and deployment
+!!! success "Docker Benefits"
+    - ✅ No dependency conflicts
+    - ✅ Consistent environment
+    - ✅ Production-ready configuration
+    - ✅ Easy scaling and deployment
 
 ### Option B: Local Python Setup
 
@@ -155,11 +169,11 @@ MODEL_LOAD_TARGET=pipeline MODEL_METRIC=rmse python scripts/run_api.py
 ```
 
 !!! warning "Critical: Data Version Selection"
-**Always specify your data version before training or running the API:**
-`bash
+    **Always specify your data version before training or running the API:**
+    ```bash
     export DATA_VERSION=v1  # ⚠️ REQUIRED: Choose v1, v2, v3, etc.
-    `
-This determines which dataset and models the system will use.
+    ```
+    This determines which dataset and models the system will use.
 
 ---
 
@@ -280,7 +294,7 @@ curl http://localhost:8000/api/v1/health
 Use the API to make predictions for different property types:
 
 === "Apartment"
-`json
+    ```json
     {
       "features": {
         "type": "departamento",
@@ -293,10 +307,10 @@ Use the API to make predictions for different property types:
         "longitude": -70.6345
       }
     }
-    `
+    ```
 
 === "House"
-`json
+    ```json
     {
       "features": {
         "type": "casa",
@@ -309,7 +323,7 @@ Use the API to make predictions for different property types:
         "longitude": -70.5476
       }
     }
-    `
+    ```
 
 ### Step 5: Batch Processing
 
@@ -372,18 +386,19 @@ docker-compose --profile dev up api-dev
 ### Common Issues
 
 !!! warning "Port Already in Use"
-**Problem**: Port 8000 is already in use (Docker error: "port is already allocated")
-
+    **Problem**: Port 8000 is already in use (Docker error: "port is already allocated")
+    
     **Solutions**:
     ```bash
     # Option 1: Use a different port (recommended)
     API_PORT=8080 docker-compose up api
-
+    
     # Option 2: Kill the process using port 8000
     lsof -ti:8000 | xargs kill -9
-
+    
     # Option 3: Stop all Docker containers first
     docker-compose down
+    ```ker-compose down
 
     # Option 4: Check what's using the port
     lsof -i :8000
