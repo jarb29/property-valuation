@@ -46,10 +46,10 @@ mkdir -p data/v1
 # Copy your train.csv and test.csv files to data/v1/
 
 # Create minimal .env file
-cat > .env << EOF
+cat > .env << 'END'
 API_HOST=0.0.0.0
 API_PORT=8000
-EOF
+END
 
 # 3. Run the ML pipeline
 docker-compose --profile pipeline up pipeline
