@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+
+{% block title %}Valuation Results - PropertyAI{% endblock %}
+
+{% block content %}
+<div class="results-page">
+    <div class="page-header">
+        <h1><i class="fas fa-chart-bar"></i> Property Valuation Results</h1>
+        <a href="/" class="btn-secondary">
+            <i class="fas fa-arrow-left"></i> New Valuation
+        </a>
+    </div>
+
+    <div class="results-container">
+        <div class="result-main">
+            <div class="price-display">
+                <h2>{{ "${:,.0f}".format(prediction) }}</h2>
+                <p>Estimated Property Value (CLP)</p>
+            </div>
+            
+            <div class="price-breakdown">
+                <div class="breakdown-item">
+                    <span class="label">Price per m²:</span>
+                    <span class="value">${{ "${:,.0f}".format(prediction / features.net_usable_area) }}</span>
+                </div>
+                <div class="breakdown-item">
+                    <span class="label">Prediction Time:</span>
+                    <span class="value">{{ "%.1f"|format(prediction_time * 1000) }}ms</span>
+                </div>
+                <div class="breakdown-item">
+                    <span class="label">Model Version:</span>
+                    <span class="value">{{ model_version }}</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="property-summary">
+            <h4><i class="fas fa-home"></i> Property Summary</h4>
+            <div class="summary-grid">
+                <div class="summary-item">
+                    <span class="label">Type:</span>
+                    <span class="value">{{ features.type.title() }}</span>
+                </div>
+                <div class="summary-item">
+                    <span class="label">Sector:</span>
+                    <span class="value">{{ features.sector.title() }}</span>
+                </div>
+                <div class="summary-item">
+                    <span class="label">Usable Area:</span>
+                    <span class="value">{{ features.net_usable_area }} m²</span>
+                </div>
+                <div class="summary-item">
+                    <span class="label">Total Area:</span>
+                    <span class="value">{{ features.net_area }} m²</span>
+                </div>
+                <div class="summary-item">
+                    <span class="label">Rooms:</span>
+                    <span class="value">{{ features.n_rooms }}</span>
+                </div>
+                <div class="summary-item">
+                    <span class="label">Bathrooms:</span>
+                    <span class="value">{{ features.n_bathroom }}</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="disclaimer">
+            <i class="fas fa-info-circle"></i>
+            <p>This valuation is an estimate based on machine learning models trained on historical data. 
+            Actual market value may vary based on current market conditions, property condition, and other factors.</p>
+        </div>
+    </div>
+</div>
+
+<style>
+.results-page {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.page-header h1 {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.btn-secondary {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    background: var(--surface-color);
+    color: var(--text-primary);
+    text-decoration: none;
+    border: 2px solid var(--border-color);
+    border-radius: var(--border-radius);
+    font-weight: 500;
+    transition: var(--transition);
+}
+
+.btn-secondary:hover {
+    background: var(--background-color);
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+</style>
+{% endblock %}

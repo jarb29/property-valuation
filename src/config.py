@@ -38,7 +38,7 @@ for directory in [OUTPUT_DIR, LOG_DIR, API_LOGS_DIR, PREDICTION_LOGS_DIR,
     os.makedirs(directory, exist_ok=True)
 
 # Environment variables
-DATA_VERSION = os.getenv("DATA_VERSION", "v2")
+DATA_VERSION = os.getenv("DATA_VERSION", "v1")
 MODEL_VERSION = os.getenv("MODEL_VERSION", DATA_VERSION)
 MODEL_METRIC = os.getenv("MODEL_METRIC", "rmse")
 MODEL_LOAD_TARGET = os.getenv("MODEL_LOAD_TARGET", "pipeline")
