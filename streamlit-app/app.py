@@ -25,7 +25,7 @@ PropertyPredictor = predictor_module.PropertyPredictor
 
 # Utility functions
 def format_currency(amount):
-    return f"${amount:,.0f} CLP"
+    return f"{amount:,.0f} UF"
 
 def get_sector_coordinates():
     return {
