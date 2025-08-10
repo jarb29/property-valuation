@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Santiago Properties - Screen Grid</title>
+    <script src="https://unpkg.com/deck.gl@latest/dist.min.js"></script>
+    <style>
+        body { margin: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #0a0a0a; }
+        #map { width: 100vw; height: 100vh; }
+        .panel {
+            position: absolute;
+            background: rgba(15, 15, 15, 0.95);
+            color: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+            z-index: 1000;
+        }
+        #info {
+            top: 20px;
+            left: 20px;
+            padding: 20px;
+            min-width: 280px;
+        }
+        #controls {
+            top: 20px;
+            right: 20px;
+            padding: 20px;
+            width: 250px;
+        }
+        #analytics {
+            bottom: 20px;
+            left: 20px;
+            padding: 20px;
+            width: 300px;
+        }
+        .control-group {
+            margin: 15px 0;
+        }
+        .control-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 12px;
+            color: #ccc;
+        }
+        .slider {
+            width: 100%;
+            margin: 5px 0;
+        }
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            margin: 8px 0;
+            font-size: 13px;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin: 4px 0;
+            font-size: 11px;
+        }
+        .legend-color {
+            width: 12px;
+            height: 12px;
+            border-radius: 2px;
+            margin-right: 8px;
+        }
+        h3 { margin: 0 0 15px 0; font-size: 18px; }
+        h4 { margin: 15px 0 10px 0; font-size: 14px; color: #00d4ff; }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+    
+    <div id="info" class="panel">
+        <h3>Santiago Property Heat Map</h3>
+        <div id="stats">Loading...</div>
+        <h4>Density Scale</h4>
+        <div class="legend-item"><div class="legend-color" style="background: rgba(255, 255, 178, 0.1);"></div>Very Low</div>
+        <div class="legend-item"><div class="legend-color" style="background: rgba(254, 217, 118, 0.3);"></div>Low</div>
+        <div class="legend-item"><div class="legend-color" style="background: rgba(254, 178, 76, 0.5);"></div>Medium</div>
+        <div class="legend-item"><div class="legend-color" style="background: rgba(253, 141, 60, 0.7);"></div>High</div>
+        <div class="legend-item"><div class="legend-color" style="background: rgba(240, 59, 32, 0.8);"></div>Very High</div>
+        <div class="legend-item"><div class="legend-color" style="background: rgba(189, 0, 38, 1);"></div>Extreme</div>
+    </div>
+    
+    <div id="controls" class="panel">
+        <h3>Grid Controls</h3>
+        <div class="control-group">
+            <label>Cell Size</label>
+            <input type="range" class="slider" id="cellSizeSlider" min="10" max="50" value="20">
+            <span id="cellSizeValue">20px</span>
+        </div>
+        <div class="control-group">
+            <label>Opacity</label>
+            <input type="range" class="slider" id="opacitySlider" min="0.3" max="1" step="0.1" value="0.8">
+            <span id="opacityValue">80%</span>
+        </div>
+        <div class="control-group">
+            <label>Aggregation</label>
+            <select id="aggregationSelect" style="width: 100%; padding: 5px; background: #333; color: white; border: 1px solid #555; border-radius: 4px;">
+                <option value="SUM">Sum</option>
+                <option value="MEAN">Average</option>
+                <option value="MAX">Maximum</option>
+            </select>
+        </div>
+        <div class="control-group">
+            <label>Map Style</label>
+            <select id="mapStyleSelect" style="width: 100%; padding: 5px; background: #333; color: white; border: 1px solid #555; border-radius: 4px;">
+                <option value="dark">Dark</option>
+                <option value="satellite">Satellite</option>
+                <option value="light">Light</option>
+            </select>
+        </div>
+    </div>
+    
+    <div id="analytics" class="panel">
+        <h3>Market Analytics</h3>
+        <div id="marketStats">Calculating...</div>
+    </div>
+
+    <script>
+        const {DeckGL, ScreenGridLayer, TileLayer, BitmapLayer} = deck;
+        
+        // Sample data for immediate loading
+        function generateSampleData() {
+            const data = [];
+            const sectors = [
+                {name: 'Las Condes', lat: -33.4172, lng: -70.5476, priceMultiplier: 1.8},
+                {name: 'Providencia', lat: -33.4264, lng: -70.6128, priceMultiplier: 1.6},
+                {name: 'Vitacura', lat: -33.3928, lng: -70.5756, priceMultiplier: 2.2},
+                {name: 'Ñuñoa', lat: -33.4569, lng: -70.5975, priceMultiplier: 1.2},
+                {name: 'Santiago Centro', lat: -33.4489, lng: -70.6693, priceMultiplier: 1.0},
+                {name: 'La Reina', lat: -33.4453, lng: -70.5364, priceMultiplier: 1.4},
+                {name: 'Maipú', lat: -33.5110, lng: -70.7581, priceMultiplier: 0.8}
+            ];
+            
+            sectors.forEach(sector => {
+                for (let i = 0; i < 150; i++) {
+                    const lat = sector.lat + (Math.random() - 0.5) * 0.02;
+                    const lng = sector.lng + (Math.random() - 0.5) * 0.02;
+                    const basePrice = 2500 + Math.random() * 3000;
+                    const price = basePrice * sector.priceMultiplier;
+                    
+                    data.push([lng, lat, price / 1000]); // Format: [lng, lat, weight]
+                }
+            });
+            
+            return data;
+        }
+        
+        // Function to parse CSV data
+        function parseCSV(text) {
+            const lines = text.trim().split('\n');
+            const headers = lines[0].split(',');
+            const data = [];
+            
+            for (let i = 1; i < lines.length; i++) {
+                const values = lines[i].split(',');
+                const row = {};
+                headers.forEach((header, index) => {
+                    row[header] = values[index];
+                });
+                data.push(row);
+            }
+            return data;
+        }
+        
+        // Function to load and process data
+        async function loadData() {
+            try {
+                const response = await fetch('../outputs/pipeline/data/v1.1_data_clean.csv');
+                if (!response.ok) throw new Error('Data file not found');
+                
+                const csvText = await response.text();
+                const csvData = parseCSV(csvText);
+                
+                const data = csvData.map(row => [
+                    parseFloat(row.longitude),
+                    parseFloat(row.latitude),
+                    parseFloat(row.price) / 1000 // Normalize price as weight
+                ]).filter(d => !isNaN(d[0]) && !isNaN(d[1]) && !isNaN(d[2]));
+                
+                return data;
+            } catch (error) {
+                console.warn('Using sample data:', error.message);
+                return generateSampleData();
+            }
+        }
+        
+        // Calculate market statistics
+        function calculateStats(data) {
+            const weights = data.map(d => d[2] * 1000).sort((a, b) => a - b); // Convert back to original scale
+            const mean = weights.reduce((a, b) => a + b, 0) / weights.length;
+            const median = weights[Math.floor(weights.length / 2)];
+            const q1 = weights[Math.floor(weights.length * 0.25)];
+            const q3 = weights[Math.floor(weights.length * 0.75)];
+            const max = Math.max(...weights);
+            const min = Math.min(...weights);
+            
+            return { mean, median, q1, q3, max, min, count: data.length };
+        }
+        
+        // Update UI with statistics
+        function updateStats(stats) {
+            document.getElementById('stats').innerHTML = `
+                <div class="stat-item"><span>Total Properties:</span><strong>${stats.count.toLocaleString()}</strong></div>
+                <div class="stat-item"><span>Coverage:</span><strong>Santiago Metro</strong></div>
+            `;
+            
+            document.getElementById('marketStats').innerHTML = `
+                <div class="stat-item"><span>Median Price:</span><strong>${Math.round(stats.median).toLocaleString()} UF</strong></div>
+                <div class="stat-item"><span>Average Price:</span><strong>${Math.round(stats.mean).toLocaleString()} UF</strong></div>
+                <div class="stat-item"><span>Price Range:</span><strong>${Math.round(stats.min).toLocaleString()} - ${Math.round(stats.max).toLocaleString()} UF</strong></div>
+                <div class="stat-item"><span>Q1-Q3 Range:</span><strong>${Math.round(stats.q1).toLocaleString()} - ${Math.round(stats.q3).toLocaleString()} UF</strong></div>
+            `;
+        }
+        
+        let deckgl;
+        let data;
+        let currentCellSize = 20;
+        let currentOpacity = 0.8;
+        let currentAggregation = 'SUM';
+        let currentMapStyle = 'dark';
+        
+        const mapStyles = {
+            dark: 'https://cartodb-basemaps-a.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png',
+            satellite: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+            light: 'https://cartodb-basemaps-a.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png'
+        };
+        
+        const colorRange = [
+            [255, 255, 178, 25],   // Very light yellow
+            [254, 217, 118, 85],   // Light orange
+            [254, 178, 76, 127],   // Orange
+            [253, 141, 60, 170],   // Dark orange
+            [240, 59, 32, 212],    // Red
+            [189, 0, 38, 255]      // Dark red
+        ];
+        
+        function createTileLayer() {
+            return new TileLayer({
+                id: 'tile-layer',
+                data: mapStyles[currentMapStyle],
+                minZoom: 0,
+                maxZoom: 19,
+                tileSize: 256,
+                renderSubLayers: props => {
+                    const { bbox: {west, south, east, north} } = props.tile;
+                    return new BitmapLayer(props, {
+                        data: null,
+                        image: props.data,
+                        bounds: [west, south, east, north]
+                    });
+                }
+            });
+        }
+        
+        function createScreenGridLayer() {
+            return new ScreenGridLayer({
+                id: 'screen-grid-layer',
+                data: data,
+                opacity: currentOpacity,
+                getPosition: d => [d[0], d[1]],
+                getWeight: d => d[2],
+                cellSizePixels: currentCellSize,
+                colorRange: colorRange,
+                gpuAggregation: true,
+                aggregation: currentAggregation,
+                pickable: true
+            });
+        }
+        
+        function updateVisualization() {
+            if (deckgl) {
+                deckgl.setProps({
+                    layers: [
+                        createTileLayer(),
+                        createScreenGridLayer()
+                    ]
+                });
+            }
+        }
+        
+        // Initialize the visualization
+        async function initVisualization() {
+            data = await loadData();
+            const stats = calculateStats(data);
+            updateStats(stats);
+            
+            // Create deck.gl instance
+            deckgl = new DeckGL({
+                container: 'map',
+                initialViewState: {
+                    longitude: -70.5476,
+                    latitude: -33.4372,
+                    zoom: 11,
+                    pitch: 0,
+                    bearing: 0
+                },
+                controller: true,
+                layers: [
+                    createTileLayer(),
+                    createScreenGridLayer()
+                ],
+                getTooltip: ({object}) => {
+                    if (object) {
+                        const count = object.count;
+                        const totalWeight = object.totalWeight;
+                        const avgPrice = Math.round((totalWeight / count) * 1000);
+                        
+                        return {
+                            html: `<div style="background: rgba(15, 15, 15, 0.98); color: white; padding: 15px; border-radius: 8px; border: 1px solid #00d4ff; box-shadow: 0 4px 20px rgba(0,0,0,0.8); font-family: 'Segoe UI', sans-serif;">
+                                <div style="color: #00d4ff; font-weight: bold; margin-bottom: 8px;">Property Heat Cell</div>
+                                <div style="margin: 4px 0;"><strong>Properties:</strong> ${count}</div>
+                                <div style="margin: 4px 0;"><strong>Avg Price:</strong> ${avgPrice.toLocaleString()} UF</div>
+                                <div style="margin: 4px 0;"><strong>Total Value:</strong> ${Math.round(totalWeight * 1000).toLocaleString()} UF</div>
+                            </div>`
+                        };
+                    }
+                }
+            });
+            
+            // Control event listeners
+            document.getElementById('cellSizeSlider').addEventListener('input', (e) => {
+                currentCellSize = parseInt(e.target.value);
+                document.getElementById('cellSizeValue').textContent = currentCellSize + 'px';
+                updateVisualization();
+            });
+            
+            document.getElementById('opacitySlider').addEventListener('input', (e) => {
+                currentOpacity = parseFloat(e.target.value);
+                document.getElementById('opacityValue').textContent = Math.round(currentOpacity * 100) + '%';
+                updateVisualization();
+            });
+            
+            document.getElementById('aggregationSelect').addEventListener('change', (e) => {
+                currentAggregation = e.target.value;
+                updateVisualization();
+            });
+            
+            document.getElementById('mapStyleSelect').addEventListener('change', (e) => {
+                currentMapStyle = e.target.value;
+                updateVisualization();
+            });
+        }
+        
+        // Start the visualization when page loads
+        initVisualization();
+    </script>
+</body>
+</html>

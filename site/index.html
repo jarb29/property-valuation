@@ -19,7 +19,7 @@
         <link rel="next" href="getting-started/">
       
       
-      <link rel="icon" href="material/home">
+      <link rel="icon" href="assets/images/logo.svg">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.9">
     
     
@@ -96,7 +96,7 @@
   <nav class="md-header__inner md-grid" aria-label="Header">
     <a href="." title="Property Valuation ML System" class="md-header__button md-logo" aria-label="Property Valuation ML System" data-md-component="logo">
       
-  <img src="material/home" alt="logo">
+  <img src="assets/images/logo.svg" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -230,7 +230,7 @@
   <label class="md-nav__title" for="__drawer">
     <a href="." title="Property Valuation ML System" class="md-nav__button md-logo" aria-label="Property Valuation ML System" data-md-component="logo">
       
-  <img src="material/home" alt="logo">
+  <img src="assets/images/logo.svg" alt="logo">
 
     </a>
     Property Valuation ML System
@@ -737,11 +737,15 @@
 </span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>data/v1
 </span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="c1"># Copy your train.csv and test.csv to data/v1/</span>
 </span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>
-</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="c1"># Run the ML pipeline first</span>
-</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>docker-compose<span class="w"> </span>--profile<span class="w"> </span>pipeline<span class="w"> </span>up<span class="w"> </span>pipeline
-</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>
-</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="c1"># Then start the API</span>
-</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>docker-compose<span class="w"> </span>up<span class="w"> </span>api
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="c1"># Create minimal .env file</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;API_HOST=0.0.0.0&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>.env
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;API_PORT=8000&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>.env
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="c1"># Run the ML pipeline first</span>
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>docker-compose<span class="w"> </span>--profile<span class="w"> </span>pipeline<span class="w"> </span>up<span class="w"> </span>pipeline
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="c1"># Then start the API</span>
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>docker-compose<span class="w"> </span>up<span class="w"> </span>api
 </span></code></pre></div>
 </div>
 <div class="tabbed-block">
@@ -752,16 +756,20 @@
 </span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>data/v1
 </span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="c1"># Copy your train.csv and test.csv to data/v1/</span>
 </span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>
-</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="c1"># Set up environment</span>
-</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>python<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>.venv
-</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="nb">source</span><span class="w"> </span>.venv/bin/activate
-</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
-</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>
-</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="c1"># Run the ML pipeline first</span>
-</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="nv">DATA_VERSION</span><span class="o">=</span>v1<span class="w"> </span>python<span class="w"> </span>scripts/pipeline.py
-</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>
-</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="c1"># Then start the API</span>
-</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>python<span class="w"> </span>scripts/run_api.py
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="c1"># Create minimal .env file</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;API_HOST=0.0.0.0&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>.env
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;API_PORT=8000&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>.env
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="c1"># Set up environment</span>
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>python<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>.venv
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="nb">source</span><span class="w"> </span>.venv/bin/activate
+</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>
+</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="c1"># Run the ML pipeline first</span>
+</span><span id="__span-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a><span class="nv">DATA_VERSION</span><span class="o">=</span>v1<span class="w"> </span>python<span class="w"> </span>scripts/pipeline.py
+</span><span id="__span-1-19"><a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>
+</span><span id="__span-1-20"><a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a><span class="c1"># Then start the API</span>
+</span><span id="__span-1-21"><a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a>python<span class="w"> </span>scripts/run_api.py
 </span></code></pre></div>
 </div>
 </div>
@@ -837,7 +845,7 @@ Available versions: <code>v1</code>, <code>v2</code>, <code>v3</code>...</p>
 <h2 id="documentation">📚 Documentation<a class="headerlink" href="#documentation" title="Permanent link">&para;</a></h2>
 <ul>
 <li><strong><a href="getting-started/">Getting Started</a></strong> - Setup and installation</li>
-<li><strong><a href="user-manual/">User Manual</a></strong> - Complete system guide  </li>
+<li><strong><a href="user-manual/">User Manual</a></strong> - Complete system guide</li>
 <li><strong><a href="api-documentation/">API Reference</a></strong> - Endpoint documentation</li>
 <li><strong><a href="Challenge/">Challenge</a></strong> - Original requirements</li>
 </ul>
@@ -926,6 +934,8 @@ Available versions: <code>v1</code>, <code>v2</code>, <code>v3</code>...</p>
     
     
       <script src="assets/javascripts/bundle.c8b220af.min.js"></script>
+      
+        <script src="assets/js/custom.js"></script>
       
     
   </body>

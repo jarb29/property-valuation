@@ -1,38 +1,44 @@
 {
-  "model_type": "gradient_boosting",
-  "features": [
-    "type",
-    "sector",
-    "net_usable_area",
-    "net_area",
-    "n_rooms",
-    "n_bathroom",
-    "latitude",
-    "longitude"
-  ],
-  "target": "price",
-  "hyperparameters": {
-    "learning_rate": 0.01,
-    "n_estimators": 300,
-    "max_depth": 5,
-    "loss": "absolute_error"
-  },
-  "categorical_features": ["type", "sector"],
-  "numerical_features": [
-    "net_usable_area",
-    "net_area",
-    "n_rooms",
-    "n_bathroom",
-    "latitude",
-    "longitude"
-  ],
-  "training_data_shape": [15352, 9],
-  "description": "Property valuation model trained on real estate data",
-  "evaluation_metrics": {
-    "rmse": 58.639198149505,
-    "mape": 0.6485971985208208,
-    "mae": 67.3670788273816
-  },
-  "timestamp": "2025-08-06T12:18:01.932339",
-  "model_path": "/Users/joserubio/Desktop/proyectos/bain/outputs/pipeline/models/v2.3_gradient_boosting_property_valuation.pkl"
+    "model_type": "gradient_boosting",
+    "features": [
+        "type",
+        "sector",
+        "net_usable_area",
+        "net_area",
+        "n_rooms",
+        "n_bathroom",
+        "latitude",
+        "longitude"
+    ],
+    "target": "price",
+    "hyperparameters": {
+        "learning_rate": 0.01,
+        "n_estimators": 300,
+        "max_depth": 5,
+        "loss": "absolute_error"
+    },
+    "categorical_features": [
+        "type",
+        "sector"
+    ],
+    "numerical_features": [
+        "net_usable_area",
+        "net_area",
+        "n_rooms",
+        "n_bathroom",
+        "latitude",
+        "longitude"
+    ],
+    "training_data_shape": [
+        15352,
+        9
+    ],
+    "description": "Property valuation model trained on real estate data",
+    "evaluation_metrics": {
+        "rmse": 57.858843274731,
+        "mape": 0.6473025242861937,
+        "mae": 2670.48489769164
+    },
+    "timestamp": "2025-08-07T10:09:05.953969",
+    "model_path": "/Users/joserubio/Desktop/proyectos/bain/outputs/pipeline/models/v1.1_gradient_boosting_property_valuation.pkl"
 }

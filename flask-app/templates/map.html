@@ -1,0 +1,513 @@
+{% extends "map_base.html" %}
+
+{% block title %}3D Property Map - PropertyAI{% endblock %}
+
+{% block content %}
+<style>
+    .map-container {
+        position: relative;
+        width: 100%;
+        height: calc(100vh - 120px);
+        background: #0a0a0a;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    }
+    
+    #map { 
+        width: 100%; 
+        height: 100%; 
+    }
+    
+    .panel {
+        position: absolute;
+        background: rgba(15, 15, 15, 0.95);
+        color: white;
+        border-radius: 12px;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.8);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255,255,255,0.1);
+        z-index: 1000;
+    }
+    
+    #info {
+        top: 20px;
+        left: 20px;
+        padding: 20px;
+        min-width: 280px;
+    }
+    
+    #controls {
+        top: 20px;
+        right: 20px;
+        padding: 20px;
+        width: 250px;
+    }
+    
+    #analytics {
+        bottom: 20px;
+        left: 20px;
+        padding: 20px;
+        width: 300px;
+    }
+    
+    .control-group {
+        margin: 15px 0;
+    }
+    
+    .control-group label {
+        display: block;
+        margin-bottom: 5px;
+        font-size: 12px;
+        color: #ccc;
+    }
+    
+    .slider {
+        width: 100%;
+        margin: 5px 0;
+    }
+    
+    .stat-item {
+        display: flex;
+        justify-content: space-between;
+        margin: 8px 0;
+        font-size: 13px;
+    }
+    
+    .legend-item {
+        display: flex;
+        align-items: center;
+        margin: 4px 0;
+        font-size: 11px;
+    }
+    
+    .legend-color {
+        width: 12px;
+        height: 12px;
+        border-radius: 2px;
+        margin-right: 8px;
+    }
+    
+    .panel h3 { 
+        margin: 0 0 15px 0; 
+        font-size: 18px; 
+    }
+    
+    .panel h4 { 
+        margin: 15px 0 10px 0; 
+        font-size: 14px; 
+        color: #00d4ff; 
+    }
+    
+    .map-header {
+        text-align: center;
+        margin-bottom: 20px;
+        padding: 20px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border-radius: 12px;
+        color: white;
+    }
+</style>
+
+<div class="map-header">
+    <h1><i class="fas fa-cube"></i> 3D Property Market Analysis</h1>
+    <p>Interactive visualization of Santiago's real estate market with advanced analytics</p>
+</div>
+
+<div class="map-container">
+    <div id="map"></div>
+    
+    <div id="info" class="panel">
+        <h3>Santiago Real Estate Analysis</h3>
+        <div id="stats">Loading...</div>
+        <h4>Price Distribution</h4>
+        <div class="legend-item"><div class="legend-color" style="background: #0d0887;"></div>Ultra Low (0-20%)</div>
+        <div class="legend-item"><div class="legend-color" style="background: #0080d8;"></div>Low (20-40%)</div>
+        <div class="legend-item"><div class="legend-color" style="background: #90e0ef;"></div>Medium (40-60%)</div>
+        <div class="legend-item"><div class="legend-color" style="background: #ffff00;"></div>High (60-80%)</div>
+        <div class="legend-item"><div class="legend-color" style="background: #ff4500;"></div>Premium (80-95%)</div>
+        <div class="legend-item"><div class="legend-color" style="background: #8b0000;"></div>Luxury (95-100%)</div>
+    </div>
+    
+    <div id="controls" class="panel">
+        <h3>Visualization Controls</h3>
+        <div class="control-group">
+            <label>Data Source</label>
+            <select id="dataSourceSelect" style="width: 100%; padding: 5px; background: #333; color: white; border: 1px solid #555; border-radius: 4px;">
+                <option value="train">Training Data</option>
+                <option value="test">Test Data</option>
+            </select>
+        </div>
+        <div class="control-group">
+            <label>Visualization Type</label>
+            <select id="vizTypeSelect" style="width: 100%; padding: 5px; background: #333; color: white; border: 1px solid #555; border-radius: 4px;">
+                <option value="hexagon">3D Hexagon</option>
+                <option value="screengrid">Heat Grid</option>
+            </select>
+        </div>
+        
+        <!-- Hexagon Controls -->
+        <div id="hexagonControls">
+            <div class="control-group">
+                <label>Hexagon Size</label>
+                <input type="range" class="slider" id="radiusSlider" min="8" max="25" value="12">
+                <span id="radiusValue">12m</span>
+            </div>
+            <div class="control-group">
+                <label>Height Scale</label>
+                <input type="range" class="slider" id="elevationSlider" min="10" max="80" value="35">
+                <span id="elevationValue">35x</span>
+            </div>
+            <div class="control-group">
+                <label>Coverage</label>
+                <input type="range" class="slider" id="coverageSlider" min="0.5" max="1" step="0.1" value="0.9">
+                <span id="coverageValue">90%</span>
+            </div>
+        </div>
+        
+        <!-- ScreenGrid Controls -->
+        <div id="screengridControls" style="display: none;">
+            <div class="control-group">
+                <label>Cell Size</label>
+                <input type="range" class="slider" id="cellSizeSlider" min="5" max="50" value="20">
+                <span id="cellSizeValue">20px</span>
+            </div>
+            <div class="control-group">
+                <label>Opacity</label>
+                <input type="range" class="slider" id="opacitySlider" min="0.3" max="1" step="0.1" value="0.8">
+                <span id="opacityValue">80%</span>
+            </div>
+            <div class="control-group">
+                <label>Aggregation</label>
+                <select id="aggregationSelect" style="width: 100%; padding: 5px; background: #333; color: white; border: 1px solid #555; border-radius: 4px;">
+                    <option value="SUM">Sum</option>
+                    <option value="MEAN">Average</option>
+                    <option value="MAX">Maximum</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="control-group">
+            <label>Map Style</label>
+            <select id="mapStyleSelect" style="width: 100%; padding: 5px; background: #333; color: white; border: 1px solid #555; border-radius: 4px;">
+                <option value="dark">Dark</option>
+                <option value="satellite">Satellite</option>
+                <option value="light">Light</option>
+            </select>
+        </div>
+    </div>
+    
+    <div id="analytics" class="panel">
+        <h3>Market Analytics</h3>
+        <div id="marketStats">Calculating...</div>
+    </div>
+</div>
+
+<script src="https://unpkg.com/deck.gl@latest/dist.min.js"></script>
+<script>
+    const {DeckGL, HexagonLayer, ScreenGridLayer, TileLayer, BitmapLayer} = deck;
+    
+    function generateSampleData() {
+        const data = [];
+        const sectors = [
+            {name: 'Las Condes', lat: -33.4172, lng: -70.5476, priceMultiplier: 1.8},
+            {name: 'Providencia', lat: -33.4264, lng: -70.6128, priceMultiplier: 1.6},
+            {name: 'Vitacura', lat: -33.3928, lng: -70.5756, priceMultiplier: 2.2},
+            {name: 'Ñuñoa', lat: -33.4569, lng: -70.5975, priceMultiplier: 1.2},
+            {name: 'Santiago Centro', lat: -33.4489, lng: -70.6693, priceMultiplier: 1.0},
+            {name: 'La Reina', lat: -33.4453, lng: -70.5364, priceMultiplier: 1.4},
+            {name: 'Maipú', lat: -33.5110, lng: -70.7581, priceMultiplier: 0.8}
+        ];
+        
+        sectors.forEach(sector => {
+            for (let i = 0; i < 150; i++) {
+                const lat = sector.lat + (Math.random() - 0.5) * 0.02;
+                const lng = sector.lng + (Math.random() - 0.5) * 0.02;
+                const basePrice = 2500 + Math.random() * 3000;
+                const price = basePrice * sector.priceMultiplier;
+                
+                data.push({
+                    position: [lng, lat],
+                    price: price
+                });
+            }
+        });
+        
+        return data;
+    }
+    
+    function parseCSV(text) {
+        const lines = text.trim().split('\n');
+        const headers = lines[0].split(',');
+        const data = [];
+        
+        for (let i = 1; i < lines.length; i++) {
+            const values = lines[i].split(',');
+            const row = {};
+            headers.forEach((header, index) => {
+                row[header] = values[index];
+            });
+            data.push(row);
+        }
+        return data;
+    }
+    
+    async function loadTrainData() {
+        try {
+            const response = await fetch('/static/data/v1.1_data_clean.csv');
+            if (!response.ok) throw new Error('Train data file not found');
+            
+            const csvText = await response.text();
+            const csvData = parseCSV(csvText);
+            
+            return csvData.map(row => ({
+                position: [parseFloat(row.longitude), parseFloat(row.latitude)],
+                price: parseFloat(row.price)
+            })).filter(d => !isNaN(d.position[0]) && !isNaN(d.position[1]) && !isNaN(d.price));
+        } catch (error) {
+            console.warn('Train data not found, using sample data:', error.message);
+            return generateSampleData();
+        }
+    }
+    
+    async function loadTestData() {
+        try {
+            const response = await fetch('/static/data/test.csv');
+            if (!response.ok) throw new Error('Test data file not found');
+            
+            const csvText = await response.text();
+            const csvData = parseCSV(csvText);
+            
+            return csvData.map(row => ({
+                position: [parseFloat(row.longitude), parseFloat(row.latitude)],
+                price: parseFloat(row.price)
+            })).filter(d => !isNaN(d.position[0]) && !isNaN(d.position[1]) && !isNaN(d.price));
+        } catch (error) {
+            console.warn('Test data not found:', error.message);
+            return [];
+        }
+    }
+    
+    function getCurrentData() {
+        return currentDataSource === 'train' ? trainData : testData;
+    }
+
+    const {AmbientLight, PointLight, DirectionalLight, LightingEffect} = deck;
+    
+    const lightingEffect = new LightingEffect({
+        ambientLight: new AmbientLight({color: [255, 255, 255], intensity: 0.3}),
+        pointLight1: new PointLight({color: [255, 255, 255], intensity: 2.0, position: [-70.5476, -33.4372, 80000]}),
+        pointLight2: new PointLight({color: [0, 150, 255], intensity: 1.5, position: [-70.6, -33.3, 50000]}),
+        directionalLight: new DirectionalLight({color: [255, 255, 255], intensity: 1.0, direction: [-1, -1, -2]})
+    });
+    
+    function calculateStats(data) {
+        const prices = data.map(d => d.price).sort((a, b) => a - b);
+        const mean = prices.reduce((a, b) => a + b, 0) / prices.length;
+        const median = prices[Math.floor(prices.length / 2)];
+        const q1 = prices[Math.floor(prices.length * 0.25)];
+        const q3 = prices[Math.floor(prices.length * 0.75)];
+        const max = Math.max(...prices);
+        const min = Math.min(...prices);
+        
+        return { mean, median, q1, q3, max, min, count: data.length };
+    }
+    
+    function updateStats(stats) {
+        const dataLabel = currentDataSource === 'train' ? 'Training' : 'Test';
+        document.getElementById('stats').innerHTML = `
+            <div class="stat-item"><span>Dataset:</span><strong>${dataLabel}</strong></div>
+            <div class="stat-item"><span>Total Properties:</span><strong>${stats.count.toLocaleString()}</strong></div>
+            <div class="stat-item"><span>Coverage:</span><strong>Santiago Metro</strong></div>
+        `;
+        
+        document.getElementById('marketStats').innerHTML = `
+            <div class="stat-item"><span>Median Price:</span><strong>${Math.round(stats.median).toLocaleString()} UF</strong></div>
+            <div class="stat-item"><span>Average Price:</span><strong>${Math.round(stats.mean).toLocaleString()} UF</strong></div>
+            <div class="stat-item"><span>Price Range:</span><strong>${Math.round(stats.min).toLocaleString()} - ${Math.round(stats.max).toLocaleString()} UF</strong></div>
+            <div class="stat-item"><span>Q1-Q3 Range:</span><strong>${Math.round(stats.q1).toLocaleString()} - ${Math.round(stats.q3).toLocaleString()} UF</strong></div>
+        `;
+    }
+    
+    let deckgl, trainData, testData, data;
+    let currentRadius = 12, currentElevation = 35, currentCoverage = 0.9, currentMapStyle = 'dark';
+    let currentVizType = 'hexagon', currentCellSize = 20, currentOpacity = 0.8, currentAggregation = 'SUM';
+    let currentDataSource = 'train';
+    
+    const mapStyles = {
+        dark: 'https://cartodb-basemaps-a.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png',
+        satellite: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+        light: 'https://cartodb-basemaps-a.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png'
+    };
+    
+    function createTileLayer() {
+        return new TileLayer({
+            id: 'tile-layer',
+            data: mapStyles[currentMapStyle],
+            minZoom: 0, maxZoom: 19, tileSize: 256,
+            renderSubLayers: props => {
+                const { bbox: {west, south, east, north} } = props.tile;
+                return new BitmapLayer(props, {
+                    data: null, image: props.data, bounds: [west, south, east, north]
+                });
+            }
+        });
+    }
+    
+    function createHexagonLayer() {
+        return new HexagonLayer({
+            id: 'hexagon-layer', data: data,
+            getPosition: d => d.position,
+            getElevationWeight: d => d.price, getColorWeight: d => d.price,
+            radius: currentRadius, elevationRange: [0, 2000], elevationScale: currentElevation,
+            extruded: true, pickable: true, coverage: currentCoverage, upperPercentile: 95,
+            material: { ambient: 0.15, diffuse: 0.85, shininess: 128, specularColor: [255, 255, 255] },
+            colorRange: [[13, 8, 135], [0, 128, 216], [144, 224, 239], [255, 255, 0], [255, 69, 0], [139, 0, 0]],
+            transitions: { elevationScale: 1000, radius: 500, coverage: 500 }
+        });
+    }
+    
+    function createScreenGridLayer() {
+        const gridData = data.map(d => [d.position[0], d.position[1], d.price / 1000]);
+        return new ScreenGridLayer({
+            id: 'screen-grid-layer', data: gridData,
+            opacity: currentOpacity,
+            getPosition: d => [d[0], d[1]],
+            getWeight: d => d[2],
+            cellSizePixels: currentCellSize,
+            colorRange: [[255, 255, 178, 25], [254, 217, 118, 85], [254, 178, 76, 127], [253, 141, 60, 170], [240, 59, 32, 212], [189, 0, 38, 255]],
+            gpuAggregation: true, aggregation: currentAggregation, pickable: true
+        });
+    }
+    
+    function updateVisualization() {
+        if (deckgl) {
+            data = getCurrentData();
+            const stats = calculateStats(data);
+            updateStats(stats);
+            
+            const layers = [createTileLayer()];
+            if (currentVizType === 'hexagon') {
+                layers.push(createHexagonLayer());
+            } else {
+                layers.push(createScreenGridLayer());
+            }
+            deckgl.setProps({ layers });
+        }
+    }
+    
+    function updateControlsVisibility() {
+        const hexControls = document.getElementById('hexagonControls');
+        const gridControls = document.getElementById('screengridControls');
+        if (currentVizType === 'hexagon') {
+            hexControls.style.display = 'block';
+            gridControls.style.display = 'none';
+        } else {
+            hexControls.style.display = 'none';
+            gridControls.style.display = 'block';
+        }
+    }
+    
+    async function initVisualization() {
+        trainData = await loadTrainData();
+        testData = await loadTestData();
+        data = getCurrentData();
+        const stats = calculateStats(data);
+        updateStats(stats);
+        
+        deckgl = new DeckGL({
+            container: 'map',
+            initialViewState: { longitude: -70.5476, latitude: -33.4372, zoom: 11, pitch: 40.5, bearing: -27 },
+            controller: true, effects: [lightingEffect],
+            layers: [createTileLayer(), createHexagonLayer()],
+            getTooltip: ({object}) => {
+                if (object && currentVizType === 'hexagon') {
+                    const lat = object.position[1], lng = object.position[0];
+                    const count = object.count, avgPrice = Math.round(object.colorValue / object.count);
+                    const pricePerSqm = Math.round(avgPrice / 100);
+                    
+                    return {
+                        html: `<div style="background: rgba(15, 15, 15, 0.98); color: white; padding: 15px; border-radius: 8px; border: 1px solid #00d4ff; box-shadow: 0 4px 20px rgba(0,0,0,0.8); font-family: 'Segoe UI', sans-serif;">
+                            <div style="color: #00d4ff; font-weight: bold; margin-bottom: 8px;">Property Cluster Analysis</div>
+                            <div style="margin: 4px 0;"><strong>Properties:</strong> ${count}</div>
+                            <div style="margin: 4px 0;"><strong>Avg Price:</strong> ${avgPrice.toLocaleString()} UF</div>
+                            <div style="margin: 4px 0;"><strong>Est. Price/m²:</strong> ~${pricePerSqm.toLocaleString()} UF</div>
+                            <div style="margin: 4px 0; font-size: 11px; color: #ccc;">Lat: ${lat.toFixed(4)}, Lng: ${lng.toFixed(4)}</div>
+                        </div>`
+                    };
+                } else if (object && currentVizType === 'screengrid') {
+                    const count = object.count;
+                    const totalWeight = object.totalWeight;
+                    const avgPrice = Math.round((totalWeight / count) * 1000);
+                    
+                    return {
+                        html: `<div style="background: rgba(15, 15, 15, 0.98); color: white; padding: 15px; border-radius: 8px; border: 1px solid #00d4ff; box-shadow: 0 4px 20px rgba(0,0,0,0.8); font-family: 'Segoe UI', sans-serif;">
+                            <div style="color: #00d4ff; font-weight: bold; margin-bottom: 8px;">Property Heat Cell</div>
+                            <div style="margin: 4px 0;"><strong>Properties:</strong> ${count}</div>
+                            <div style="margin: 4px 0;"><strong>Avg Price:</strong> ${avgPrice.toLocaleString()} UF</div>
+                            <div style="margin: 4px 0;"><strong>Total Value:</strong> ${Math.round(totalWeight * 1000).toLocaleString()} UF</div>
+                        </div>`
+                    };
+                }
+            }
+        });
+        
+        // Data source control
+        document.getElementById('dataSourceSelect').addEventListener('change', (e) => {
+            currentDataSource = e.target.value;
+            updateVisualization();
+        });
+        
+        // Visualization type control
+        document.getElementById('vizTypeSelect').addEventListener('change', (e) => {
+            currentVizType = e.target.value;
+            updateControlsVisibility();
+            updateVisualization();
+        });
+        
+        // Hexagon controls
+        document.getElementById('radiusSlider').addEventListener('input', (e) => {
+            currentRadius = parseInt(e.target.value);
+            document.getElementById('radiusValue').textContent = currentRadius + 'm';
+            updateVisualization();
+        });
+        
+        document.getElementById('elevationSlider').addEventListener('input', (e) => {
+            currentElevation = parseInt(e.target.value);
+            document.getElementById('elevationValue').textContent = currentElevation + 'x';
+            updateVisualization();
+        });
+        
+        document.getElementById('coverageSlider').addEventListener('input', (e) => {
+            currentCoverage = parseFloat(e.target.value);
+            document.getElementById('coverageValue').textContent = Math.round(currentCoverage * 100) + '%';
+            updateVisualization();
+        });
+        
+        // ScreenGrid controls
+        document.getElementById('cellSizeSlider').addEventListener('input', (e) => {
+            currentCellSize = parseInt(e.target.value);
+            document.getElementById('cellSizeValue').textContent = currentCellSize + 'px';
+            updateVisualization();
+        });
+        
+        document.getElementById('opacitySlider').addEventListener('input', (e) => {
+            currentOpacity = parseFloat(e.target.value);
+            document.getElementById('opacityValue').textContent = Math.round(currentOpacity * 100) + '%';
+            updateVisualization();
+        });
+        
+        document.getElementById('aggregationSelect').addEventListener('change', (e) => {
+            currentAggregation = e.target.value;
+            updateVisualization();
+        });
+        
+        document.getElementById('mapStyleSelect').addEventListener('change', (e) => {
+            currentMapStyle = e.target.value;
+            updateVisualization();
+        });
+    }
+    
+    initVisualization();
+</script>
+{% endblock %}

@@ -207,6 +207,27 @@ body {
     box-shadow: 0 0 0 3px rgb(37 99 235 / 0.1);
 }
 
+/* Field validation highlighting */
+.form-input.field-error,
+.form-select.field-error {
+    border-color: var(--error-color);
+    background-color: #fef2f2;
+}
+
+.form-group.field-error .form-label {
+    color: var(--error-color);
+}
+
+.form-group.field-error .form-label i {
+    color: var(--error-color);
+}
+
+.form-input.field-error:focus,
+.form-select.field-error:focus {
+    border-color: var(--error-color);
+    box-shadow: 0 0 0 3px rgb(239 68 68 / 0.1);
+}
+
 .form-hint {
     color: var(--text-secondary);
     font-size: 0.875rem;

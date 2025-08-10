@@ -99,6 +99,9 @@ plugins:
 extra_css:
   - assets/css/extra.css
 
+extra_javascript:
+  - assets/js/custom.js
+
 # Extra configuration
 extra:
   social:

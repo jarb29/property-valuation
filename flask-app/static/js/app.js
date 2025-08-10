@@ -263,17 +263,33 @@ function validateForm() {
     const submitBtn = document.getElementById('submitBtn');
     
     // Get all required fields
-    const type = document.getElementById('type').value;
-    const sector = document.getElementById('sector').value;
-    const usableArea = document.getElementById('net_usable_area').value;
-    const totalArea = document.getElementById('net_area').value;
-    const rooms = document.getElementById('n_rooms').value;
-    const bathrooms = document.getElementById('n_bathroom').value;
-    const lat = document.getElementById('latitude').value;
-    const lng = document.getElementById('longitude').value;
+    const fields = {
+        type: document.getElementById('type'),
+        sector: document.getElementById('sector'),
+        net_usable_area: document.getElementById('net_usable_area'),
+        net_area: document.getElementById('net_area'),
+        n_rooms: document.getElementById('n_rooms'),
+        n_bathroom: document.getElementById('n_bathroom'),
+        latitude: document.getElementById('latitude'),
+        longitude: document.getElementById('longitude')
+    };
     
-    // Check if all fields are filled
-    const allFieldsFilled = type && sector && usableArea && totalArea && rooms && bathrooms && lat && lng;
+    let allFieldsFilled = true;
+    
+    // Validate each field and add highlighting
+    Object.entries(fields).forEach(([fieldName, field]) => {
+        const value = field.value.trim();
+        const formGroup = field.closest('.form-group');
+        
+        if (!value) {
+            field.classList.add('field-error');
+            formGroup.classList.add('field-error');
+            allFieldsFilled = false;
+        } else {
+            field.classList.remove('field-error');
+            formGroup.classList.remove('field-error');
+        }
+    });
     
     // Check coordinates validity
     const coordsValid = validateCoordinates();
@@ -281,7 +297,6 @@ function validateForm() {
     const isValid = allFieldsFilled && coordsValid;
     
     console.log('Form validation:', {
-        type, sector, usableArea, totalArea, rooms, bathrooms, lat, lng,
         allFieldsFilled, coordsValid, isValid
     });
     
@@ -297,8 +312,16 @@ async function submitValuation() {
     const spinner = submitBtn.querySelector('.loading-spinner');
     const btnText = submitBtn.querySelector('span');
     
+    // Force validation to highlight missing fields
     if (!validateForm()) {
-        showAlert('Please fill in all required fields correctly', 'error');
+        showAlert('Please fill in all required fields correctly (highlighted in red)', 'error');
+        
+        // Scroll to first error field
+        const firstError = document.querySelector('.field-error');
+        if (firstError) {
+            firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            firstError.focus();
+        }
         return;
     }
     
@@ -330,9 +353,17 @@ async function submitValuation() {
         const result = await response.json();
         
         if (response.ok) {
+            // Clear any previous validation errors
+            clearValidationErrors();
             showResults(result, data);
         } else {
-            throw new Error(result.error || 'Prediction failed');
+            // Handle validation errors from server
+            if (result.validation_errors) {
+                highlightErrorFields(result.validation_errors.error_fields);
+                showAlert(result.error + ' (highlighted in red)', 'error');
+            } else {
+                throw new Error(result.error || 'Prediction failed');
+            }
         }
         
     } catch (error) {
@@ -355,18 +386,10 @@ function showResults(result, inputData) {
     // Reset modal position
     modalContent.style.transform = 'translate(-50%, -50%)';
     
-    const formattedPrice = new Intl.NumberFormat('es-CL', {
-        style: 'currency',
-        currency: 'CLP',
-        minimumFractionDigits: 0
-    }).format(result.prediction);
+    const formattedPrice = `${result.prediction.toLocaleString('es-CL')} UF`;
     
     const pricePerM2 = Math.round(result.prediction / inputData.net_usable_area);
-    const formattedPricePerM2 = new Intl.NumberFormat('es-CL', {
-        style: 'currency',
-        currency: 'CLP',
-        minimumFractionDigits: 0
-    }).format(pricePerM2);
+    const formattedPricePerM2 = `${pricePerM2.toLocaleString('es-CL')} UF/m²`;
     
     content.innerHTML = `
         <div class="results-container">
@@ -522,4 +545,41 @@ function createAlertsContainer() {
     container.className = 'alerts';
     document.querySelector('.main').insertBefore(container, document.querySelector('.main').firstChild);
     return container;
+}
+
+// Highlight error fields based on server validation
+function highlightErrorFields(errorFields) {
+    console.log('Highlighting error fields:', errorFields);
+    
+    // Clear previous errors first
+    clearValidationErrors();
+    
+    // Highlight each error field
+    errorFields.forEach(fieldName => {
+        const field = document.getElementById(fieldName);
+        if (field) {
+            const formGroup = field.closest('.form-group');
+            field.classList.add('field-error');
+            if (formGroup) {
+                formGroup.classList.add('field-error');
+            }
+        }
+    });
+    
+    // Scroll to first error field
+    if (errorFields.length > 0) {
+        const firstErrorField = document.getElementById(errorFields[0]);
+        if (firstErrorField) {
+            firstErrorField.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            setTimeout(() => firstErrorField.focus(), 500);
+        }
+    }
+}
+
+// Clear all validation error highlighting
+function clearValidationErrors() {
+    const errorFields = document.querySelectorAll('.field-error');
+    errorFields.forEach(element => {
+        element.classList.remove('field-error');
+    });
 }

@@ -1,27 +1,15 @@
-// Modern interactions
+// Custom JavaScript for GitHub Pages compatibility
 document.addEventListener('DOMContentLoaded', function() {
-    // Smooth scroll
-    document.querySelectorAll('a[href^="#"]').forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({ behavior: 'smooth' });
-            }
-        });
-    });
+    // Ensure CSS variables are applied
+    const root = document.documentElement;
     
-    // Progress bar
-    const progress = document.createElement('div');
-    progress.style.cssText = `
-        position: fixed; top: 0; left: 0; width: 0%; height: 2px;
-        background: linear-gradient(90deg, var(--primary), var(--secondary));
-        z-index: 9999; transition: width 0.1s;
-    `;
-    document.body.appendChild(progress);
+    // Force CSS custom properties to be recognized
+    if (getComputedStyle(root).getPropertyValue('--primary') === '') {
+        root.style.setProperty('--primary', '#6366f1');
+        root.style.setProperty('--secondary', '#8b5cf6');
+        root.style.setProperty('--accent', '#06b6d4');
+    }
     
-    window.addEventListener('scroll', () => {
-        const scrolled = (window.pageYOffset / (document.body.scrollHeight - window.innerHeight)) * 100;
-        progress.style.width = scrolled + '%';
-    });
+    // Add a class to indicate custom styles are loaded
+    document.body.classList.add('custom-styles-loaded');
 });

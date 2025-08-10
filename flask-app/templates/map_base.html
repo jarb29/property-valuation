@@ -9,10 +9,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     
-    <!-- Leaflet Map -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    
     <!-- Custom Styles -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/results.css') }}">
@@ -26,8 +22,8 @@
                 <span>PropertyAI</span>
             </div>
             <nav class="nav">
-                <a href="/" class="nav-link active">Valuation</a>
-                <a href="/map" class="nav-link">3D Map</a>
+                <a href="/" class="nav-link">Valuation</a>
+                <a href="/map" class="nav-link active">3D Map</a>
                 <a href="/model/info" class="nav-link">Model Info</a>
                 <a href="/health" class="nav-link">Status</a>
             </nav>
@@ -59,7 +55,5 @@
             <p>&copy; 2024 PropertyAI Platform. Powered by Machine Learning.</p>
         </div>
     </footer>
-
-    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
 </body>
 </html>

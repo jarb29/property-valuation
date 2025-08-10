@@ -1,6 +1,6 @@
 import os
 
-bind = "0.0.0.0:5000"
+bind = "0.0.0.0:8080"
 workers = 2
 worker_class = "sync"
 worker_connections = 1000

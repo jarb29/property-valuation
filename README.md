@@ -459,3 +459,241 @@ The project uses Docker for containerization as detailed in the [Docker Configur
 - Separate configurations for development and production
 
 For more details on the Docker setup, refer to the Dockerfile and docker-compose.yml files in the repository.
+
+├── Dockerfile
+├── README.md
+├── **pycache**
+│ └── test_outlier_handler.cpython-39-pytest-7.3.1.pyc
+├── data
+│ ├── README.md
+│ ├── v1
+│ │ ├── test.csv
+│ │ └── train.csv
+│ ├── v2
+│ │ ├── test.csv
+│ │ └── train.csv
+│ └── v3
+│ ├── test.csv
+│ └── train.csv
+├── docker-compose.yml
+├── docs
+│ ├── Challenge.md
+│ ├── README.md
+│ ├── api-documentation.md
+│ ├── assets
+│ │ ├── css
+│ │ │ └── extra.css
+│ │ ├── images
+│ │ │ └── logo.svg
+│ │ └── js
+│ │ └── custom.js
+│ ├── getting-started.md
+│ ├── index.md
+│ ├── installation-guide.md
+│ └── user-manual.md
+├── mkdocs.yml
+├── notebooks
+│ ├── Property-Friends-basic-model.ipynb
+│ ├── **pycache**
+│ │ ├── test_schema.cpython-39-pytest-7.3.1.pyc
+│ │ └── test_schema_validation.cpython-39-pytest-7.3.1.pyc
+│ ├── exploratory_analysis.ipynb
+│ └── model_evaluation.ipynb
+├── outputs
+│ ├── jupyter
+│ │ ├── data
+│ │ ├── logs
+│ │ ├── models
+│ │ └── schema
+│ ├── pipeline
+│ │ ├── data
+│ │ │ ├── v1.1_data_clean.csv
+│ │ │ ├── v1.1_data_outliers.csv
+│ │ │ ├── v1.1_evaluation_gradient_boosting.json
+│ │ │ ├── v1.2_data_clean.csv
+│ │ │ ├── v1.2_data_outliers.csv
+│ │ │ ├── v1.2_evaluation_gradient_boosting.json
+│ │ │ ├── v2.1_data_clean.csv
+│ │ │ ├── v2.1_data_outliers.csv
+│ │ │ ├── v2.1_evaluation_gradient_boosting.json
+│ │ │ ├── v2.2_data_clean.csv
+│ │ │ ├── v2.2_data_outliers.csv
+│ │ │ ├── v2.2_evaluation_gradient_boosting.json
+│ │ │ ├── v2.3_data_clean.csv
+│ │ │ ├── v2.3_data_outliers.csv
+│ │ │ └── v2.3_evaluation_gradient_boosting.json
+│ │ ├── logs
+│ │ │ └── PropertyValuationPipeline.log
+│ │ ├── models
+│ │ │ ├── v1.1_gradient_boosting_property_valuation.pkl
+│ │ │ ├── v1.1_gradient_metadata_boosting_property_valuation.json
+│ │ │ ├── v1.2_gradient_boosting_property_valuation.pkl
+│ │ │ ├── v1.2_gradient_metadata_boosting_property_valuation.json
+│ │ │ ├── v2.1_gradient_boosting_property_valuation.pkl
+│ │ │ ├── v2.1_gradient_metadata_boosting_property_valuation.json
+│ │ │ ├── v2.2_gradient_boosting_property_valuation.pkl
+│ │ │ ├── v2.2_gradient_metadata_boosting_property_valuation.json
+│ │ │ ├── v2.3_gradient_boosting_property_valuation.pkl
+│ │ │ └── v2.3_gradient_metadata_boosting_property_valuation.json
+│ │ └── schema
+│ │ ├── v1.1_schema_train.json
+│ │ ├── v1.2_schema_train.json
+│ │ ├── v2.1_schema_train.json
+│ │ ├── v2.2_schema_train.json
+│ │ └── v2.3_schema_train.json
+│ └── predictions
+│ ├── api
+│ │ └── api.log
+│ ├── errors
+│ │ └── error.log
+│ ├── predictions
+│ │ └── predictions.log
+│ └── schema_validation
+│ └── schema_validation.log
+├── requirements-docs.txt
+├── requirements.txt
+├── scripts
+│ ├── **pycache**
+│ │ └── test_outlier_handler.cpython-39-pytest-7.3.1.pyc
+│ ├── pipeline.py
+│ └── run_api.py
+├── src
+│ ├── **init**.py
+│ ├── **pycache**
+│ │ ├── **init**.cpython-39.pyc
+│ │ └── config.cpython-39.pyc
+│ ├── api
+│ │ ├── **init**.py
+│ │ ├── **pycache**
+│ │ │ ├── **init**.cpython-39.pyc
+│ │ │ ├── auth.cpython-39.pyc
+│ │ │ ├── endpoints.cpython-39.pyc
+│ │ │ ├── logging.cpython-39.pyc
+│ │ │ ├── main.cpython-39.pyc
+│ │ │ ├── middleware.cpython-39.pyc
+│ │ │ └── schemas.cpython-39.pyc
+│ │ ├── auth.py
+│ │ ├── endpoints.py
+│ │ ├── logging.py
+│ │ ├── main.py
+│ │ ├── middleware.py
+│ │ └── schemas.py
+│ ├── config.py
+│ ├── data
+│ │ ├── **init**.py
+│ │ ├── **pycache**
+│ │ │ ├── **init**.cpython-39.pyc
+│ │ │ ├── data_processor.cpython-39.pyc
+│ │ │ ├── generate_schema.cpython-39.pyc
+│ │ │ └── outlier_handler.cpython-39.pyc
+│ │ ├── data_orm.py
+│ │ ├── data_processor.py
+│ │ ├── generate_schema.py
+│ │ └── outlier_handler.py
+│ ├── models
+│ │ ├── **init**.py
+│ │ ├── **pycache**
+│ │ │ ├── **init**.cpython-39.pyc
+│ │ │ ├── evaluate.cpython-39.pyc
+│ │ │ ├── model.cpython-39.pyc
+│ │ │ ├── serialization.cpython-39.pyc
+│ │ │ └── tfma_like_evaluator.cpython-39.pyc
+│ │ ├── evaluate.py
+│ │ ├── model.py
+│ │ ├── serialization.py
+│ │ └── tfma_like_evaluator.py
+│ ├── pipeline
+│ │ ├── **pycache**
+│ │ │ ├── data_pipeline.cpython-39.pyc
+│ │ │ └── model_pipeline.cpython-39.pyc
+│ │ ├── data_pipeline.py
+│ │ └── model_pipeline.py
+│ └── utils
+│ ├── **init**.py
+│ ├── **pycache**
+│ │ ├── **init**.cpython-39.pyc
+│ │ ├── helpers.cpython-39.pyc
+│ │ └── logging.cpython-39.pyc
+│ ├── helpers.py
+│ ├── logging.py
+│ └── plot_styles.py
+└── tests
+├── **init**.py
+├── **pycache**
+│ ├── **init**.cpython-39.pyc
+│ ├── test_api.cpython-39-pytest-7.3.1.pyc
+│ ├── test_api.cpython-39.pyc
+│ ├── test_data.cpython-39-pytest-7.3.1.pyc
+│ ├── test_data.cpython-39.pyc
+│ ├── test_model.cpython-39-pytest-7.3.1.pyc
+│ ├── test_model.cpython-39.pyc
+│ ├── test_outlier_handler.cpython-39-pytest-7.3.1.pyc
+│ ├── test_outliers.cpython-39-pytest-7.3.1.pyc
+│ ├── test_outliers.cpython-39.pyc
+│ ├── test_prediction_logging.cpython-39-pytest-7.3.1.pyc
+│ ├── test_schema_validation.cpython-39-pytest-7.3.1.pyc
+│ ├── test_utils.cpython-39-pytest-7.3.1.pyc
+│ └── test_utils.cpython-39.pyc
+├── test_api.py
+├── test_data.py
+├── test_model.py
+├── test_outliers.py
+└── test_utils.py
+
+├── Dockerfile # Container configuration
+├── README.md # Project documentation
+├── docker-compose.yml # Multi-service orchestration
+├── requirements.txt # Python dependencies
+├── mkdocs.yml # Documentation config
+
+├── data/ # Versioned datasets
+│ ├── v1/
+│ │ └── train.csv # Training data example
+│ ├── v2/
+│ └── v3/
+
+├── docs/ # Documentation files
+│ ├── index.md # Main documentation
+│ ├── api-documentation.md # API reference
+│ └── assets/
+│ └── css/
+│ └── extra.css # Custom styles
+
+├── notebooks/ # Jupyter analysis
+│ ├── exploratory_analysis.ipynb # Data exploration
+│ └── model_evaluation.ipynb # Model assessment
+
+├── outputs/ # Generated artifacts
+│ ├── pipeline/
+│ │ ├── data/
+│ │ │ └── v2.3_data_clean.csv # Processed data example
+│ │ ├── models/
+│ │ │ └── v2.3_gradient_boosting_property_valuation.pkl # Trained model
+│ │ ├── schema/
+│ │ │ └── v2.3_schema_train.json # Data schema
+│ │ └── logs/
+│ │ └── PropertyValuationPipeline.log # Pipeline logs
+│ └── predictions/
+│ └── api/
+│ └── api.log # API logs
+
+├── scripts/ # Execution scripts
+│ ├── pipeline.py # ML pipeline runner
+│ └── run_api.py # API server launcher
+
+├── src/ # Source code
+│ ├── api/
+│ │ └── main.py # FastAPI application
+│ ├── data/
+│ │ └── data_processor.py # Data processing logic
+│ ├── models/
+│ │ └── model.py # ML model implementation
+│ ├── pipeline/
+│ │ └── data_pipeline.py # Pipeline orchestration
+│ └── utils/
+│ └── logging.py # Utility functions
+
+└── tests/ # Test suite
+├── test_api.py # API endpoint tests
+├── test_data.py # Data processing tests
+└── test_model.py # Model functionality tests

@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Santiago Properties - Hexagon Layer</title>
+    <script src="https://unpkg.com/deck.gl@latest/dist.min.js"></script>
+    <style>
+        body { margin: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #0a0a0a; }
+        #map { width: 100vw; height: 100vh; }
+        .panel {
+            position: absolute;
+            background: rgba(15, 15, 15, 0.95);
+            color: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+            z-index: 1000;
+        }
+        #info {
+            top: 20px;
+            left: 20px;
+            padding: 20px;
+            min-width: 280px;
+        }
+        #controls {
+            top: 20px;
+            right: 20px;
+            padding: 20px;
+            width: 250px;
+        }
+        #analytics {
+            bottom: 20px;
+            left: 20px;
+            padding: 20px;
+            width: 300px;
+        }
+        .control-group {
+            margin: 15px 0;
+        }
+        .control-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 12px;
+            color: #ccc;
+        }
+        .slider {
+            width: 100%;
+            margin: 5px 0;
+        }
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            margin: 8px 0;
+            font-size: 13px;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin: 4px 0;
+            font-size: 11px;
+        }
+        .legend-color {
+            width: 12px;
+            height: 12px;
+            border-radius: 2px;
+            margin-right: 8px;
+        }
+        h3 { margin: 0 0 15px 0; font-size: 18px; }
+        h4 { margin: 15px 0 10px 0; font-size: 14px; color: #00d4ff; }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+    
+    <div id="info" class="panel">
+        <h3>Santiago Real Estate Analysis</h3>
+        <div id="stats">Loading...</div>
+        <h4>Price Distribution</h4>
+        <div class="legend-item"><div class="legend-color" style="background: #0d0887;"></div>Ultra Low (0-20%)</div>
+        <div class="legend-item"><div class="legend-color" style="background: #0080d8;"></div>Low (20-40%)</div>
+        <div class="legend-item"><div class="legend-color" style="background: #90e0ef;"></div>Medium (40-60%)</div>
+        <div class="legend-item"><div class="legend-color" style="background: #ffff00;"></div>High (60-80%)</div>
+        <div class="legend-item"><div class="legend-color" style="background: #ff4500;"></div>Premium (80-95%)</div>
+        <div class="legend-item"><div class="legend-color" style="background: #8b0000;"></div>Luxury (95-100%)</div>
+    </div>
+    
+    <div id="controls" class="panel">
+        <h3>Visualization Controls</h3>
+        <div class="control-group">
+            <label>Hexagon Size</label>
+            <input type="range" class="slider" id="radiusSlider" min="8" max="25" value="12">
+            <span id="radiusValue">12m</span>
+        </div>
+        <div class="control-group">
+            <label>Height Scale</label>
+            <input type="range" class="slider" id="elevationSlider" min="10" max="80" value="35">
+            <span id="elevationValue">35x</span>
+        </div>
+        <div class="control-group">
+            <label>Coverage</label>
+            <input type="range" class="slider" id="coverageSlider" min="0.5" max="1" step="0.1" value="0.9">
+            <span id="coverageValue">90%</span>
+        </div>
+        <div class="control-group">
+            <label>Map Style</label>
+            <select id="mapStyleSelect" style="width: 100%; padding: 5px; background: #333; color: white; border: 1px solid #555; border-radius: 4px;">
+                <option value="dark">Dark (Current)</option>
+                <option value="satellite">Satellite</option>
+                <option value="light">Light</option>
+            </select>
+        </div>
+    </div>
+    
+    <div id="analytics" class="panel">
+        <h3>Market Analytics</h3>
+        <div id="marketStats">Calculating...</div>
+    </div>
+
+    <script>
+        const {DeckGL, HexagonLayer, TileLayer, BitmapLayer} = deck;
+        
+        // Sample data for immediate loading
+        function generateSampleData() {
+            const data = [];
+            const sectors = [
+                {name: 'Las Condes', lat: -33.4172, lng: -70.5476, priceMultiplier: 1.8},
+                {name: 'Providencia', lat: -33.4264, lng: -70.6128, priceMultiplier: 1.6},
+                {name: 'Vitacura', lat: -33.3928, lng: -70.5756, priceMultiplier: 2.2},
+                {name: 'Ñuñoa', lat: -33.4569, lng: -70.5975, priceMultiplier: 1.2},
+                {name: 'Santiago Centro', lat: -33.4489, lng: -70.6693, priceMultiplier: 1.0},
+                {name: 'La Reina', lat: -33.4453, lng: -70.5364, priceMultiplier: 1.4},
+                {name: 'Maipú', lat: -33.5110, lng: -70.7581, priceMultiplier: 0.8}
+            ];
+            
+            sectors.forEach(sector => {
+                for (let i = 0; i < 150; i++) {
+                    const lat = sector.lat + (Math.random() - 0.5) * 0.02;
+                    const lng = sector.lng + (Math.random() - 0.5) * 0.02;
+                    const basePrice = 2500 + Math.random() * 3000;
+                    const price = basePrice * sector.priceMultiplier;
+                    
+                    data.push({
+                        position: [lng, lat],
+                        price: price
+                    });
+                }
+            });
+            
+            return data;
+        }
+        
+        // Function to parse CSV data
+        function parseCSV(text) {
+            const lines = text.trim().split('\n');
+            const headers = lines[0].split(',');
+            const data = [];
+            
+            for (let i = 1; i < lines.length; i++) {
+                const values = lines[i].split(',');
+                const row = {};
+                headers.forEach((header, index) => {
+                    row[header] = values[index];
+                });
+                data.push(row);
+            }
+            return data;
+        }
+        
+        // Function to load and process data
+        async function loadData() {
+            try {
+                const response = await fetch('../outputs/pipeline/data/v1.1_data_clean.csv');
+                if (!response.ok) throw new Error('Data file not found');
+                
+                const csvText = await response.text();
+                const csvData = parseCSV(csvText);
+                
+                const data = csvData.map(row => ({
+                    position: [parseFloat(row.longitude), parseFloat(row.latitude)],
+                    price: parseFloat(row.price)
+                })).filter(d => !isNaN(d.position[0]) && !isNaN(d.position[1]) && !isNaN(d.price));
+                
+                return data;
+            } catch (error) {
+                console.warn('Using sample data:', error.message);
+                return generateSampleData();
+            }
+        }
+
+        // Enhanced lighting effects
+        const {AmbientLight, PointLight, DirectionalLight, LightingEffect} = deck;
+        
+        const ambientLight = new AmbientLight({
+            color: [255, 255, 255],
+            intensity: 0.3
+        });
+        
+        const pointLight1 = new PointLight({
+            color: [255, 255, 255],
+            intensity: 2.0,
+            position: [-70.5476, -33.4372, 80000]
+        });
+        
+        const pointLight2 = new PointLight({
+            color: [0, 150, 255],
+            intensity: 1.5,
+            position: [-70.6, -33.3, 50000]
+        });
+        
+        const directionalLight = new DirectionalLight({
+            color: [255, 255, 255],
+            intensity: 1.0,
+            direction: [-1, -1, -2]
+        });
+        
+        const lightingEffect = new LightingEffect({ambientLight, pointLight1, pointLight2, directionalLight});
+        
+        // Calculate market statistics
+        function calculateStats(data) {
+            const prices = data.map(d => d.price).sort((a, b) => a - b);
+            const mean = prices.reduce((a, b) => a + b, 0) / prices.length;
+            const median = prices[Math.floor(prices.length / 2)];
+            const q1 = prices[Math.floor(prices.length * 0.25)];
+            const q3 = prices[Math.floor(prices.length * 0.75)];
+            const max = Math.max(...prices);
+            const min = Math.min(...prices);
+            
+            return { mean, median, q1, q3, max, min, count: data.length };
+        }
+        
+        // Update UI with statistics
+        function updateStats(stats) {
+            document.getElementById('stats').innerHTML = `
+                <div class="stat-item"><span>Total Properties:</span><strong>${stats.count.toLocaleString()}</strong></div>
+                <div class="stat-item"><span>Coverage:</span><strong>Santiago Metro</strong></div>
+            `;
+            
+            document.getElementById('marketStats').innerHTML = `
+                <div class="stat-item"><span>Median Price:</span><strong>${Math.round(stats.median).toLocaleString()} UF</strong></div>
+                <div class="stat-item"><span>Average Price:</span><strong>${Math.round(stats.mean).toLocaleString()} UF</strong></div>
+                <div class="stat-item"><span>Price Range:</span><strong>${Math.round(stats.min).toLocaleString()} - ${Math.round(stats.max).toLocaleString()} UF</strong></div>
+                <div class="stat-item"><span>Q1-Q3 Range:</span><strong>${Math.round(stats.q1).toLocaleString()} - ${Math.round(stats.q3).toLocaleString()} UF</strong></div>
+            `;
+        }
+        
+        let deckgl;
+        let data;
+        let currentRadius = 12;
+        let currentElevation = 35;
+        let currentCoverage = 0.9;
+        let currentMapStyle = 'dark';
+        
+        const mapStyles = {
+            dark: 'https://cartodb-basemaps-a.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png',
+            satellite: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+            light: 'https://cartodb-basemaps-a.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png'
+        };
+        
+        function createTileLayer() {
+            return new TileLayer({
+                id: 'tile-layer',
+                data: mapStyles[currentMapStyle],
+                minZoom: 0,
+                maxZoom: 19,
+                tileSize: 256,
+                renderSubLayers: props => {
+                    const { bbox: {west, south, east, north} } = props.tile;
+                    return new BitmapLayer(props, {
+                        data: null,
+                        image: props.data,
+                        bounds: [west, south, east, north]
+                    });
+                }
+            });
+        }
+        
+        function createHexagonLayer() {
+            return new HexagonLayer({
+                id: 'hexagon-layer',
+                data: data,
+                getPosition: d => d.position,
+                getElevationWeight: d => d.price,
+                getColorWeight: d => d.price,
+                radius: currentRadius,
+                elevationRange: [0, 2000],
+                elevationScale: currentElevation,
+                extruded: true,
+                pickable: true,
+                coverage: currentCoverage,
+                upperPercentile: 95,
+                material: {
+                    ambient: 0.15,
+                    diffuse: 0.85,
+                    shininess: 128,
+                    specularColor: [255, 255, 255]
+                },
+                colorRange: [
+                    [13, 8, 135],
+                    [0, 128, 216],
+                    [144, 224, 239],
+                    [255, 255, 0],
+                    [255, 69, 0],
+                    [139, 0, 0]
+                ],
+                transitions: {
+                    elevationScale: 1000,
+                    radius: 500,
+                    coverage: 500
+                }
+            });
+        }
+        
+        function updateVisualization() {
+            if (deckgl) {
+                deckgl.setProps({
+                    layers: [
+                        createTileLayer(),   // Update tile layer
+                        createHexagonLayer() // Update hexagon layer
+                    ]
+                });
+            }
+        }
+        
+        // Initialize the visualization
+        async function initVisualization() {
+            data = await loadData();
+            const stats = calculateStats(data);
+            updateStats(stats);
+            
+            // Create deck.gl instance
+            deckgl = new DeckGL({
+                container: 'map',
+                initialViewState: {
+                    longitude: -70.5476,
+                    latitude: -33.4372,
+                    zoom: 11,
+                    pitch: 40.5,
+                    bearing: -27
+                },
+                controller: true,
+                effects: [lightingEffect],
+                layers: [
+                    createTileLayer(),
+                    createHexagonLayer()
+                ],
+                getTooltip: ({object}) => {
+                    if (object) {
+                        const lat = object.position[1];
+                        const lng = object.position[0];
+                        const count = object.count;
+                        const avgPrice = Math.round(object.colorValue / object.count);
+                        const pricePerSqm = Math.round(avgPrice / 100);
+                        
+                        return {
+                            html: `<div style="background: rgba(15, 15, 15, 0.98); color: white; padding: 15px; border-radius: 8px; border: 1px solid #00d4ff; box-shadow: 0 4px 20px rgba(0,0,0,0.8); font-family: 'Segoe UI', sans-serif;">
+                                <div style="color: #00d4ff; font-weight: bold; margin-bottom: 8px;">📍 Property Cluster Analysis</div>
+                                <div style="margin: 4px 0;"><strong>Properties:</strong> ${count}</div>
+                                <div style="margin: 4px 0;"><strong>Avg Price:</strong> ${avgPrice.toLocaleString()} UF</div>
+                                <div style="margin: 4px 0;"><strong>Est. Price/m²:</strong> ~${pricePerSqm.toLocaleString()} UF</div>
+                                <div style="margin: 4px 0; font-size: 11px; color: #ccc;">Lat: ${lat.toFixed(4)}, Lng: ${lng.toFixed(4)}</div>
+                            </div>`
+                        };
+                    }
+                }
+            });
+            
+            // Control event listeners
+            document.getElementById('radiusSlider').addEventListener('input', (e) => {
+                currentRadius = parseInt(e.target.value);
+                document.getElementById('radiusValue').textContent = currentRadius + 'm';
+                updateVisualization();
+            });
+            
+            document.getElementById('elevationSlider').addEventListener('input', (e) => {
+                currentElevation = parseInt(e.target.value);
+                document.getElementById('elevationValue').textContent = currentElevation + 'x';
+                updateVisualization();
+            });
+            
+            document.getElementById('coverageSlider').addEventListener('input', (e) => {
+                currentCoverage = parseFloat(e.target.value);
+                document.getElementById('coverageValue').textContent = Math.round(currentCoverage * 100) + '%';
+                updateVisualization();
+            });
+            
+            document.getElementById('mapStyleSelect').addEventListener('change', (e) => {
+                currentMapStyle = e.target.value;
+                updateVisualization();
+            });
+        }
+        
+        // Start the visualization when page loads
+        initVisualization();
+    </script>
+</body>
+</html>

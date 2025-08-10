@@ -1,4 +1,4 @@
-FROM python:3.9-slim
+FROM --platform=linux/amd64 python:3.9-slim
 
 WORKDIR /app
 
@@ -21,7 +21,7 @@ ENV FLASK_APP=app.py
 ENV FLASK_ENV=production
 
 # Expose port
-EXPOSE 5000
+EXPOSE 8080
 
-# Run the application
-CMD ["gunicorn", "--config", "gunicorn.conf.py", "app:app"]
+# Run main app with unbuffered output
+CMD ["python", "-u", "app.py"]
